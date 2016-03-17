@@ -5,7 +5,8 @@ doxygen.conf
 io/docs
 .arduino
 .upload
-Release/*
+**/Release/*
+**/Debug/*
 .ino*
 .build*
 /Default/
