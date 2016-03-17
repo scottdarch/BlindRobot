@@ -1,0 +1,16 @@
+*.log
+.settings
+.docs
+doxygen.conf
+io/docs
+.arduino
+.upload
+Release/*
+.ino*
+.build*
+/Default/
+.private
+RemoteSystemsTempFiles
+.DS_Store
+.metadata
+

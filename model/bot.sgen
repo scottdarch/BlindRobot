@@ -1,0 +1,14 @@
+GeneratorModel for yakindu::c {
+
+    statechart bot {
+
+        feature Outlet {
+            targetProject = "BlindBot"
+            targetFolder = "src-gen"
+            libraryTargetFolder = "src"
+        }
+        feature LicenseHeader {
+            licenseText = "Copyright (c) 2016 Scott A Dixon"
+        }
+    }
+}
