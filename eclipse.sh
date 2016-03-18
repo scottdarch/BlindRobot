@@ -11,4 +11,4 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 echo "Opening eclipse workspace at ${DIR}"
 
-/Applications/Eclipse.app/Contents/MacOS/eclipse -data ${DIR} &> /dev/null &
+$(LOCAL_ENV_ECLIPSE_PATH) -data ${DIR} &> /dev/null &
