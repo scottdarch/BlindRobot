@@ -32,6 +32,7 @@ PROJECT_NAME 	:= BlindRobot
 MKDIRS			:= mkdir -p
 RMDIR			:= rm -rf
 TOUPPER			= $(shell echo $(1) | tr a-z A-Z)
+UPLOAD			= bossac -i -d
 
 # use `make [target] DEBUG=1` to override environment setting
 ifndef DEBUG
@@ -90,8 +91,15 @@ GCC_PREFIX		:= $(LOCAL_ENV_CPU_TYPE)-$(LOCAL_ENV_BIN)-$(LOCAL_ENV_ABI)
 ASFLAGS 		:= -mcpu=$(LOCAL_ENV_CPU) \
 					-gsstabs -march=$(LOCAL_ENV_ARCH) \
 
-CFLAGS	 		:= -mcpu=$(LOCAL_ENV_CPU) \
+# See http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
+# for an explaination of this dependency scheme.
+DEPFLAGS		= -MT $@ -MMD -MP -MF "$(patsubst %.o,%.Td,$@)"
+
+POSTCOMPILE 	= mv -f $(patsubst %.o,%.Td,$@) $(patsubst %.o,%.d,$@)
+
+CFLAGS	 		:=  \
 					-std=gnu99 \
+					-mcpu=$(LOCAL_ENV_CPU) \
 					-mthumb \
 					-Os \
 					-Wall \
@@ -99,7 +107,6 @@ CFLAGS	 		:= -mcpu=$(LOCAL_ENV_CPU) \
 					-fdata-sections \
 					-nostdlib \
 					--param max-inline-insns-single=500 \
-					-MMD \
 
 ifdef DEBUG
 CFLAGS			+= -g \
@@ -135,13 +142,15 @@ $(ELF) : $(OBJS)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(GCC_PREFIX)-gcc $(LDFLAGS) -o $@ $^
 
-$(BUILD_FOLDER)/%.o : %.s
+$(BUILD_FOLDER)/%.o : %.s $(BUILD_FOLDER)/%.d
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
-	$(GCC_PREFIX)-as $(ASFLAGS) -c $< -o $@
+	$(GCC_PREFIX)-as $(DEPFLAGS) $(ASFLAGS) -c $< -o $@
+	$(POSTCOMPILE)
 
-$(BUILD_FOLDER)/%.o : %.c
+$(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
-	$(GCC_PREFIX)-gcc $(CFLAGS) -c $< -o $@
+	$(GCC_PREFIX)-gcc $(DEPFLAGS) $(CFLAGS) -c $< -o $@
+	$(POSTCOMPILE)
 
 # +----------------------------------------------------------------------------+
 # | TARGETS
@@ -153,3 +162,15 @@ clean:
 .PHONY: size
 size: $(BIN)
 	$(GCC_PREFIX)-size --target=binary $<
+
+.PHONY: upload
+upload: $(BIN)
+	$(UPLOAD) --port=/dev/tty.$(LOCAL_ENV_PORT) -i -e -w -v $< -R
+
+# +----------------------------------------------------------------------------+
+# | AUTO DEPENDENCIES
+# +----------------------------------------------------------------------------+
+%.d : ;
+.PRECIOUS: %.d
+
+-include $(OBJS:.o=.d)
