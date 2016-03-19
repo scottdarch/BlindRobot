@@ -40,6 +40,9 @@ DEBUG			:= 1
 endif
 endif
 
+# include procecessor specific definitions
+include build_support/$(LOCAL_ENV_ASF_CPU).mk
+
 # +----------------------------------------------------------------------------+
 # | INPUTS
 # +----------------------------------------------------------------------------+
@@ -146,3 +149,7 @@ $(BUILD_FOLDER)/%.o : %.c
 .PHONY: clean
 clean:
 	$(RMDIR) $(BUILD_ROOT)
+
+.PHONY: size
+size: $(BIN)
+	$(GCC_PREFIX)-size --target=binary $<
