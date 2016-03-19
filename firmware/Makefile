@@ -31,8 +31,10 @@ PROJECT_NAME 	:= BlindRobot
 # +----------------------------------------------------------------------------+
 MKDIRS			:= mkdir -p
 RMDIR			:= rm -rf
+PYTHON			:= python
 TOUPPER			= $(shell echo $(1) | tr a-z A-Z)
-UPLOAD			= bossac -i -d
+PROGRAM			= openocd
+BUILD_SUPPORT	:= build_support
 
 # use `make [target] DEBUG=1` to override environment setting
 ifndef DEBUG
@@ -42,7 +44,7 @@ endif
 endif
 
 # include procecessor specific definitions
-include build_support/$(LOCAL_ENV_ASF_CPU).mk
+include $(BUILD_SUPPORT)/$(LOCAL_ENV_ASF_CPU).mk
 
 # +----------------------------------------------------------------------------+
 # | INPUTS
@@ -132,6 +134,12 @@ LDFLAGS 		:= -T$(LINKER_SCRIPT) \
 BINFLAGS		:= -O binary \
 
 # +----------------------------------------------------------------------------+
+# | OPEN OCD SETUP
+# +----------------------------------------------------------------------------+
+SYNTH_CONF		:= $(BUILD_SUPPORT)/synthetic_board.cfg
+BOARD_CONF		:= $(BUILD_FOLDER)/$(LOCAL_ENV_ASF_CPU).ocd.cfg
+
+# +----------------------------------------------------------------------------+
 # | RECIPIES
 # +----------------------------------------------------------------------------+
 $(BIN) : $(ELF)
@@ -152,6 +160,20 @@ $(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d
 	$(GCC_PREFIX)-gcc $(DEPFLAGS) $(CFLAGS) -c $< -o $@
 	$(POSTCOMPILE)
 
+$(BOARD_CONF) : $(SYNTH_CONF)
+	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
+	$(PYTHON) -c "import jinja2 ; \
+        ocd_defs = {'interface' : '$(LOCAL_ENV_OCD_INTERFACE)', \
+            'target': '$(LOCAL_ENV_OCD_TARGET)', \
+            'transport': '$(LOCAL_ENV_OCD_TRANSPORT)', \
+            'endian': '$(LOCAL_ENV_OCD_ENDIAN)', \
+            'chipname': '$(LOCAL_ENV_OCD_CHIPNAME)'} ; \
+        config_stream = jinja2.Environment(loader=jinja2.FileSystemLoader(\"$(dir $<)\", followlinks=True), undefined=jinja2.StrictUndefined)\
+            .get_template(\"$(notdir $<)\").stream(ocd=ocd_defs)\
+            .dump(open(\"$@\", 'w'), errors='strict') ;"
+
+.DELETE_ON_ERROR: ;
+
 # +----------------------------------------------------------------------------+
 # | TARGETS
 # +----------------------------------------------------------------------------+
@@ -163,9 +185,11 @@ clean:
 size: $(BIN)
 	$(GCC_PREFIX)-size --target=binary $<
 
-.PHONY: upload
-upload: $(BIN)
-	$(UPLOAD) --port=/dev/tty.$(LOCAL_ENV_PORT) -i -e -w -v $< -R
+.PHONY: flash
+flash: $(BIN) $(BOARD_CONF)
+	$(PROGRAM) \
+	-f $(BOARD_CONF) \
+	-c "program $< verify reset exit 0x00000000"
 
 # +----------------------------------------------------------------------------+
 # | AUTO DEPENDENCIES

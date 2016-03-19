@@ -10,6 +10,8 @@
 
 * Standalone ASF
 * gcc 4.9 cross compiler.
+* python 2.7
+    * jinja2
 
 ## Building
 
@@ -35,3 +37,7 @@ export LOCAL_ENV_FLAVOR=debug
 export LOCAL_ENV_CMSIS_PATH=${LOCAL_ENV_ASF_PATH}/thirdparty/CMSIS
 
 ```
+
+## build_support
+
+TODO: describe how to add support for additional MCUs/Boards. (Hint: see build_support/samd21.mk)
