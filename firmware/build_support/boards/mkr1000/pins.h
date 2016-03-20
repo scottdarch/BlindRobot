@@ -25,53 +25,15 @@
  * SOFTWARE.
  */
 
-#ifndef ASF_H
-#define ASF_H
-
+#pragma once
 /*
- * This file includes all API header files for the selected drivers from ASF.
- * Note: There might be duplicate includes required by more than one driver.
- *
- * The file is automatically generated and will be re-written when
- * running the ASF driver selector tool. Any changes will be discarded.
+ * LEDs definitions
  */
+#define BOARD_LED_PORT (0)
+#define BOARD_LED_PIN (20)
 
-// From module: Common SAM0 compiler driver
-#include <compiler.h>
-#include <status_codes.h>
+#define BOARD_LEDRX_PORT (1)
+#define BOARD_LEDRX_PIN (3)
 
-// From module: Generic board support
-#include <board.h>
-
-// From module: Interrupt management - SAM implementation
-#include <interrupt.h>
-
-// From module: PORT - GPIO Pin Control
-#include <stdint.h>
-#include <port.h>
-
-// From module: Part identification macros
-#include <parts.h>
-
-// From module: SYSTEM - Clock Management for SAMD21/R21/DAx
-#include <clock.h>
-#include <gclk.h>
-
-// From module: SYSTEM - Core System Driver
-#include <system.h>
-
-// From module: SYSTEM - I/O Pin Multiplexer
-#include <pinmux.h>
-
-// From module: SYSTEM - Interrupt Driver
-#include <system_interrupt.h>
-
-// From module: SYSTEM - Power Management for SAM
-// D20/D21/R21/D09/D10/D11/DA0/DA1
-#include <power.h>
-
-// From module: SYSTEM - Reset Management for SAM
-// D20/D21/R21/D09/D10/D11/DA0/DA1
-#include <reset.h>
-
-#endif
+#define BOARD_LEDTX_PORT (0)
+#define BOARD_LEDTX_PIN (27)

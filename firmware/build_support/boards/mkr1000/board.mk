@@ -43,18 +43,23 @@ LOCAL_ENV_ASF_POWER		?= power_sam_d_r
 LOCAL_ENV_ASF_RESET		?= reset_sam_d_r
 LOCAL_ENV_ASF_INT		?= system_interrupt_samd21
 
-CFLAGS			+= -D__$(call TOUPPER,$(LOCAL_ENV_ASF_PART))__ \
-					-D ARM_MATH_CM0PLUS=true \
-					-D BOARD=USER_BOARD \
-
 CMSIS_SYS_PATH	:= $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils/cmsis/$(LOCAL_ENV_ASF_CPU)
 LINKER_SCRIPT 	:= $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils/linker_scripts/$(LOCAL_ENV_ASF_CPU)/gcc/$(LOCAL_ENV_ASF_PART)_flash.ld
 CMSIS_PATH		:= $(LOCAL_ENV_ASF_PATH)/thirdparty/CMSIS
 
-INCLUDE_PATHS 	+= $(CMSIS_PATH)/Include \
-	$(CMSIS_SYS_PATH)/source \
-	$(CMSIS_SYS_PATH)/include \
-	$(CMSIS_SYS_PATH)/include/instance \
+CFLAGS			+= -D__$(call TOUPPER,$(LOCAL_ENV_ASF_PART))__ \
+					-D ARM_MATH_CM0PLUS=true \
+					-D BOARD=USER_BOARD \
+
+LIBS			+= \
+					arm_cortexM0l_math \
+					m \
+
+LIB_PATH		+= \
+					$(CMSIS_PATH)/Lib/GCC \
+
+INCLUDE_PATHS 	+= \
+	$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/port \
 	$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system \
 	$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/interrupt \
 	$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/interrupt/$(LOCAL_ENV_ASF_INT) \
@@ -69,16 +74,20 @@ INCLUDE_PATHS 	+= $(CMSIS_PATH)/Include \
 	$(LOCAL_ENV_ASF_PATH)/common/utils \
 	$(LOCAL_ENV_ASF_PATH)/common/boards \
 	$(BUILD_SUPPORT)/boards/mkr1000 \
+	$(CMSIS_PATH)/Include \
+	$(CMSIS_SYS_PATH)/source \
+	$(CMSIS_SYS_PATH)/include \
+	$(CMSIS_SYS_PATH)/include/instance \
 
 
 SOURCE			+= $(CMSIS_SYS_PATH)/source/gcc/startup_$(LOCAL_ENV_ASF_CPU).c \
 					$(CMSIS_SYS_PATH)/source/system_$(LOCAL_ENV_ASF_CPU).c \
 					$(BUILD_SUPPORT)/boards/mkr1000/board_init.c \
 					$(LOCAL_ENV_ASF_PATH)/common/utils/interrupt/interrupt_sam_nvic.c \
-       $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/port/port.c                           \
-       $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/clock/$(LOCAL_ENV_ASF_CLOCK)/clock.c \
-       $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/clock/$(LOCAL_ENV_ASF_CLOCK)/gclk.c  \
-       $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/interrupt/system_interrupt.c   \
-       $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/pinmux/pinmux.c                \
-       $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/system.c                       \
-       $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils/syscalls/gcc/syscalls.c
+					$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/system.c \
+					$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/port/port.c \
+					$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/clock/$(LOCAL_ENV_ASF_CLOCK)/clock.c \
+					$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/clock/$(LOCAL_ENV_ASF_CLOCK)/gclk.c \
+					$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/interrupt/system_interrupt.c \
+					$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/drivers/system/pinmux/pinmux.c \
+					$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils/syscalls/gcc/syscalls.c \

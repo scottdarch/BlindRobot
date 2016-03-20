@@ -33,6 +33,8 @@ CFLAGS 			:=
 INCLUDE_PATHS 	:=
 SOURCE 			:=
 ASSMBLY			:=
+LIBS			:=
+LIB_PATH		:=
 
 # +----------------------------------------------------------------------------+
 # | COMMANDS AND DEFINITIONS
@@ -96,7 +98,7 @@ DEPFLAGS		= -MT $@ -MMD -MP -MF "$(patsubst %.o,%.Td,$@)"
 POSTCOMPILE 	= mv -f $(patsubst %.o,%.Td,$@) $(patsubst %.o,%.d,$@)
 
 CFLAGS	 		+=  \
-					-std=gnu11 \
+					-std=gnu99 \
 					-mcpu=$(LOCAL_ENV_CPU) \
 					-mthumb \
 					-Os \
@@ -127,12 +129,15 @@ endif
 CFLAGS			+= $(addprefix -I, $(INCLUDE_PATHS))
 CFLAGS			+= $(LOCAL_ENV_CFLAGS)
 
-LDFLAGS 		:= -T$(LINKER_SCRIPT) \
+LDFLAGS			:= $(foreach LIB,$(LIBS),-l$(LIB))
+LDFLAGS			+= $(foreach _LIB_PATH,$(LIB_PATH),-L$(_LIB_PATH))
+LDFLAGS 		+= -T$(LINKER_SCRIPT) \
+					-pipe \
 					-Lgcc \
 					-L. \
 					-mthumb \
 					--specs=nano.specs \
-					-Wl,--cref \
+					-Wl,-Map=$(BUILD_FOLDER)/$(PROJECT_NAME).map,--cref \
 					-Wl,--check-sections \
 					-Wl,--gc-sections \
 					-Wl,--unresolved-symbols=report-all \
@@ -160,7 +165,7 @@ $(ELF) : $(OBJS)
 
 $(BUILD_FOLDER)/%.o : %.s $(BUILD_FOLDER)/%.d
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
-	$(GCC_PREFIX)-as $(DEPFLAGS) $(ASFLAGS) -c $< -o $@
+	$(GCC_PREFIX)-as $(DEPFLAGS) $(ASFLAGS) -D__ASSEMBLY__ -c $< -o $@
 	$(POSTCOMPILE)
 
 $(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d

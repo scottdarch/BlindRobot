@@ -28,6 +28,9 @@
 #pragma once
 
 #include <compiler.h>
+#include <samd21.h>
+#include "pins.h"
+#include "conf_clocks.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,7 +68,7 @@ void system_board_init(void);
 
 /** \name LED0 definitions
  *  @{ */
-#define LED0_PIN PIN_PB30
+#define LED0_PIN PIN_PA20
 #define LED0_ACTIVE false
 #define LED0_INACTIVE !LED0_ACTIVE
 /** @} */
