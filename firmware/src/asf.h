@@ -25,35 +25,49 @@
  * SOFTWARE.
  */
 
-#include <asf.h>
+#pragma once
 
-/** Handler for the device SysTick module, called when the SysTick counter
- *  reaches the set period.
+/*
+ * This file includes all API header files for the selected drivers from ASF.
+ * Note: There might be duplicate includes required by more than one driver.
  *
- *  \note As this is a raw device interrupt, the function name is significant
- *        and must not be altered to ensure it is hooked into the device's
- *        vector table.
+ * The file is automatically generated and will be re-written when
+ * running the ASF driver selector tool. Any changes will be discarded.
  */
-void SysTick_Handler(void) { port_pin_toggle_output_level(LED_0_PIN); }
 
-/** Configure LED0, turn it off*/
-static void config_led(void) {
-  struct port_config pin_conf;
-  port_get_config_defaults(&pin_conf);
+// From module: Common SAM0 compiler driver
+#include <compiler.h>
+#include <status_codes.h>
 
-  pin_conf.direction = PORT_PIN_DIR_OUTPUT;
-  port_pin_set_config(LED_0_PIN, &pin_conf);
-  port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
-}
+// From module: Generic board support
+#include <board.h>
 
-int main(void) {
-  system_init();
+// From module: Interrupt management - SAM implementation
+#include <interrupt.h>
 
-  /*Configure system tick to generate periodic interrupts */
-  SysTick_Config(system_gclk_gen_get_hz(GCLK_GENERATOR_0));
+// From module: PORT - GPIO Pin Control
+#include <port.h>
 
-  config_led();
+// From module: Part identification macros
+#include <parts.h>
 
-  while (true) {
-  }
-}
+// From module: SYSTEM - Clock Management for SAMD21/R21/DAx
+#include <clock.h>
+#include <gclk.h>
+
+// From module: SYSTEM - Core System Driver
+#include <system.h>
+
+// From module: SYSTEM - I/O Pin Multiplexer
+#include <pinmux.h>
+
+// From module: SYSTEM - Interrupt Driver
+#include <system_interrupt.h>
+
+// From module: SYSTEM - Power Management for SAM
+// D20/D21/R21/D09/D10/D11/DA0/DA1
+#include <power.h>
+
+// From module: SYSTEM - Reset Management for SAM
+// D20/D21/R21/D09/D10/D11/DA0/DA1
+#include <reset.h>

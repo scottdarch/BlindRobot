@@ -27,6 +27,14 @@
 PROJECT_NAME 	:= BlindRobot
 
 # +----------------------------------------------------------------------------+
+# | RESET
+# +----------------------------------------------------------------------------+
+CFLAGS 			:=
+INCLUDE_PATHS 	:=
+SOURCE 			:=
+ASSMBLY			:=
+
+# +----------------------------------------------------------------------------+
 # | COMMANDS AND DEFINITIONS
 # +----------------------------------------------------------------------------+
 MKDIRS			:= mkdir -p
@@ -44,30 +52,18 @@ endif
 endif
 
 # include procecessor specific definitions
-include $(BUILD_SUPPORT)/$(LOCAL_ENV_ASF_CPU).mk
+include $(BUILD_SUPPORT)/boards/$(LOCAL_ENV_BOARD)/board.mk
 
 # +----------------------------------------------------------------------------+
 # | INPUTS
 # +----------------------------------------------------------------------------+
-CMSIS_SYS_PATH	:= $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils/cmsis/$(LOCAL_ENV_ASF_CPU)
-LINKER_SCRIPT 	:= $(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils/linker_scripts/$(LOCAL_ENV_ASF_CPU)/gcc/$(LOCAL_ENV_ASF_PART)_flash.ld
-
-INCLUDE_PATHS := src \
+INCLUDE_PATHS += src \
 	src-gen \
 	test \
-	$(LOCAL_ENV_CMSIS_PATH)/Include \
-	$(CMSIS_SYS_PATH)/source \
-	$(CMSIS_SYS_PATH)/include \
-	$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils \
-	$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils/preprocessor \
-	$(LOCAL_ENV_ASF_PATH)/$(LOCAL_ENV_ASF_FAMILY)/utils/header_files \
-	$(LOCAL_ENV_ASF_PATH)/common/utils \
 
-SOURCE			:= $(CMSIS_SYS_PATH)/source/gcc/startup_samd21.c \
-					$(CMSIS_SYS_PATH)/source/system_samd21.c \
-					src/main.c \
+SOURCE			+= src/main.c \
 
-ASSMBLY			:=
+ASSMBLY			+=
 
 # +----------------------------------------------------------------------------+
 # | OUTPUTS
@@ -99,15 +95,27 @@ DEPFLAGS		= -MT $@ -MMD -MP -MF "$(patsubst %.o,%.Td,$@)"
 
 POSTCOMPILE 	= mv -f $(patsubst %.o,%.Td,$@) $(patsubst %.o,%.d,$@)
 
-CFLAGS	 		:=  \
-					-std=gnu99 \
+CFLAGS	 		+=  \
+					-std=gnu11 \
 					-mcpu=$(LOCAL_ENV_CPU) \
 					-mthumb \
 					-Os \
 					-Wall \
-					-ffunction-sections \
-					-fdata-sections \
-					-nostdlib \
+					-ffunction-sections -fdata-sections \
+					-fno-strict-aliasing \
+					-Werror-implicit-function-declaration \
+					-Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int \
+					-Wmain -Wparentheses \
+					-Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused \
+					-Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef \
+					-Wshadow -Wbad-function-cast -Wwrite-strings \
+					-Wsign-compare -Waggregate-return \
+					-Wmissing-declarations \
+					-Wformat -Wmissing-format-attribute -Wno-deprecated-declarations \
+					-Wpacked -Wredundant-decls -Wnested-externs -Wlong-long \
+					-Wunreachable-code \
+					-Wcast-align \
+					-Dprintf=iprintf \
 					--param max-inline-insns-single=500 \
 
 ifdef DEBUG
@@ -117,13 +125,13 @@ CFLAGS			+= -g \
 endif
 
 CFLAGS			+= $(addprefix -I, $(INCLUDE_PATHS))
-CFLAGS			+= -D__$(call TOUPPER,$(LOCAL_ENV_ASF_PART))__
 CFLAGS			+= $(LOCAL_ENV_CFLAGS)
 
 LDFLAGS 		:= -T$(LINKER_SCRIPT) \
 					-Lgcc \
 					-L. \
 					-mthumb \
+					--specs=nano.specs \
 					-Wl,--cref \
 					-Wl,--check-sections \
 					-Wl,--gc-sections \
@@ -136,7 +144,7 @@ BINFLAGS		:= -O binary \
 # +----------------------------------------------------------------------------+
 # | OPEN OCD SETUP
 # +----------------------------------------------------------------------------+
-SYNTH_CONF		:= $(BUILD_SUPPORT)/synthetic_board.cfg
+SYNTH_CONF		:= $(BUILD_SUPPORT)/synthetic_board.ocd.cfg
 BOARD_CONF		:= $(BUILD_FOLDER)/$(LOCAL_ENV_ASF_CPU).ocd.cfg
 
 # +----------------------------------------------------------------------------+
