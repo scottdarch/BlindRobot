@@ -34,26 +34,31 @@
  *        and must not be altered to ensure it is hooked into the device's
  *        vector table.
  */
-void SysTick_Handler(void) { port_pin_toggle_output_level(LED_0_PIN); }
-
-/** Configure LED0, turn it off*/
-static void config_led(void) {
-  struct port_config pin_conf;
-  port_get_config_defaults(&pin_conf);
-
-  pin_conf.direction = PORT_PIN_DIR_OUTPUT;
-  port_pin_set_config(LED_0_PIN, &pin_conf);
-  port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
+void SysTick_Handler(void)
+{
+    port_pin_toggle_output_level(LED_0_PIN);
 }
 
-int main(void) {
-  system_init();
+/** Configure LED0, turn it off*/
+static void config_led(void)
+{
+    struct port_config pin_conf;
+    port_get_config_defaults(&pin_conf);
 
-  /*Configure system tick to generate periodic interrupts */
-  SysTick_Config(system_gclk_gen_get_hz(GCLK_GENERATOR_0));
+    pin_conf.direction = PORT_PIN_DIR_OUTPUT;
+    port_pin_set_config(LED_0_PIN, &pin_conf);
+    port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
+}
 
-  config_led();
+int main(void)
+{
+    system_init();
 
-  while (true) {
-  }
+    /*Configure system tick to generate periodic interrupts */
+    SysTick_Config(system_gclk_gen_get_hz(GCLK_GENERATOR_0) / 2);
+
+    config_led();
+
+    while (true) {
+    }
 }

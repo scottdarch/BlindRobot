@@ -25,6 +25,7 @@
 # SOFTWARE.
 #
 PROJECT_NAME 	:= BlindRobot
+LOCAL_MAKEFILE	:= $(lastword $(MAKEFILE_LIST))
 
 # +----------------------------------------------------------------------------+
 # | RESET
@@ -118,6 +119,7 @@ CFLAGS	 		+=  \
 					-Wunreachable-code \
 					-Wcast-align \
 					-Dprintf=iprintf \
+					-Dscanf=iscanf \
 					--param max-inline-insns-single=500 \
 
 ifdef DEBUG
@@ -207,6 +209,14 @@ flash: $(BIN) $(BOARD_CONF)
 	$(PROGRAM) \
 	-f $(BOARD_CONF) \
 	-c "program $< verify reset exit 0x00000000"
+
+# Thanks Stackoverflow! (http://stackoverflow.com/questions/4219255/how-do-you-get-the-list-of-targets-in-a-makefile)
+.PHONY: list
+list:
+	@$(MAKE) -pRrq -f $(LOCAL_MAKEFILE) : 2>/dev/null | \
+        awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | \
+        sort | \
+        egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
 # +----------------------------------------------------------------------------+
 # | AUTO DEPENDENCIES
