@@ -25,56 +25,20 @@
  * SOFTWARE.
  */
 
-#include <asf.h>
+#ifndef CONF_CLOCKS_H_INCLUDED
+#define CONF_CLOCKS_H_INCLUDED
 
-/** Handler for the device SysTick module, called when the SysTick counter
- *  reaches the set period.
+/**
+ * \brief Define the current CPU clock speed based on device settings
  *
- *  \note As this is a raw device interrupt, the function name is significant
- *        and must not be altered to ensure it is hooked into the device's
- *        vector table.
+ * This define is used by e.g. the libc delay functions to calculate the correct
+ * amount of cycles to busy wait for a given delay.
+ *
+ * \note This value needs to reflect the device fuse settings, that is it needs to
+ * be the correct value for either the current internal RC setting or external
+ * clock or crystal settings. Functions that rely on this define will not work
+ * correctly with an incorrect value.
  */
-void SysTick_Handler(void)
-{
-    port_pin_toggle_output_level(LED_0_PIN);
-}
+#define F_CPU 1000000UL
 
-/** Configure LED0, turn it off*/
-static void config_led(void)
-{
-    struct port_config pin_conf;
-    port_get_config_defaults(&pin_conf);
-
-    pin_conf.direction = PORT_PIN_DIR_OUTPUT;
-    port_pin_set_config(LED_0_PIN, &pin_conf);
-    port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
-}
-
-int main(void)
-{
-    system_init();
-
-    irq_initialize_vectors();
-
-    cpu_irq_enable();
-
-    sleepmgr_init();
-
-    stdio_usb_init();
-
-    /*Configure system tick to generate periodic interrupts */
-    SysTick_Config(system_gclk_gen_get_hz(GCLK_GENERATOR_0) / 2);
-
-    config_led();
-
-    uint8_t ch;
-
-    while (true) {
-
-        scanf("%c", &ch); // get one input character
-
-        if (ch) {
-            printf("%c", ch); // echo to output
-        }
-    }
-}
+#endif /* CONF_CLOCKS_H_INCLUDED */

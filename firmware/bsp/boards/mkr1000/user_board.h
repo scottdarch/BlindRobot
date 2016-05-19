@@ -29,8 +29,10 @@
 
 #include <compiler.h>
 #include <samd21.h>
-#include "pins.h"
-#include "conf_clocks.h"
+#include "../../../bsp/boards/mkr1000/conf/conf_clocks.h"
+#include "../../../bsp/boards/mkr1000/pins.h"
+
+#define ARDUINO_MKR1000 99
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,7 +70,13 @@ void system_board_init(void);
 
 /** \name LED0 definitions
  *  @{ */
+#if ACTUAL_BOARD == SAMD21_XPLAINED_PRO
+#define LED0_PIN PIN_PA19
+#elif ACTUAL_BOARD == ARDUINO_MKR1000
 #define LED0_PIN PIN_PA20
+#else
+#error "Unknown actual board type."
+#endif
 #define LED0_ACTIVE false
 #define LED0_INACTIVE !LED0_ACTIVE
 /** @} */
@@ -629,12 +637,11 @@ void system_board_init(void);
 
 #endif
 /** Enables the transceiver main interrupt. */
-#define ENABLE_TRX_IRQ()                                                       \
-  extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define ENABLE_TRX_IRQ() extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /** Disables the transceiver main interrupt. */
-#define DISABLE_TRX_IRQ()                                                      \
-  extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define DISABLE_TRX_IRQ()                                                                          \
+    extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /** Clears the transceiver main interrupt. */
 #define CLEAR_TRX_IRQ() extint_chan_clear_detected(AT86RFX_IRQ_CHAN);
@@ -642,16 +649,16 @@ void system_board_init(void);
 /*
  * This macro saves the trx interrupt status and disables the trx interrupt.
  */
-#define ENTER_TRX_REGION()                                                     \
-  {                                                                            \
-  extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define ENTER_TRX_REGION()                                                                         \
+    {                                                                                              \
+    extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /*
  *  This macro restores the transceiver interrupt status
  */
-#define LEAVE_TRX_REGION()                                                     \
-  extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);  \
-  }
+#define LEAVE_TRX_REGION()                                                                         \
+    extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);                    \
+    }
 
 /** @} */
 

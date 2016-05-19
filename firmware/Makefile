@@ -24,135 +24,138 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-PROJECT_NAME 	:= BlindRobot
-LOCAL_MAKEFILE	:= $(lastword $(MAKEFILE_LIST))
+PROJECT_NAME    := BlindRobot
+LOCAL_MAKEFILE  := $(lastword $(MAKEFILE_LIST))
 
 # +----------------------------------------------------------------------------+
 # | RESET
 # +----------------------------------------------------------------------------+
-CFLAGS 			:=
-INCLUDE_PATHS 	:=
-SOURCE 			:=
-ASSMBLY			:=
-LIBS			:=
-LIB_PATH		:=
+CFLAGS          :=
+INCLUDE_PATHS   :=
+SOURCE          :=
+ASSMBLY         :=
+LIBS            :=
+LIB_PATH        :=
 
 # +----------------------------------------------------------------------------+
 # | COMMANDS AND DEFINITIONS
 # +----------------------------------------------------------------------------+
-MKDIRS			:= mkdir -p
-RMDIR			:= rm -rf
-PYTHON			:= python
-TOUPPER			= $(shell echo $(1) | tr a-z A-Z)
-PROGRAM			= openocd
-BUILD_SUPPORT	:= build_support
+MKDIRS          := mkdir -p
+RMDIR           := rm -rf
+PYTHON          := python
+TOUPPER          = $(shell echo $(1) | tr a-z A-Z)
+PROGRAM          = openocd
+BSP_DIR         := bsp
 
 # use `make [target] DEBUG=1` to override environment setting
 ifndef DEBUG
 ifeq "$(LOCAL_ENV_FLAVOR)" "debug"
-DEBUG			:= 1
+DEBUG           := 1
 endif
 endif
 
+LOCAL_ENV_BOARD ?= mkr1000
+
 # include procecessor specific definitions
-include $(BUILD_SUPPORT)/boards/$(LOCAL_ENV_BOARD)/board.mk
+include $(BSP_DIR)/boards/$(LOCAL_ENV_BOARD)/board.mk
 
 # +----------------------------------------------------------------------------+
 # | INPUTS
 # +----------------------------------------------------------------------------+
 INCLUDE_PATHS += src \
-	src-gen \
-	test \
+    src/conf \
+    test \
 
-SOURCE			+= src/main.c \
+SOURCE          += $(wildcard src/*.c)
 
-ASSMBLY			+=
+ASSMBLY         +=
 
 # +----------------------------------------------------------------------------+
 # | OUTPUTS
 # +----------------------------------------------------------------------------+
-BUILD_ROOT		:= .build
+BUILD_ROOT      := .build
 ifdef DEBUG
-BUILD_FOLDER	:= $(BUILD_ROOT)/Debug
+BUILD_FOLDER    := $(BUILD_ROOT)/Debug
 else
-BUILD_FOLDER	:= $(BUILD_ROOT)/Release
+BUILD_FOLDER    := $(BUILD_ROOT)/Release
 endif
 
-OBJS		    := $(addprefix $(BUILD_FOLDER)/, $(SOURCE:.c=.o)) \
- 				   $(addprefix $(BUILD_FOLDER)/, $(ASSMBLY:.s=.o)) \
+OBJS            := $(addprefix $(BUILD_FOLDER), $(SOURCE:.c=.o)) \
+                   $(addprefix $(BUILD_FOLDER), $(ASSMBLY:.s=.o)) \
 
-BIN				:= $(BUILD_FOLDER)/$(PROJECT_NAME).bin
-ELF				:= $(BUILD_FOLDER)/$(PROJECT_NAME).elf
+BIN             := $(BUILD_FOLDER)/$(PROJECT_NAME).bin
+ELF             := $(BUILD_FOLDER)/$(PROJECT_NAME).elf
+INFO_OUTPUTS    := $(BIN) $(ELF)
 
 # +----------------------------------------------------------------------------+
 # | GCC SETUP
 # +----------------------------------------------------------------------------+
-GCC_PREFIX		:= $(LOCAL_ENV_CPU_TYPE)-$(LOCAL_ENV_BIN)-$(LOCAL_ENV_ABI)
+GCC_PREFIX      := $(LOCAL_ENV_CPU_TYPE)-$(LOCAL_ENV_BIN)-$(LOCAL_ENV_ABI)
 
-ASFLAGS 		:= -mcpu=$(LOCAL_ENV_CPU) \
-					-gsstabs -march=$(LOCAL_ENV_ARCH) \
+ASFLAGS         := -mcpu=$(LOCAL_ENV_CPU) \
+                   -gsstabs -march=$(LOCAL_ENV_ARCH) \
 
 # See http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 # for an explaination of this dependency scheme.
-DEPFLAGS		= -MT $@ -MMD -MP -MF "$(patsubst %.o,%.Td,$@)"
+DEPFLAGS         = -MT $@ -MMD -MP -MF "$(patsubst %.o,%.Td,$@)"
 
-POSTCOMPILE 	= mv -f $(patsubst %.o,%.Td,$@) $(patsubst %.o,%.d,$@)
+POSTCOMPILE      = mv -f $(patsubst %.o,%.Td,$@) $(patsubst %.o,%.d,$@)
 
-CFLAGS	 		+=  \
-					-std=gnu99 \
-					-mcpu=$(LOCAL_ENV_CPU) \
-					-mthumb \
-					-Os \
-					-Wall \
-					-ffunction-sections -fdata-sections \
-					-fno-strict-aliasing \
-					-Werror-implicit-function-declaration \
-					-Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int \
-					-Wmain -Wparentheses \
-					-Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused \
-					-Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef \
-					-Wshadow -Wbad-function-cast -Wwrite-strings \
-					-Wsign-compare -Waggregate-return \
-					-Wmissing-declarations \
-					-Wformat -Wmissing-format-attribute -Wno-deprecated-declarations \
-					-Wpacked -Wredundant-decls -Wnested-externs -Wlong-long \
-					-Wunreachable-code \
-					-Wcast-align \
-					-Dprintf=iprintf \
-					-Dscanf=iscanf \
-					--param max-inline-insns-single=500 \
+CFLAGS          +=  \
+                    -std=gnu99 \
+                    -mcpu=$(LOCAL_ENV_CPU) \
+                    -Wall \
+                    -ffunction-sections -fdata-sections \
+                    -fno-strict-aliasing \
+                    -Werror-implicit-function-declaration \
+                    -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int \
+                    -Wmain -Wparentheses \
+                    -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused \
+                    -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef \
+                    -Wshadow -Wbad-function-cast -Wwrite-strings \
+                    -Wsign-compare -Waggregate-return \
+                    -Wmissing-declarations \
+                    -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations \
+                    -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long \
+                    -Wunreachable-code \
+                    -Wcast-align \
+                    -Dprintf=iprintf \
+                    -Dscanf=iscanf \
+                    --param max-inline-insns-single=500 \
 
 ifdef DEBUG
-CFLAGS			+= -g \
-					-DDEBUG \
+CFLAGS          += -ggdb \
+                   -DDEBUG \
+
+else
+CFLAGS          += -Os \
 
 endif
 
-CFLAGS			+= $(addprefix -I, $(INCLUDE_PATHS))
-CFLAGS			+= $(LOCAL_ENV_CFLAGS)
+CFLAGS          += $(addprefix -I, $(INCLUDE_PATHS))
+CFLAGS          += $(LOCAL_ENV_CFLAGS)
 
-LDFLAGS			:= $(foreach LIB,$(LIBS),-l$(LIB))
-LDFLAGS			+= $(foreach _LIB_PATH,$(LIB_PATH),-L$(_LIB_PATH))
-LDFLAGS 		+= -T$(LINKER_SCRIPT) \
-					-pipe \
-					-Lgcc \
-					-L. \
-					-mthumb \
-					--specs=nano.specs \
-					-Wl,-Map=$(BUILD_FOLDER)/$(PROJECT_NAME).map,--cref \
-					-Wl,--check-sections \
-					-Wl,--gc-sections \
-					-Wl,--unresolved-symbols=report-all \
-					-Wl,--warn-common \
-					-Wl,--warn-section-align \
+LDFLAGS         := $(foreach LIB,$(LIBS),-l$(LIB))
+LDFLAGS         += $(foreach _LIB_PATH,$(LIB_PATH),-L$(_LIB_PATH))
+LDFLAGS         += -T$(LINKER_SCRIPT) \
+                   -pipe \
+                   -Lgcc \
+                   -L. \
+                   --specs=nano.specs \
+                   -Wl,-Map=$(BUILD_FOLDER)/$(PROJECT_NAME).map,--cref \
+                   -Wl,--check-sections \
+                   -Wl,--gc-sections \
+                   -Wl,--unresolved-symbols=report-all \
+                   -Wl,--warn-common \
+                   -Wl,--warn-section-align \
 
-BINFLAGS		:= -O binary \
+BINFLAGS        := -O binary \
 
 # +----------------------------------------------------------------------------+
 # | OPEN OCD SETUP
 # +----------------------------------------------------------------------------+
-SYNTH_CONF		:= $(BUILD_SUPPORT)/synthetic_board.ocd.cfg
-BOARD_CONF		:= $(BUILD_FOLDER)/$(LOCAL_ENV_ASF_CPU).ocd.cfg
+SYNTH_CONF      := $(BSP_DIR)/synthetic_board.ocd.cfg
+BOARD_CONF      := $(BUILD_FOLDER)/$(LOCAL_ENV_ASF_CPU).ocd.cfg
 
 # +----------------------------------------------------------------------------+
 # | RECIPIES
@@ -165,12 +168,12 @@ $(ELF) : $(OBJS)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(GCC_PREFIX)-gcc $(LDFLAGS) -o $@ $^
 
-$(BUILD_FOLDER)/%.o : %.s $(BUILD_FOLDER)/%.d
+$(BUILD_FOLDER)%.o : %.s $(BUILD_FOLDER)%.d
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(GCC_PREFIX)-as $(DEPFLAGS) $(ASFLAGS) -D__ASSEMBLY__ -c $< -o $@
 	$(POSTCOMPILE)
 
-$(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d
+$(BUILD_FOLDER)%.o : %.c $(BUILD_FOLDER)%.d
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(GCC_PREFIX)-gcc $(DEPFLAGS) $(CFLAGS) -c $< -o $@
 	$(POSTCOMPILE)
@@ -192,31 +195,36 @@ $(BOARD_CONF) : $(SYNTH_CONF)
 # +----------------------------------------------------------------------------+
 # | TARGETS
 # +----------------------------------------------------------------------------+
-.PHONY: all
+GLOBAL_PHONIES := all clean size flash flash-bootloader info
+
+.PHONY: $(GLOBAL_PHONEIS)
 all: $(BIN)
 	# Build all the things!
 
-.PHONY: clean
 clean:
 	$(RMDIR) $(BUILD_ROOT)
 
-.PHONY: size
 size: $(BIN)
 	$(GCC_PREFIX)-size --target=binary $<
 
-.PHONY: flash
 flash: $(BIN) $(BOARD_CONF)
 	$(PROGRAM) \
 	-f $(BOARD_CONF) \
 	-c "program $< verify reset exit 0x00000000"
 
-# Thanks Stackoverflow! (http://stackoverflow.com/questions/4219255/how-do-you-get-the-list-of-targets-in-a-makefile)
-.PHONY: list
-list:
-	@$(MAKE) -pRrq -f $(LOCAL_MAKEFILE) : 2>/dev/null | \
-        awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | \
-        sort | \
-        egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
+flash-bootloader: $(LOCAL_ENV_ARDUINO_BOOTLOADER) $(BOARD_CONF)
+	$(PROGRAM) \
+	-f $(BOARD_CONF) \
+	-c "init; targets; reset halt; $(LOCAL_ENV_OCD_BOOTLOADER); program $< verify reset; shutdown"
+
+
+info:
+	@echo SOURCE: $(addprefix "\n\t", $(SOURCE))
+	@echo OBJS: $(addprefix "\n\t", $(OBJS))
+	@echo INCLUDES: $(addprefix "\n\t", $(INCLUDE_PATHS))
+	@echo OUTPUTS: $(addprefix "\n\t", $(INFO_OUTPUTS))
+	@echo BOARD_CONF: "\n\t"$(BOARD_CONF)
+	@echo TARGETS: $(addprefix "\n\t", $(GLOBAL_PHONIES))
 
 # +----------------------------------------------------------------------------+
 # | AUTO DEPENDENCIES
