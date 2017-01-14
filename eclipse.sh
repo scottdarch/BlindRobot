@@ -9,6 +9,11 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
-echo "Opening eclipse workspace at ${DIR}"
+if [ -z $LOCAL_ENV_ECLIPSE_PATH ]; then
+    LOCAL_ENV_ECLIPSE_PATH=/Applications/Eclipse.app/Contents/MacOS/eclipse
+fi
+
+echo "${LOCAL_ENV_ECLIPSE_PATH} at ${DIR}"
 
 ${LOCAL_ENV_ECLIPSE_PATH} -data ${DIR} &> /dev/null &
+
