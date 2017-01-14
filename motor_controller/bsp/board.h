@@ -26,7 +26,36 @@
  */
 
 #pragma once
+#include <stdbool.h>
 
-#include <avr/io.h>
+typedef enum {
+    GPIO_LED_STATUS,
+    GPIO_LED_ERROR,
+} BoardGPIOIDEnum;
+
+typedef struct {
+    BoardGPIOIDEnum value;
+} BoardGPIOID;
+
+#define ID(ENUM_VALUE)                                                                             \
+    (BoardGPIOID)                                                                                  \
+    {                                                                                              \
+        ENUM_VALUE                                                                                 \
+    }
 
 void init_board();
+
+struct BoardGPIO_t;
+
+typedef void (*board_gpio_func)(struct BoardGPIO_t *self);
+typedef bool (*board_gpio_dget_func)(struct BoardGPIO_t *self);
+
+typedef struct BoardGPIO_t {
+    BoardGPIOID id;
+    board_gpio_func digital_write_high;
+    board_gpio_func digital_write_low;
+    board_gpio_func digital_toggle;
+    board_gpio_dget_func digital_read;
+} BoardGPIO;
+
+BoardGPIO *get_board_gpio(BoardGPIOID id);

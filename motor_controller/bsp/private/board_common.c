@@ -24,17 +24,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#include "bsp/board.h"
-#include <util/delay.h>
 
-int main(void)
+#include "board.h"
+#include "private/boarddef.h"
+#include <string.h>
+
+void init_board()
 {
-    init_board();
-    BoardGPIO *statusLED = get_board_gpio(ID(GPIO_LED_STATUS));
-    while (1) {
-        statusLED->digital_write_high(statusLED);
-        _delay_ms(1000);
-        statusLED->digital_write_low(statusLED);
-        _delay_ms(1000);
+    init_board_private();
+}
+
+// +--------------------------------------------------------------------------+
+// | BoardGPIO
+// +--------------------------------------------------------------------------+
+
+void _board_gpio_dset_high(BoardGPIO *self)
+{
+    BoardGPIOPrivate *pself = (BoardGPIOPrivate *)self;
+    pself->data |= (1 << pself->pin);
+}
+
+void _board_gpio_dset_low(BoardGPIO *self)
+{
+    BoardGPIOPrivate *pself = (BoardGPIOPrivate *)self;
+    pself->data &= ~(1 << pself->pin);
+}
+
+void _board_gpio_dset_toggle(BoardGPIO *self)
+{
+    BoardGPIOPrivate *pself = (BoardGPIOPrivate *)self;
+    pself->data ^= (1 << pself->pin);
+}
+
+bool _board_gpio_dget(BoardGPIO *self)
+{
+    BoardGPIOPrivate *pself = (BoardGPIOPrivate *)self;
+    return (pself->data & (1 << pself->pin));
+}
+
+BoardGPIOPrivate *init_board_gpio(BoardGPIOPrivate *self, BoardGPIOID id)
+{
+    if (self) {
+        self->super.id = id;
+        self->super.digital_write_high = _board_gpio_dset_high;
+        self->super.digital_write_low = _board_gpio_dset_low;
+        self->super.digital_toggle = _board_gpio_dset_toggle;
+        self->super.digital_read = _board_gpio_dget;
     }
+    return self;
 }

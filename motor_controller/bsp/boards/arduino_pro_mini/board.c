@@ -27,6 +27,6 @@
 
 #include "board.h"
 
-void init_board()
+void init_board_private()
 {
 }

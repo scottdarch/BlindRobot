@@ -24,17 +24,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#include "bsp/board.h"
-#include <util/delay.h>
 
-int main(void)
+#include "private/boarddef.h"
+#include <avr/io.h>
+
+static BoardGPIOPrivate g_board_gpio[1];
+
+BoardGPIO *get_board_gpio(BoardGPIOID id)
 {
-    init_board();
-    BoardGPIO *statusLED = get_board_gpio(ID(GPIO_LED_STATUS));
-    while (1) {
-        statusLED->digital_write_high(statusLED);
-        _delay_ms(1000);
-        statusLED->digital_write_low(statusLED);
-        _delay_ms(1000);
-    }
+    return &g_board_gpio[0].super;
+}
+
+void init_board_private()
+{
+    init_board_gpio(&g_board_gpio[1], ID(GPIO_LED_STATUS));
 }
