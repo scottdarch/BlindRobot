@@ -8,6 +8,7 @@
 PROJECT_NAME               := blind_motor_controller
 PROJECT_BOARD              := HBRIDGEKIT2GO
 PROJECT_MCU                := XMC1100_Q024x0064
+PROJECT_MCU_JLINK          := XMC1100-0064
 
 COMMA                       = ,
 
@@ -16,6 +17,7 @@ CALL_MOVE                   = mv -f $(1) $(2)
 CALL_FIND_ALL_C_FILES       = $(foreach srcdir, $(1), $(wildcard $(srcdir)/*.c))
 
 MACRO_PYTHON                = python
+MACRO_SED                   = sed
 MACRO_MKDIRS               := mkdir -p
 MACRO_ENSURE_TARGET_DIRS    = @[ -d "$(dir $@)" ] || $(MACRO_MKDIRS) "$(dir $@)"
 
@@ -53,12 +55,11 @@ TOOLCHAIN_OBJCPY           := $(TOOLCHAIN_PREFIX)objcopy
 TOOLCHAIN_OBJDUMP          := $(TOOLCHAIN_PREFIX)objdump
 TOOLCHAIN_SIZE             := $(TOOLCHAIN_PREFIX)size
 TOOLCHAIN_CC               := $(TOOLCHAIN_PREFIX)gcc
-TOOLCHAIN_OCD              := openocd
 
-PROJECT_OCD_CFG            := hbridge2go.cfg
+TEMPLATE_SED_JLINK_FLASH   := flash.jlink
 PROJECT_ASFLAGS            := -mcpu=cortex-m0 \
                               -mthumb \
-                              -mapcs \
+                              -mapcs-frame \
 
 PROJECT_LIBS               := 
 
@@ -89,6 +90,8 @@ PROJECT_CFLAGS             += -DDEBUG \
                               -fdata-sections \
                               -ffunction-sections \
                               -fno-strict-aliasing \
+
+CALL_JLINK_FLASH            = JLinkExe -device $(1) -if SWD -speed 4000 -autoconnect 1 -CommanderScript $(2)
 
 # +----------------------------------------------------------------------------+
 # | TARGETS
@@ -202,11 +205,14 @@ size : $(PROJECT_ELF)
 disassemble : $(PROJECT_LSS)
 	@less $<
 
-program : $(PROJECT_OCD_CFG) $(PROJECT_ELF)
-	$(TOOLCHAIN_OCD) -f $< -c "program $(filter %.elf,$^) verify reset exit"
+program : $(DIR_BUILD)/$(TEMPLATE_SED_JLINK_FLASH)
+	$(call CALL_JLINK_FLASH, $(PROJECT_MCU_JLINK), $<)
 
 console :
 	$(MACRO_PYTHON) -m serial.tools.miniterm /dev/tty.usbmodem1411 115200
+
+$(DIR_BUILD)/$(TEMPLATE_SED_JLINK_FLASH) : $(TEMPLATE_SED_JLINK_FLASH) $(PROJECT_HEX)
+	$(MACRO_SED) 's/\%BINARY/$(subst /,\/,$(filter %.hex,$^))/' <$< > $@
 
 $(PROJECT_LSS) : $(PROJECT_ELF)
 	$(MACRO_ENSURE_TARGET_DIRS)
