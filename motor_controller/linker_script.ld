@@ -108,14 +108,29 @@ SECTIONS
         __extab_end = ABSOLUTE(.);
     } > FLASH
 
+    __exidx_start = .;
+    
     /* Exception handling, exidx needs a dedicated section */
-    .ARM.exidx : 
+    /*
+    Infineon provided this but GAS doesn't like it.
+    Instead define the _exidx_[start|end] symbols outside of
+    the exidx section (see below)
+    .ARM.exidx : ALIGN(4)
     {
-        __exidx_start = .;
+        
         *(.ARM.exidx* .gnu.linkonce.armexidx.*)
         . = ALIGN(4);
         __exidx_end = ABSOLUTE(.);
     } > FLASH
+    */
+    
+    . = ALIGN(4);  
+    __exidx_start = .;     
+    .ARM.exidx : ALIGN(4)  
+    {  
+       *(.ARM.exidx* .gnu.linkonce.armexidx.*)  
+    } > FLASH  
+    __exidx_end = .; 
 
     /* CONST data section */
     .rodata : 
