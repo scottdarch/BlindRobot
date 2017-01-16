@@ -35,6 +35,7 @@ void SysTick_Handler(void)
     if (i == TICKS_PER_SECOND) {
         i = 0;
         DIGITAL_IO_ToggleOutput(&LED1);
+        DIGITAL_IO_ToggleOutput(&LED2);
         uart_print("blink\n");
     }
 }
@@ -47,6 +48,8 @@ int main(void)
 
     DIGITAL_IO_SetOutputHigh(&DIS);
     DIGITAL_IO_SetOutputLow(&DIS);
+    DIGITAL_IO_SetOutputLow(&LED1);
+    DIGITAL_IO_SetOutputHigh(&LED2);
 
     SysTick_Config(SystemCoreClock / TICKS_PER_SECOND);
 
