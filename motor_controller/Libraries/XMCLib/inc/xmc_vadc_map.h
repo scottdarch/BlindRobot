@@ -1,10 +1,10 @@
 /**
  * @file xmc_vadc_map.h
- * @date 2015-02-15 
+ * @date 2015-10-27
  *
  * @cond
 *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -37,7 +37,7 @@
  * --------------
  *
  * 2015-02-15:
- *     - Initial <br>
+ *     - Initial version
  *
  * @endcond 
  *
@@ -52,6 +52,9 @@ extern "C" {
 
 #if (UC_SERIES == XMC11)
 
+/**********************************************************************************************************************
+ * MACROS
+ *********************************************************************************************************************/
 /*  Group request source Gating input connection mappings */
 #define XMC_CCU_40_ST3 	        XMC_VADC_REQ_GT_A
 #define XMC_CCU_40_ST2  	    XMC_VADC_REQ_GT_B
@@ -131,6 +134,41 @@ extern "C" {
 
 #endif
 
+
+#if (UC_SERIES == XMC14)
+
+/*  Group request source Gating input connection mappings */
+#define XMC_CCU_40_ST3 	        XMC_VADC_REQ_GT_A
+#define XMC_CCU_40_ST2  	    XMC_VADC_REQ_GT_B
+#define XMC_CCU_40_ST1  	    XMC_VADC_REQ_GT_C
+#define XMC_CCU_40_ST0  	    XMC_VADC_REQ_GT_D
+#define XMC_CCU_80_ST3_A  	    XMC_VADC_REQ_GT_E
+#define XMC_CCU_81_ST3  	    XMC_VADC_REQ_GT_F
+#define XMC_LEDTS0_FN    	    XMC_VADC_REQ_GT_I
+#define XMC_LEDTS1_FN  	        XMC_VADC_REQ_GT_J
+#define XMC_ERU_0_PDOUT2  	    XMC_VADC_REQ_GT_K
+#define XMC_ERU_0_PDOUT3  	    XMC_VADC_REQ_GT_L
+#define XMC_CCU_80_ST0	        XMC_VADC_REQ_GT_M
+#define XMC_CCU_80_ST1  	    XMC_VADC_REQ_GT_N
+#define XMC_ERU_0_PDOUT0  	    XMC_VADC_REQ_GT_O
+#define XMC_ERU_0_PDOUT1	    XMC_VADC_REQ_GT_P
+
+/* Group request source Trigger input connection mappings */
+#define XMC_CCU_40_SR2 	        XMC_VADC_REQ_TR_A
+#define XMC_CCU_40_SR3  	    XMC_VADC_REQ_TR_B
+#define XMC_BCCU0_TRIGOUT       XMC_VADC_REQ_TR_F
+#define XMC_ERU_0_IOUT2         XMC_VADC_REQ_TR_G
+#define XMC_ERU_0_IOUT3         XMC_VADC_REQ_TR_H
+#define XMC_CCU_80_SR2         	XMC_VADC_REQ_TR_I
+#define XMC_CCU_80_SR3  	    XMC_VADC_REQ_TR_J
+#define XMC_ERU_0_IOUT0  	    XMC_VADC_REQ_TR_M
+#define XMC_ERU_0_IOUT1  	    XMC_VADC_REQ_TR_N
+#define XMC_POSIF_0_SR1  	    XMC_VADC_REQ_TR_O
+#define XMC_REQ_GT_SEL	        XMC_VADC_REQ_TR_P
+
+#endif
+
+
 #if ( (UC_SERIES == XMC42)||(UC_SERIES == XMC41) )
 
 /*  Group request source Gating input connection mappings */
@@ -166,7 +204,7 @@ extern "C" {
 
 #endif
 
-#if ( UC_SERIES == XMC44 )
+#if ( UC_SERIES == XMC44 ) || ( UC_SERIES == XMC48)
 
 /*  Group request source Gating input connection mappings */
 #define XMC_CCU_40_ST3 	        XMC_VADC_REQ_GT_A

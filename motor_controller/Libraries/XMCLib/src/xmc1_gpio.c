@@ -1,10 +1,10 @@
 /**
  * @file xmc1_gpio.c
- * @date 2015-06-20
+ * @date 2015-10-27
  *
  * @cond
   *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -65,7 +65,7 @@
 void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_CONFIG_t *const config)
 {
   XMC_ASSERT("XMC_GPIO_Init: Invalid port", XMC_GPIO_CHECK_PORT(port));
-  XMC_ASSERT("XMC_GPIO_Init: Invalid mode", XMC_GPIO_CHECK_MODE(config->mode));
+  XMC_ASSERT("XMC_GPIO_Init: Invalid mode", XMC_GPIO_IsModeValid(config->mode));
   XMC_ASSERT("XMC_GPIO_Init: Invalid input hysteresis", XMC_GPIO_CHECK_INPUT_HYSTERESIS(config->input_hysteresis));
   
   /* Switch to input */

@@ -1,10 +1,10 @@
 /**
  * @file xmc_scu.h
- * @date 2015-06-20 
+ * @date 2015-10-27
  *
  * @cond
  *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -152,7 +152,7 @@
  */
  
 /*********************************************************************************************************************
-	* MACROS
+ * MACROS
  ********************************************************************************************************************/
 
 /*********************************************************************************************************************
@@ -165,7 +165,7 @@ typedef enum XMC_SCU_STATUS
 {
   XMC_SCU_STATUS_OK   = 0UL, /**< SCU related operation successfully completed.*/
   XMC_SCU_STATUS_ERROR,      /**< SCU related operation failed. When API cannot fulfill request, this value is returned. */
-  XMC_SCU_STATUS_BUSY    ,   /**< Cannot execute the SCU related operation request because
+  XMC_SCU_STATUS_BUSY,       /**< Cannot execute the SCU related operation request because
                                   another operation is in progress. \a XMC_SCU_STATUS_BUSY is returned when API is busy
                                   processing another request. */
 } XMC_SCU_STATUS_t;

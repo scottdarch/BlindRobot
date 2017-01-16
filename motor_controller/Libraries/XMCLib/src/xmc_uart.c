@@ -1,10 +1,10 @@
 /**
  * @file xmc_uart.c
- * @date 2015-06-20 
+ * @date 2015-10-27
  *
  * @cond
  *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -40,29 +40,16 @@
  *     - Initial <br>
  *      
  * 2015-05-20:
- *     - TP ID 64798 fixed.
  *     - xmc_uart_ch_stop API implementation corrected.
  *     - Modified XMC_UART_CH_Stop() API for not setting to IDLE the channel if it is busy <br>
+ *
  * 2015-06-20:
- *     - Removed GetDriverVersion API
+ *     - Removed GetDriverVersion API <br>
+ *
+ * 2015-09-01:
+ *     - Modified XMC_UART_CH_EnableEvent() and XMC_UART_CH_DisableEvent() for supporting multiple events configuration <br>
  * @endcond 
  *
- */
- 
- /**
- * @file xmc_uart.c
- * @date 19 Jun, 2015
- * @version 1.0.3
- *
- * @brief UART driver for XMC microcontroller family
- *
- * History <br>
- *
- * Version 1.0.0 Initial <br>
- * Version 1.0.1 TP ID 64798 fixed. 
- *               xmc_uart_ch_stop API implementation corrected.<br>
- * Version 1.0.2 Modified XMC_UART_CH_Stop() API for not setting to IDLE the channel if it is busy <br>
- * Version 1.0.3 Removed GetDriverVersion API
  */
 
 /*********************************************************************************************************************
@@ -208,26 +195,12 @@ XMC_UART_CH_STATUS_t XMC_UART_CH_Stop(XMC_USIC_CH_t *const channel)
 
 void XMC_UART_CH_EnableEvent(XMC_USIC_CH_t *const channel, const uint32_t event)
 {
-  if ((event & 0x80000000U) != 0U)
-  {
-    /* USIC module event */
-    channel->CCR |= event & 0x7fffffffU;
-  }
-  else
-  {
-    /* Protocol event */
-    channel->PCR_ASCMode |= event;
-  }
+  channel->CCR |= (event&0x1fc00U);
+  channel->PCR_ASCMode |= (event&0xf8U);
 }
 
 void XMC_UART_CH_DisableEvent(XMC_USIC_CH_t *const channel, const uint32_t event)
 {
-  if ((event & 0x80000000U) != 0U)
-  {
-    channel->CCR &= ~(event & 0x7fffffffU);
-  }
-  else
-  {
-    channel->PCR_ASCMode &= ~event;
-  }
+  channel->CCR &= (uint32_t)~(event&0x1fc00U);
+  channel->PCR_ASCMode &= (uint32_t)~(event&0xf8U);
 }

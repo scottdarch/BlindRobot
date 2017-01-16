@@ -1,10 +1,10 @@
 /**
  * @file xmc1_rtc.c
- * @date 2015-06-20 
+ * @date 2015-10-27
  *
  * @cond
  *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -57,9 +57,9 @@
  * HEADER FILES
  *********************************************************************************************************************/
 #include <xmc_rtc.h>
-#include <xmc_scu.h>
 
 #if UC_FAMILY == XMC1
+#include <xmc_scu.h>
 
 /*********************************************************************************************************************
  * API IMPLEMENTATION

@@ -7,7 +7,7 @@
  *
  * @cond
  ***********************************************************************************************************************
- * CLOCK_XMC1 v4.0.6 - APP to configure System and Peripheral Clocks.
+ * CLOCK_XMC1 v4.0.14 - APP to configure System and Peripheral Clocks.
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -45,6 +45,12 @@
  *     - Version check added for required LLDs <BR>
  * 2015-06-20:
  *     - Version check added for XMCLib dependency <BR>
+ * 2015-09-22:
+ *     - CLOCK_XMC1_STATUS enum and CLOCK_XMC1 data structure are provided. <BR>
+ *     - CLOCK_XMC4_Init and CLOCK_XMC4_StepSystemPllFrequency() APIs are provided. <BR>
+ * 2015-10-19:
+ *     - non-weak OSCHP_GetFrequency function is provided. <BR>
+ *     - CLOCK_XMC1_IsDCO1ExtRefCalibrationReady function is provided. <BR>
  *
  * @endcond 
  *
@@ -59,7 +65,9 @@
 #include <xmc_scu.h>
 #include <DAVE_common.h>
 #include "clock_xmc1_conf.h"
-
+#ifdef CLOCK_XMC1_INTERRUPT_ENABLED
+#include "../GLOBAL_SCU_XMC1/global_scu_xmc1.h"
+#endif
  /**********************************************************************************************************************
  * MACROS
  **********************************************************************************************************************/
@@ -88,6 +96,14 @@
  * @ingroup CLOCK_XMC1_enumerations
  * @{
  */
+/*
+ * @brief enumeration for CLOCK_XMC1 APP
+ */
+typedef enum CLOCK_XMC1_STATUS
+{
+  CLOCK_XMC1_STATUS_SUCCESS = 0U,        /**<APP initialization is success */
+  CLOCK_XMC1_STATUS_FAILURE = 1U         /**<APP initialization is failure */
+} CLOCK_XMC1_STATUS_t;
 
 /**
  * @}
@@ -100,6 +116,36 @@
  * @ingroup CLOCK_XMC1_datastructures
  * @{
  */
+
+/**
+ * @brief Configuration structure for CLOCK_XMC1 APP
+ */
+typedef struct CLOCK_XMC1
+{
+#ifdef CLOCK_XMC1_INTERRUPT_ENABLED
+
+  GLOBAL_SCU_XMC1_t *const global_scu_handleptr;  /**<pointer to GLOBAL_SCU_XMC1 APP handler */
+#ifdef CLOCK_XMC1_LOCI_EVENT_ENABLED
+  void (*callback_function_loci)(void);  /**<function pointer to user callback */
+#endif
+#ifdef CLOCK_XMC1_STDBYCLKFAIL_EVENT_ENABLED
+  void (*callback_function_stdbyclkfail)(void);  /**<function pointer to user callback */
+#endif
+
+#if (UC_SERIES == XMC14)
+
+#ifdef CLOCK_XMC1_LOSS_EXT_CLOCK_EVENT_ENABLED
+  void (*callback_function_loss_ext_clock)(void);  /**<function pointer to user callback */
+#endif
+#ifdef CLOCK_XMC1_DCO1_OUT_SYNC_EVENT_ENABLED
+  void (*callback_function_dco1_out_sync)(void);  /**<function pointer to user callback */
+#endif
+#endif
+
+#endif
+  bool init_status;  /**<APP is initialized or not. */
+} CLOCK_XMC1_t;
+
 /**
  * @}
  */
@@ -127,28 +173,169 @@ extern "C" {
  * @code
  * #include <DAVE.h>
  *
- * int main(void) {
+ * int main(void)
+ * {
  *   DAVE_STATUS_t init_status;
  *   DAVE_APP_VERSION_t version;
  *
  *   // Initialize CLOCK_XMC1 APP:
  *   // SystemCoreClockSetup() is called from SystemInit().
  *   init_status = DAVE_Init();
+ *  if(DAVE_STATUS_SUCCESS == init_status)
+ *  {
+ *    version = CLOCK_XMC1_GetAppVersion();
+ *    if (version.major != 4U) {
+ *      // Probably, not the right version.
+ *    }
  *
- *   version = CLOCK_XMC1_GetAppVersion();
- *   if (version.major != 1U) {
- *     // Probably, not the right version.
- *   }
- *
- *   // More code here
- *   while(1) {
- *
- *   }
- *   return (0);
+ *    // More code here
+ *    while(1) {
+ *    }
+ *  }
+ *  return (1);
  * }
  * @endcode<BR>
  */
 DAVE_APP_VERSION_t CLOCK_XMC1_GetAppVersion(void);
+
+/**
+ * @brief Initializes a CLOCK_XMC1 APP instance
+ * @param handle address of CLOCK_XMC1 APP handler
+ * @return
+ *            CLOCK_XMC1_STATUS_SUCCESS             : if initialization is successful\n
+ *            CLOCK_XMC1_STATUS_FAILURE             : if initialization is failed
+ *
+ * \par<b>Description:</b><br>
+ * CLOCK_XMC1_Init API is called during initialization of DAVE APPS. This API Initializes GLOBAL_SCU_XMC1 APP
+ * for setting the interrupts and user callback registration.
+ *
+ * \par<b>Example Usage:</b><br>
+ *
+ * @code
+ * #include <DAVE.h>
+ *
+ * int main(void)
+ * {
+ *   DAVE_STATUS_t status;
+ *
+ *   status = DAVE_Init();  //  CLOCK_XMC1_Init API is called during initialization of DAVE APPS
+ *   if(DAVE_STATUS_SUCCESS == status)
+ *   {
+ *    // user code
+ *
+ *     while(1)
+ *     {
+ *
+ *     }
+ *   }
+ *   return (1);
+ * }
+ *
+ * @endcode<BR>
+ */
+CLOCK_XMC1_STATUS_t CLOCK_XMC1_Init(CLOCK_XMC1_t *handle);
+
+/**
+ * @brief API for ramping up/down the system clock frequency
+ * @param target_freq required frequency in Hz.
+ * @return none
+ *
+ * \par<b>Description: </b><br>
+ * The function can be used for ramping up/down the system clock frequency.
+ *
+ * Example Usage:
+ *
+ * @code
+ * #include <DAVE.h>
+ *
+ * int main(void)
+ * {
+ *   DAVE_STATUS_t init_status;
+ *   uint32_t freq_khz = 1000U;  // 1MHz is the target frequency
+ *   // Initialize CLOCK_XMC1 APP:
+ *   // SystemCoreClockSetup() is called from SystemInit().
+ *   init_status = DAVE_Init();
+ *  if(DAVE_STATUS_SUCCESS == init_status)
+ *  {
+ *    CLOCK_XMC1_SetMCLKFrequency(freq_khz);  // system clock frequency is ramping down to 1 MHz
+ *    // More code here
+ *    while(1) {
+ *
+ *    }
+ *  }
+ *  return (1);
+ * }
+ * @endcode<BR>
+ */
+void CLOCK_XMC1_SetMCLKFrequency(uint32_t freq_khz);
+
+#if (CLOCK_XMC1_OSCHP_ENABLED)
+/**
+ * @brief This is a non-weak function, which retrieves high precision external oscillator frequency.<br>
+ * <b>Note: This function is used by xmc1_scu LLD for internal operations. Therefore the user do not required to call
+ * this API explicitly.</b>
+ *
+ * @return uint32_t Range: 4 to 20 in External Crystal Mode / External Direct Input Mode.
+ *
+ * \par<b>Description:</b><br>
+ * This function to retrieves the external high precision oscillator frequency value, derived from either "External
+ * Crystal Mode" or "External Direct Input Mode"
+ * <BR>
+ */
+uint32_t OSCHP_GetFrequency(void);
+#endif
+
+#if (CLOCK_XMC1_DCO1_CALIBRATION_ENABLED)
+/**
+ * @brief API to check whether DCO1 is synchronized to the XTAL frequency
+ * @param  none
+ * @return bool <br>
+ *            true              : if DCO1 is synchronized to the XTAL frequency\n
+ *            false             : if DCO1 is not synchronized to the XTAL frequency\n
+ *
+ * \par<b>Description: </b><br>
+ * The function can be used to check whether DCO1 is synchronized to the XTAL frequency.
+ *
+ * Example Usage:
+ *
+ * @code
+ * #include <DAVE.h>
+ *
+ * int main(void)
+ * {
+ *   DAVE_STATUS_t init_status;
+ *   #if(CLOCK_XMC1_DCO1_CALIBRATION_ENABLED)
+ *   bool is_synchronized = false;
+ *   #endif
+ *   // Initialize CLOCK_XMC1 APP:
+ *   // SystemCoreClockSetup() is called from SystemInit().
+ *   init_status = DAVE_Init();
+ *  if(DAVE_STATUS_SUCCESS == init_status)
+ *  {
+ *    // User code here
+ *  #if(CLOCK_XMC1_DCO1_CALIBRATION_ENABLED)
+ *    is_synchronized = CLOCK_XMC1_IsDCO1ExtRefCalibrationReady();  // check whether DCO1 is synchronized
+ *                                                                  // to the XTAL frequency or not
+ *    if(is_synchronized == true)
+ *    {
+ *     // User code here
+ *     // Do baud rate configuration related to communication protocol
+ *     // start PWM in compare mode
+ *     // start RTC in the RTC domain
+ *
+ *    }
+ *  #endif
+ *    // More code here
+ *    while(1) {
+ *
+ *    }
+ *  }
+ *  return (1);
+ * }
+ * @endcode<BR>
+ */
+bool CLOCK_XMC1_IsDCO1ExtRefCalibrationReady(void);
+#endif
 
 /**
  * @}

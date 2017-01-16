@@ -152,10 +152,11 @@ PROJECT_SOURCE             := Startup/startup_XMC1100.S \
 
 $(eval $(call app_project_source_and_include,Dave/Generated))
 $(eval $(call app_project_source_and_include,Dave/Generated/CLOCK_XMC1))
-$(eval $(call app_project_source_and_include,Dave/Generated/CPU_CTRL_XMC1))
 $(eval $(call app_project_source_and_include,Dave/Generated/DIGITAL_IO))
 $(eval $(call app_project_source_and_include,Dave/Generated/GLOBAL_CCU4))
 $(eval $(call app_project_source_and_include,Dave/Generated/PWM))
+$(eval $(call app_project_source_and_include,Dave/Generated/SPI_MASTER))
+$(eval $(call app_project_source_and_include,Dave/Generated/UART))
 $(eval $(call app_project_source_and_include,Libraries/XMCLib,inc,src))
 
 PROJECT_S                  := $(filter %.S,$(PROJECT_SOURCE))

@@ -1,10 +1,10 @@
 /**
  * @file xmc_bccu.c
- * @date 2015-06-20
+ * @date 2015-10-27
  *
  * @cond
   *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -58,13 +58,18 @@
 /*********************************************************************************************************************
  * HEADER FILES
  ********************************************************************************************************************/
-#include <xmc_scu.h>
 #include <xmc_bccu.h>
 
-#if defined (BCCU0)
+#if defined(BCCU0)
+#include <xmc_scu.h>
+
 /*********************************************************************************************************************
  * MACROS
  ********************************************************************************************************************/
+#define XMC_BCCU_NO_OF_CHANNELS    (9U)
+#define XMC_BCCU_CHANNEL_MASK      ((0x1 << XMC_BCCU_NO_OF_CHANNELS)-1)
+#define XMC_BCCU_NO_OF_DIM_ENGINE  (3U)
+#define XMC_BCCU_DIM_ENGINE_MASK   (((0x1 << XMC_BCCU_NO_OF_DIM_ENGINE)-1))
 
 /*********************************************************************************************************************
  * ENUMS
@@ -89,7 +94,7 @@
 /*
  * API to initialise the global resources of a BCCU module
  */
-void XMC_BCCU_GlobalInit (XMC_BCCU_t *const bccu, const XMC_BCCU_GLOBAL_CONFIG_t *const config)
+void XMC_BCCU_GlobalInit(XMC_BCCU_t *const bccu, const XMC_BCCU_GLOBAL_CONFIG_t *const config)
 {
   XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_BCCU0);
 

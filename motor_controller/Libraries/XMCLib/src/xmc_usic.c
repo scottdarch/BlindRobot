@@ -1,10 +1,10 @@
 /**
  * @file xmc_usic.c
- * @date 2015-06-20
+ * @date 2015-10-27
  *
  * @cond
   *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -41,10 +41,19 @@
  *     - Documentation improved <br>
  *
  * 2015-05-08:
- *     - Clearing bit fields PDIV, PCTQ, PPPEN in XMC_USIC_CH_SetBaudrate() API  <br>
+ *     - Clearing bit fields PDIV, PCTQ, PPPEN in XMC_USIC_CH_SetBaudrate() API <br>
  *      
  * 2015-06-20:
- *     - Removed version macros and declaration of GetDriverVersion API
+ *     - Removed version macros and declaration of GetDriverVersion API <br>
+ *
+ * 2015-08-27:
+ *     - Added APIs for external input for BRG configuration:XMC_USIC_CH_ConfigExternalInputSignalToBRG() <br>
+ *
+ * 2015-08-28:
+ *     - Added asserts to XMC_USIC_CH_ConfigExternalInputSignalToBRG() <br>
+ *
+ * 2015-09-01:
+ *     - Fixed warning in the asserts <br>
  *
  * @endcond
  *
@@ -69,8 +78,8 @@
 
 void XMC_USIC_CH_Enable(XMC_USIC_CH_t *const channel)
 {
-  XMC_ASSERT("XMC_USIC_CH_Enable: channel not valid", XMC_USIC_CHECK_CH(channel));
-  
+  XMC_ASSERT("XMC_USIC_CH_Enable: channel not valid", XMC_USIC_IsChannelValid(channel));
+
   if ((channel == XMC_USIC0_CH0) || (channel == XMC_USIC0_CH1))
   {
     XMC_USIC_Enable(XMC_USIC0);
@@ -91,6 +100,7 @@ void XMC_USIC_CH_Enable(XMC_USIC_CH_t *const channel)
   {
     XMC_ASSERT("USIC module not available", 0U/*Always*/);
   }
+
   /* USIC channel switched on*/
   channel->KSCFG = (USIC_CH_KSCFG_MODEN_Msk | USIC_CH_KSCFG_BPMODEN_Msk);
   while ((channel->KSCFG & USIC_CH_KSCFG_MODEN_Msk) == 0U)
@@ -167,6 +177,29 @@ XMC_USIC_CH_STATUS_t XMC_USIC_CH_SetBaudrate(XMC_USIC_CH_t *const channel, uint3
   return status;
 }
 
+void XMC_USIC_CH_ConfigExternalInputSignalToBRG(XMC_USIC_CH_t *const channel,
+		                                        const uint16_t pdiv,
+												const uint32_t oversampling,
+												const XMC_USIC_CH_INPUT_COMBINATION_MODE_t combination_mode)
+{
+  XMC_ASSERT("XMC_USIC_CH_ConfigExternalInputSignalToBRG: Divider out of range", ((1U < pdiv) || (pdiv < 1024U)));
+  XMC_ASSERT("XMC_USIC_CH_ConfigExternalInputSignalToBRG: Oversampling out of range", ((1U < oversampling) || (oversampling < 32U)));
+
+  /* Setting the external input frequency source through DX1 */
+  XMC_USIC_CH_SetBRGInputClockSource(channel, XMC_USIC_CH_BRG_CLOCK_SOURCE_DX1T);
+
+  /* Setting the trigger combination mode */
+  XMC_USIC_CH_SetInputTriggerCombinationMode(channel,XMC_USIC_CH_INPUT_DX1,combination_mode);
+
+  /* Configuring the dividers and oversampling */
+  channel->BRG = (channel->BRG & ~(USIC_CH_BRG_DCTQ_Msk |
+                                   USIC_CH_BRG_PDIV_Msk |
+                                   USIC_CH_BRG_PCTQ_Msk |
+                                   USIC_CH_BRG_PPPEN_Msk)) |
+                  (((oversampling) - 1U) << USIC_CH_BRG_DCTQ_Pos) |
+                  (((pdiv) - 1U) << USIC_CH_BRG_PDIV_Pos);
+}
+
 void XMC_USIC_CH_TXFIFO_Configure(XMC_USIC_CH_t *const channel,
                                   const uint32_t data_pointer,
                                   const XMC_USIC_CH_FIFO_SIZE_t size,
@@ -224,7 +257,6 @@ void XMC_USIC_CH_TXFIFO_SetSizeTriggerLimit(XMC_USIC_CH_t *const channel,
                    ((uint32_t)size << USIC_CH_TBCTR_SIZE_Pos));
 }
 
-
 void XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit(XMC_USIC_CH_t *const channel,
                                             const XMC_USIC_CH_FIFO_SIZE_t size,
                                             const uint32_t limit)
@@ -236,8 +268,6 @@ void XMC_USIC_CH_RXFIFO_SetSizeTriggerLimit(XMC_USIC_CH_t *const channel,
                    (limit << USIC_CH_RBCTR_LIMIT_Pos) |
                    ((uint32_t)size << USIC_CH_RBCTR_SIZE_Pos));
 }
-
-
 
 void XMC_USIC_CH_SetInterruptNodePointer(XMC_USIC_CH_t *const channel,
                                          const XMC_USIC_CH_INTERRUPT_NODE_POINTER_t interrupt_node,
@@ -261,4 +291,83 @@ void XMC_USIC_CH_RXFIFO_SetInterruptNodePointer(XMC_USIC_CH_t *const channel,
 {
   channel->RBCTR = (uint32_t)((channel->RBCTR & (~(uint32_t)(USIC_CH_INPR_Msk << (uint32_t)interrupt_node))) |
                    (service_request << (uint32_t)interrupt_node));
+}
+
+void XMC_USIC_Enable(XMC_USIC_t *const usic)
+{
+  if (usic == USIC0)
+  {
+#if defined(CLOCK_GATING_SUPPORTED)
+    XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_USIC0);
+#endif
+#if defined(PERIPHERAL_RESET_SUPPORTED)
+    XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_USIC0);
+#endif	
+  }
+#if defined(USIC1)  
+  else if (usic == USIC1)
+  {
+#if defined(CLOCK_GATING_SUPPORTED)
+    XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_USIC1);
+#endif	
+#if defined(PERIPHERAL_RESET_SUPPORTED)
+    XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_USIC1);
+#endif	
+  }
+#endif  
+#if defined(USIC2)  
+  else if (usic == USIC2)
+  {
+#if defined(CLOCK_GATING_SUPPORTED) 
+    XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_USIC2);
+#endif
+#if defined(PERIPHERAL_RESET_SUPPORTED)
+    XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_USIC2);
+#endif	
+  }
+#endif  
+  else
+  {
+    XMC_ASSERT("USIC module not available", 0/*Always*/);
+  }
+}
+
+void XMC_USIC_Disable(XMC_USIC_t *const usic)
+{
+  if (usic == (XMC_USIC_t *)USIC0)
+  {
+#if defined(PERIPHERAL_RESET_SUPPORTED)  
+    XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_USIC0);
+#endif	
+#if defined(CLOCK_GATING_SUPPORTED) 
+    XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_USIC0);
+#endif
+  }
+#if defined(USIC1)  
+  else if (usic == (XMC_USIC_t *)USIC1)
+  {
+#if defined(PERIPHERAL_RESET_SUPPORTED)  
+    XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_USIC1);
+#endif	
+#if defined(CLOCK_GATING_SUPPORTED) 
+    XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_USIC1);
+#endif
+  }
+#endif  
+#if defined(USIC2)  
+  else if (usic == (XMC_USIC_t *)USIC2)
+  {
+#if defined(PERIPHERAL_RESET_SUPPORTED)  
+    XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_USIC2);
+#endif	
+#if defined(CLOCK_GATING_SUPPORTED) 
+    XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_USIC2);
+#endif
+  }
+#endif  
+  else
+  {
+	  XMC_ASSERT("USIC module not available", 0/*Always*/);
+  }
+  
 }

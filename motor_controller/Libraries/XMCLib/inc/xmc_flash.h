@@ -1,10 +1,10 @@
 /**
  * @file xmc_flash.h
- * @date 2015-06-20 
+ * @date 2015-10-27
  *
  * @cond
  *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -151,7 +151,7 @@ uint32_t XMC_FLASH_GetStatus(void);
 
 /**
  *
- * @param uint32_t ORed values of @ref XMC_FLASH_EVENT_t enumeration
+ * @param event_msk ORed values of @ref XMC_FLASH_EVENT_t enumeration
  *
  * @return None
  *
@@ -166,7 +166,7 @@ void XMC_FLASH_EnableEvent(const uint32_t event_msk);
 
 /**
  *
- * @param uint32_t ORed values of @ref XMC_FLASH_EVENT_t enumeration
+ * @param event_msk ORed values of @ref XMC_FLASH_EVENT_t enumeration
  *
  * @return None
  *

@@ -1,10 +1,10 @@
 /**
  * @file xmc_eru.c
- * @date 2015-06-20 
+ * @date 2015-10-27
  *
  * @cond
  *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -120,7 +120,6 @@
 /*********************************************************************************************************************
  * API IMPLEMENTATION
  ********************************************************************************************************************/
-
 /* Initializes the selected ERU_ETLx channel with the config structure.  */
 void XMC_ERU_ETL_Init(XMC_ERU_t *const eru,
                       const uint8_t channel,

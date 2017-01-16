@@ -49,16 +49,19 @@
 /** #include DAVE APP Header files. */
 #include "xmc_common.h"  
 
-#include "CPU_CTRL_XMC1/cpu_ctrl_xmc1.h"
+#include "DIGITAL_IO/digital_io.h"
   
 
 #include "CLOCK_XMC1/clock_xmc1.h"
   
 
-#include "GLOBAL_CCU4/global_ccu4.h"
+#include "UART/uart.h"
   
 
-#include "DIGITAL_IO/digital_io.h"
+#include "SPI_MASTER/spi_master.h"
+  
+
+#include "GLOBAL_CCU4/global_ccu4.h"
   
 
 #include "PWM/pwm.h"
@@ -78,8 +81,15 @@ typedef enum DAVE_STATUS
 /***********************************************************************************************************************
 * API PROTOTYPES
 ***********************************************************************************************************************/
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 DAVE_STATUS_t DAVE_Init(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /** ifndef _DAVE_H_ */
 

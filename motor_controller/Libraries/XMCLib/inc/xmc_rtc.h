@@ -1,10 +1,10 @@
 /**
  * @file xmc_rtc.h
- * @date 2015-06-20 
+ * @date 2015-10-27
  *
  * @cond
 *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -59,13 +59,7 @@
 
 #include <xmc_common.h>
 #include <time.h>
-#if UC_FAMILY == XMC1
-#include "xmc1_rtc.h"
-#endif
 
-#if UC_FAMILY == XMC4
-#include "xmc4_rtc.h"
-#endif
 /**
  *
  * @addtogroup XMClib XMC Peripheral Library
@@ -266,7 +260,19 @@ typedef struct XMC_RTC_CONFIG
   uint16_t          prescaler;
 } XMC_RTC_CONFIG_t;
 
-/*********************************************************************************************************************
+/*******************************************************************************
+ * EXTENSIONS
+ *******************************************************************************/
+
+#if UC_FAMILY == XMC1
+#include "xmc1_rtc.h"
+#endif
+
+#if UC_FAMILY == XMC4
+#include "xmc4_rtc.h"
+#endif
+
+/*******************************************************************************
  * API PROTOTYPES
  *********************************************************************************************************************/
 
@@ -478,7 +484,7 @@ void XMC_RTC_GetTime(XMC_RTC_TIME_t *const time);
 void XMC_RTC_GetTimeStdFormat(struct tm *const stdtime);
 
 /**
- * @param timeval Contstant pointer to a constant ::XMC_RTC_ALARM_t structure containing the
+ * @param alarm Constant pointer to a constant ::XMC_RTC_ALARM_t structure containing the
  *                alarm time parameters alarm seconds, alarm minutes, alarm hours, alarm days, 
  *                alarm daysofweek, alarm month and alarm year.           
  * @return None
@@ -496,7 +502,7 @@ void XMC_RTC_GetTimeStdFormat(struct tm *const stdtime);
 void XMC_RTC_SetAlarm(const XMC_RTC_ALARM_t *const alarm);
 
 /**
- * @param time Pointer to a constant ::XMC_RTC_ALARM_t structure containing the
+ * @param alarm Pointer to a constant ::XMC_RTC_ALARM_t structure containing the
  *             time parameters alarm seconds, alarm minutes, alarm hours, alarm days, 
  *             alarm daysofweek, alarm month and alarm year.           
  * @return None

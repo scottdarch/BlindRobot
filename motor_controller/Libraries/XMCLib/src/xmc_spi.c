@@ -1,10 +1,10 @@
 /**
  * @file xmc_spi.c
- * @date 2015-06-20 
+ * @date 2015-10-27
  *
  * @cond
  *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -44,7 +44,10 @@
  *     - Modified XMC_SPI_CH_SetInterwordDelay() implementation in order to gain accuracy <br>
  *     
  * 2015-06-20:
- *     - Removed GetDriverVersion API
+ *     - Removed GetDriverVersion API <br>
+ *
+ * 2015-09-01:
+ *     - Modified XMC_UART_CH_EnableEvent() and XMC_UART_CH_DisableEvent() for supporting multiple events configuration <br>
  * @endcond 
  *
  */
@@ -262,24 +265,12 @@ XMC_SPI_CH_STATUS_t XMC_SPI_CH_Stop(XMC_USIC_CH_t *const channel)
 
 void XMC_SPI_CH_EnableEvent(XMC_USIC_CH_t *const channel, const uint32_t event)
 {
-  if ((event & 0x80000000U) != 0U)
-  {
-    channel->CCR |= event & 0x7fffffffU;
-  }
-  else
-  {
-    channel->PCR_SSCMode |= event;
-  }
+  channel->CCR |= (event&0x1fc00U);
+  channel->PCR_SSCMode |= ((event << 13U) & 0xe000U);
 }
 
 void XMC_SPI_CH_DisableEvent(XMC_USIC_CH_t *const channel, const uint32_t event)
 {
-  if ((event & 0x80000000U) != 0U)
-  {
-    channel->CCR &= (uint32_t)~(event & 0x7fffffffU);
-  }
-  else
-  {
-    channel->PCR_SSCMode &= (uint32_t)~event;
-  }
+  channel->CCR &= (uint32_t)~(event&0x1fc00U);
+  channel->PCR_SSCMode &= (uint32_t)~((event << 13U) & 0xe000U);
 }

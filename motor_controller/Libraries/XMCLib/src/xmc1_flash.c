@@ -1,10 +1,10 @@
 /**
  * @file xmc1_flash.c
- * @date 2015-06-20 
+ * @date 2015-10-27
  *
  * @cond
  *********************************************************************************************************************
- * XMClib v2.0.0 - XMC Peripheral Driver Library
+ * XMClib v2.1.2 - XMC Peripheral Driver Library 
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -41,6 +41,11 @@
  *
  * 2015-06-20: 
  *     - Removed definition of GetDriverVersion API 
+ *
+ * 2015-10-14: 
+ *     - Fixed defect in API XMC_FLASH_ErasePages, related to the errata NVM_CM.001
+ *     - NVM ROM user routine XMC1000_NvmErasePage(address) used for erase page. 
+ *
  * @endcond 
  *
  */
@@ -164,16 +169,9 @@ void XMC_FLASH_ErasePages(uint32_t *address, uint32_t num_pages)
   XMC_ASSERT("XMC_FLASH_ErasePages: Starting address not aligned to Page",
                                                                     ((uint32_t)address & FLASH_PAGE_ADDR_MASK) == 0U)
 
-  /* Configure the continuous erase option command and reset the NVM error / verification status*/
-  NVM->NVMPROG &= (uint16_t)(~(uint16_t)NVM_NVMPROG_ACTION_Msk);
-  NVM->NVMPROG |= (uint16_t)((uint16_t)NVM_NVMPROG_RSTVERR_Msk | 
-                             (uint16_t)NVM_NVMPROG_RSTECC_Msk | 
-	                         (uint16_t)FLASH_ACTION_CONTINUOUS_PAGE_ERASE);
-
   for (page = 0U; page < num_pages; ++page)
   {
-    /* A write access to the starting memory location of the page triggers the erase operation*/
-    *address = 0;
+    (void)XMC1000_NvmErasePage(address);
 
     while (XMC_FLASH_IsBusy() == true)
     {
@@ -184,8 +182,6 @@ void XMC_FLASH_ErasePages(uint32_t *address, uint32_t num_pages)
 
   }
 
-  /* Stop continuous write operation */
-  NVM->NVMPROG &= (uint16_t)(~(uint16_t)NVM_NVMPROG_ACTION_Msk);
 }
 
 /* Write multiple data blocks and verify the written data */

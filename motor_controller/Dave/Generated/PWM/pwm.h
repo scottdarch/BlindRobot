@@ -57,6 +57,12 @@
  * 2015-07-09:
  *     - Documentation updated.<BR>
  *
+ * 2015-09-01:
+ *     - XMC14 device support added..<BR>
+ *
+ * 2015-10-08:
+ *     - Added support for XMC4700/XMC4800 devices.<BR>
+ *
  * @endcond
  *
  */

@@ -7,7 +7,7 @@
  *
  * @cond
  ***********************************************************************************************************************
- * CLOCK_XMC1 v4.0.6 - APP to configure System and Peripheral Clocks.
+ * CLOCK_XMC1 v4.0.14 - APP to configure System and Peripheral Clocks.
  *
  * Copyright (c) 2015, Infineon Technologies AG
  * All rights reserved.                        
@@ -42,6 +42,11 @@
  *     - Initial version for DAVEv4. <BR>
  * 2015-05-08:
  *     - Typo mistake corrected in _GetAppVersion(). <BR>
+ * 2015-09-22:
+ *     - CLOCK_XMC1_Init API and CLOCK_XMC1_SetMCLKFrequency APIs are provided. <BR>
+ * 2015-10-19:
+ *     - non-weak OSCHP_GetFrequency function is provided. <BR>
+ *     - CLOCK_XMC1_IsDCO1ExtRefCalibrationReady function is provided. <BR>
  * @endcond 
  *
  */
@@ -76,3 +81,88 @@ DAVE_APP_VERSION_t CLOCK_XMC1_GetAppVersion(void)
 
   return (version);
 }
+
+/*
+ * API to initialize the CLOCK_XMC1 APP Interrupts
+ */
+CLOCK_XMC1_STATUS_t CLOCK_XMC1_Init(CLOCK_XMC1_t *handle)
+{
+  CLOCK_XMC1_STATUS_t status = CLOCK_XMC1_STATUS_SUCCESS;
+  CLOCK_XMC1_STATUS_t loci_event_status = CLOCK_XMC1_STATUS_SUCCESS;
+  CLOCK_XMC1_STATUS_t stdbyclkfail_status = CLOCK_XMC1_STATUS_SUCCESS;
+  CLOCK_XMC1_STATUS_t loss_ext_clock_event_status = CLOCK_XMC1_STATUS_SUCCESS;
+  CLOCK_XMC1_STATUS_t dco1_out_sync_status = CLOCK_XMC1_STATUS_SUCCESS;
+  if (handle->init_status == false)
+  {
+#ifdef CLOCK_XMC1_INTERRUPT_ENABLED
+
+    status = (CLOCK_XMC1_STATUS_t)GLOBAL_SCU_XMC1_Init(handle->global_scu_handleptr);
+    if (CLOCK_XMC1_STATUS_SUCCESS == status)
+    {
+#ifdef CLOCK_XMC1_LOCI_EVENT_ENABLED
+      /* Initialization of CPU_CTRL_XMC1 APP */
+      loci_event_status = (CLOCK_XMC1_STATUS_t)GLOBAL_SCU_XMC1_RegisterCallback(
+                           GLOBAL_SCU_XMC1_EVENT_LOCI, handle->callback_function_loci);
+      /* Enable Loss of DCO1 Clock Event */
+      XMC_SCU_INTERRUPT_EnableEvent(GLOBAL_SCU_XMC1_EVENT_LOCI);
+#endif
+#ifdef CLOCK_XMC1_STDBYCLKFAIL_EVENT_ENABLED
+      /* Initialization of CPU_CTRL_XMC1 APP */
+      stdbyclkfail_status = (CLOCK_XMC1_STATUS_t)GLOBAL_SCU_XMC1_RegisterCallback(
+                             GLOBAL_SCU_XMC1_EVENT_STDBYCLKFAIL, handle->callback_function_stdbyclkfail);
+      /* Enable Standby Clock Failure Event */
+      XMC_SCU_INTERRUPT_EnableEvent(GLOBAL_SCU_XMC1_EVENT_STDBYCLKFAIL);
+#endif
+
+#if (UC_SERIES == XMC14)
+
+#ifdef CLOCK_XMC1_LOSS_EXT_CLOCK_EVENT_ENABLED
+      /* Initialization of CPU_CTRL_XMC1 APP */
+      loss_ext_clock_event_status = (CLOCK_XMC1_STATUS_t)GLOBAL_SCU_XMC1_RegisterCallback(
+                                     GLOBAL_SCU_XMC1_EVENT_LOSS_EXT_CLOCK, handle->callback_function_loss_ext_clock);
+      /* Enable Loss of external OSC_HP clock Event */
+      XMC_SCU_INTERRUPT_EnableEvent(GLOBAL_SCU_XMC1_EVENT_LOSS_EXT_CLOCK);
+#endif
+#ifdef CLOCK_XMC1_DCO1_OUT_SYNC_EVENT_ENABLED
+      /* Initialization of CPU_CTRL_XMC1 APP */
+      dco1_out_sync_status = (CLOCK_XMC1_STATUS_t)GLOBAL_SCU_XMC1_RegisterCallback(
+                              GLOBAL_SCU_XMC1_EVENT_DCO1_OUT_SYNC, handle->callback_function_dco1_out_sync);
+      /* Enable  DCO1 Out of SYNC Event */
+      XMC_SCU_INTERRUPT_EnableEvent(GLOBAL_SCU_XMC1_EVENT_DCO1_OUT_SYNC);
+#endif
+
+#endif
+    }
+
+#endif
+    status = (CLOCK_XMC1_STATUS_t)(((uint32_t)loci_event_status) | ((uint32_t)stdbyclkfail_status) |
+    		                       ((uint32_t)loss_ext_clock_event_status) | ((uint32_t)dco1_out_sync_status));
+    if (CLOCK_XMC1_STATUS_SUCCESS == status)
+    {
+      handle->init_status = true;
+    }
+  }
+  return (status);
+}
+
+/*  API for ramping up/down the system clock frequency  */
+void CLOCK_XMC1_SetMCLKFrequency(uint32_t freq_khz)
+{
+  XMC_SCU_CLOCK_SetMCLKFrequency(freq_khz);
+}
+
+#if (CLOCK_XMC1_OSCHP_ENABLED)
+/*  API to retrieve high precision external oscillator frequency */
+uint32_t OSCHP_GetFrequency(void)
+{
+  return (CLOCK_XMC1_OSCHP_FREQUENCY);
+}
+#endif
+
+#if (CLOCK_XMC1_DCO1_CALIBRATION_ENABLED)
+/*  API to check whether DCO1 is synchronized to the XTAL frequency */
+bool CLOCK_XMC1_IsDCO1ExtRefCalibrationReady(void)
+{
+  return (XMC_SCU_CLOCK_IsDCO1ExtRefCalibrationReady());
+}
+#endif

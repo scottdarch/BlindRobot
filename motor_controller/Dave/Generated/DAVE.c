@@ -35,7 +35,8 @@
  *
  * 2014-06-16:
  *     - Initial version<br>
- *
+ * 2015-08-28:
+ *     - Added CLOCK_XMC1_Init conditionally
  *
  * @endcond
  *
@@ -52,7 +53,7 @@
 
 /*******************************************************************************
  * @brief This function initializes the APPs Init Functions.
- * 
+ *
  * @param[in]  None
  *
  * @return  DAVE_STATUS_t <BR>
@@ -62,49 +63,44 @@ DAVE_STATUS_t DAVE_Init(void)
   DAVE_STATUS_t init_status;
   
   init_status = DAVE_STATUS_SUCCESS;
-
-      
-
 /** @Initialization of APPs Init Functions */
-
-
-  if (init_status == DAVE_STATUS_SUCCESS)
-  {
-    /**  Initialization of CPU_CTRL_XMC1 APP instance CPU_CTRL_XMC1_0 */
-    init_status = (DAVE_STATUS_t)CPU_CTRL_XMC1_Init(&CPU_CTRL_XMC1_0);
-  }  
+  init_status = (DAVE_STATUS_t)CLOCK_XMC1_Init(&CLOCK_XMC1_0);
 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-    /**  Initialization of DIGITAL_IO APP instance DIR */
-    init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&DIR);
-  }  
-
+	 /**  Initialization of DIGITAL_IO APP instance DIS */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&DIS); 
+   } 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-    /**  Initialization of DIGITAL_IO APP instance DIS */
-    init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&DIS);
-  }  
-
+	 /**  Initialization of DIGITAL_IO APP instance DIR */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&DIR); 
+   } 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-    /**  Initialization of PWM APP instance PWM */
-    init_status = (DAVE_STATUS_t)PWM_Init(&PWM);
-  }  
-
+	 /**  Initialization of DIGITAL_IO APP instance LED1 */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LED1); 
+   } 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-    /**  Initialization of DIGITAL_IO APP instance LED2 */
-    init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LED2);
-  }  
-
+	 /**  Initialization of DIGITAL_IO APP instance LED2 */
+	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LED2); 
+   } 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-    /**  Initialization of DIGITAL_IO APP instance LED1 */
-    init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LED1);
-  }  
- 
-
+	 /**  Initialization of UART APP instance UART_0 */
+	 init_status = (DAVE_STATUS_t)UART_Init(&UART_0); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of SPI_MASTER APP instance SPI */
+	 init_status = (DAVE_STATUS_t)SPI_MASTER_Init(&SPI); 
+   } 
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+	 /**  Initialization of PWM APP instance PWM */
+	 init_status = (DAVE_STATUS_t)PWM_Init(&PWM); 
+   }  
   return init_status;
 } /**  End of function DAVE_Init */
 

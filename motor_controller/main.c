@@ -1,48 +1,43 @@
-/*
- * main.c
- *
- *  Created on: 2015 Nov 05 09:11:24
- *  Author: schwarzg
+/* .            ``
+ *      <X X>  /
+ * ``---  |  -
+ *     [     ]   A BlindRobot Project (by 32bits.io)
+ *______U___U____________________________________________________________________
  */
 
-/***************************************************************************
- *  H-Bridge Kit 2Go - Simple DC Motor Control Demo
- *
- *  Drives a DC motor with 1kHz PWM
- *
- *  The PWM duty cycle is gradually increased in steps of 1% up to 100%
- *  and then decreased again back to 0% .
- *
- *  After each cycle of increasing and decreasing the rotating direction
- *  of the motor is changed (DIR pin of IFX9201 is toggled)
- *
- ***************************************************************************
- *
- * forward
- *
- *    ^ motor speed
- *    |
- *    |   /\            /\
- *    |  /  \          /  \
- *    | /    \        /    \
- * 0 -|/------\------/--------->
- *    |        \    /         t
- *    |         \  /
- *    |          \/
- *
- * reverse
- *
- ***************************************************************************
- *  Revision 1.0 as of 2015-11-06
- **************************************************************************/
+// Infineon XMC1100 SDK
+#include <DAVE.h>
 
-#include <DAVE.h> //Declarations from DAVE Code Generation (includes SFR declaration)
+#define TICKS_PER_SECOND 100
 
-#define TICKS_PER_SECOND 100UL
+static void uart_print(const char *send_string)
+{
+    uint32_t length;
+    uint32_t index = 0;
 
-bool dir = 0;
-bool inc = 1;
-uint32_t duty = 0;
+    length = strlen(send_string);
+
+    while (index < length) {
+        UART_TransmitWord(&UART_0, send_string[index]);
+        index++;
+
+        // Wait for transmit buffer interrupt to fill it again with remaining data
+        while ((UART_GetTXFIFOStatus(&UART_0) & XMC_USIC_CH_TXFIFO_EVENT_STANDARD) == 0) {
+        }
+    }
+    UART_ClearTXFIFOStatus(&UART_0, XMC_USIC_CH_TXFIFO_EVENT_STANDARD);
+}
+
+void SysTick_Handler(void)
+{
+    static uint32_t i = 0;
+    i += 1;
+    if (i == TICKS_PER_SECOND) {
+        i = 0;
+        DIGITAL_IO_ToggleOutput(&LED1);
+        uart_print("blink\n");
+    }
+}
 
 int main(void)
 {
@@ -53,49 +48,8 @@ int main(void)
     DIGITAL_IO_SetOutputHigh(&DIS);
     DIGITAL_IO_SetOutputLow(&DIS);
 
-    while (1U) {
-        uint32_t i = 0;
+    SysTick_Config(SystemCoreClock / TICKS_PER_SECOND);
 
-        if (inc) {
-            // Increment the PWM duty cycle by 1%
-            duty += 100;
-
-            // Set PWM duty cycle
-            PWM_SetDutyCycle(&PWM, duty);
-
-            // Once the duty cycle has reached 100% change flag to decrement
-            if (duty >= 10000) {
-                inc = 0;
-            }
-        } else // decrement
-        {
-            // Decrement the PWM duty cycle by 1%
-            duty -= 100;
-
-            // Set PWM duty cycle
-            PWM_SetDutyCycle(&PWM, duty);
-
-            // Once the duty has reached 0% change flag to increment
-            // and change the motor turning direction (toggle DIR pin)
-            if (duty < 100) {
-                inc = 1;
-
-                if (dir == 1) {
-                    // change direction --> set DIR pin low
-                    dir = 0;
-                    DIGITAL_IO_SetOutputLow(&DIR);
-                    DIGITAL_IO_SetOutputLow(&LED2); // visual indicator for DIR
-                } else {
-                    // change direction --> set DIR pin high
-                    dir = 1;
-                    DIGITAL_IO_SetOutputHigh(&DIR);
-                    DIGITAL_IO_SetOutputHigh(&LED2); // visual indicator for DIR
-                }
-            }
-        }
-
-        for (i = 0; i < 8000; i++)
-            ;
-        DIGITAL_IO_ToggleOutput(&LED1);
+    while (true) {
     }
 }
