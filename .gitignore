@@ -20,4 +20,5 @@ RemoteSystemsTempFiles
 *.s#*
 *.l#*
 *.b#*
+*.lck
 
