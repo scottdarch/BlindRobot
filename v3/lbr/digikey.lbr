@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE eagle SYSTEM "eagle.dtd">
+<eagle version="8.0.1">
+<drawing>
+<settings>
+<setting alwaysvectorfont="yes"/>
+<setting verticaltext="up"/>
+</settings>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.125" altunitdist="mm" altunit="mm"/>
+<layers>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
+<layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="25" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
+<layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+</layers>
+<library>
+<packages>
+<package name="VQFN20">
+<smd name="P$5" x="-0.25" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$6" x="0.25" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$4" x="-0.75" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$7" x="0.75" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$3" x="-1.25" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$8" x="1.25" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$2" x="-1.75" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$9" x="1.75" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$19" x="-1.75" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$18" x="-1.25" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$17" x="-0.75" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$16" x="-0.25" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$15" x="0.25" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$14" x="0.75" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$13" x="1.25" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$12" x="1.75" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$20" x="-2.225" y="0.75" dx="0.28" dy="0.85" layer="1" roundness="20" rot="R90"/>
+<smd name="P$1" x="-2.225" y="-0.75" dx="0.28" dy="0.85" layer="1" roundness="20" rot="R90"/>
+<smd name="P$11" x="2.225" y="0.75" dx="0.28" dy="0.85" layer="1" roundness="20" rot="R90"/>
+<smd name="P$10" x="2.225" y="-0.75" dx="0.28" dy="0.85" layer="1" roundness="20" rot="R90"/>
+<wire x1="-2.325" y1="1.825" x2="-2.325" y2="-1.825" width="0.127" layer="51"/>
+<wire x1="2.325" y1="1.825" x2="2.325" y2="-1.825" width="0.127" layer="51"/>
+<wire x1="-2.325" y1="1.825" x2="2.325" y2="1.825" width="0.127" layer="51"/>
+<wire x1="-2.325" y1="-1.825" x2="2.325" y2="-1.825" width="0.127" layer="51"/>
+<smd name="P$21" x="0" y="0" dx="5.3" dy="0.78" layer="1"/>
+<rectangle x1="-1.525" y1="-1.025" x2="1.525" y2="1.025" layer="1"/>
+<circle x="-2.665" y="-2.145" radius="0.127" width="0.127" layer="21"/>
+<text x="-2.25" y="2.25" size="0.5" layer="25">&gt;Name</text>
+<text x="-2.25" y="-2.75" size="0.5" layer="27">&gt;Value</text>
+</package>
+</packages>
+<symbols>
+<symbol name="TPS61088">
+<pin name="SW@4" x="-17.78" y="5.08" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="FSW" x="-17.78" y="-7.62" visible="pin" length="middle" direction="in"/>
+<pin name="VIN" x="-17.78" y="-10.16" visible="pin" length="middle" direction="in"/>
+<pin name="VCC" x="-17.78" y="-12.7" visible="pin" length="middle" direction="pwr"/>
+<pin name="EN" x="-17.78" y="-15.24" visible="pin" length="middle" direction="in"/>
+<pin name="PGND" x="-17.78" y="-17.78" visible="pin" length="middle" direction="pwr"/>
+<pin name="AGND" x="-17.78" y="-20.32" visible="pin" length="middle" direction="pwr"/>
+<pin name="VOUT@14" x="17.78" y="5.08" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
+<pin name="FB" x="17.78" y="-5.08" visible="pin" length="middle" direction="in" rot="R180"/>
+<pin name="COMP" x="17.78" y="-7.62" visible="pin" length="middle" direction="out" rot="R180"/>
+<pin name="ILIM" x="17.78" y="-10.16" visible="pin" length="middle" direction="out" rot="R180"/>
+<pin name="SS" x="17.78" y="-12.7" visible="pin" length="middle" direction="out" rot="R180"/>
+<pin name="MODE" x="17.78" y="-15.24" visible="pin" length="middle" direction="in" rot="R180"/>
+<pin name="BOOT" x="-2.54" y="17.78" visible="pin" length="middle" direction="out" rot="R270"/>
+<wire x1="-12.7" y1="12.7" x2="-12.7" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="-12.7" y1="-22.86" x2="12.7" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="12.7" y1="-22.86" x2="12.7" y2="12.7" width="0.254" layer="94"/>
+<wire x1="12.7" y1="12.7" x2="-12.7" y2="12.7" width="0.254" layer="94"/>
+<text x="-10.16" y="-25.4" size="1.27" layer="95">&gt;Name</text>
+<text x="-10.16" y="-27.94" size="1.016" layer="95">&gt;Value</text>
+<pin name="SW@5" x="-17.78" y="2.54" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="SW@6" x="-17.78" y="0" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="SW@7" x="-17.78" y="-2.54" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="VOUT@15" x="17.78" y="2.54" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
+<pin name="VOUT@16" x="17.78" y="0" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
+<pin name="NC@11" x="17.78" y="-17.78" visible="pin" length="middle" direction="nc" swaplevel="3" rot="R180"/>
+<pin name="NC@12" x="17.78" y="-20.32" visible="pin" length="middle" direction="nc" swaplevel="3" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="TPS61088" prefix="U">
+<description>&lt;h1&gt;TPS61088 10-A Fully-Integrated Synchronous Boost Converter&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Input Voltage Range: 2.7 to 12 V
+&lt;li&gt;Output Voltage Range: 4.5 to 12.6 V
+&lt;li&gt;10-A Switch Current
+&lt;li&gt;Up to 91% Efficiency at VIN = 3.3 V, VOUT = 9 V, and IOUT = 3 A
+&lt;li&gt;Mode Selection Between PFM Mode and ForcedPWM Mode at Light Load
+&lt;li&gt;1.0 μA Current into VIN Pin during Shutdown
+&lt;li&gt;Resistor-Programmable Switch Peak Current Limit
+&lt;li&gt;Adjustable Switching Frequency: 200 kHz to 2.2MHz
+&lt;li&gt;Programmable Soft Start
+&lt;li&gt;Output Overvoltage Protection at 13.2 V
+&lt;li&gt;Cycle-by-Cycle Overcurrent Protection
+&lt;li&gt;Thermal Shutdown
+&lt;li&gt;4.50-mm × 3.50-mm 20-Pin VQFN Package
+&lt;/ul&gt;
+
+&lt;h2&gt;Description&lt;/h2&gt;
+&lt;p&gt;
+The TPS61088 is a high power density, fully
+integrated synchronous boost converter with a 11-mΩ
+power switch and a 13-mΩ rectifier switch to provide
+a high efficiency and small size solution in portable
+systems. The TPS61088 has wide input voltage
+range from 2.7 V to 12 V to support applications with
+single cell or two cell Lithium batteries. The device
+has 10-A switch current capability and is capable of
+providing an output voltage up to 12.6 V.
+The TPS61088 uses adaptive constant off-time peak
+current control topology to regulate the output
+voltage. In moderate to heavy load condition, the
+TPS61088 works in the pulse width modulation
+(PWM) mode. In light load condition, the device has
+two operation modes selected by the MODE pin. One
+is the pulse frequency modulation (PFM) mode to
+improve the efficiency and another one is the forced
+PWM mode to avoid application problems caused by
+low switching frequency. The switching frequency in
+the PWM mode is adjustable ranging from 200 kHz to
+2.2 MHz by an external resistor. The TPS61088 also
+implements a programmable soft-start function and
+an adjustable switching peak current limit function. In
+addition, the device provides 13.2-V output
+overvoltage protection, cycle-by-cycle overcurrent
+protection, and thermal shutdown protection.
+The TPS61088 is available in a 4.50-mm × 3.50-mm
+20-pin VQFN package.&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="TPS61088" x="0" y="0"/>
+</gates>
+<devices>
+<device name="VQFN20" package="VQFN20">
+<connects>
+<connect gate="G$1" pin="AGND" pad="P$20"/>
+<connect gate="G$1" pin="BOOT" pad="P$8"/>
+<connect gate="G$1" pin="COMP" pad="P$18"/>
+<connect gate="G$1" pin="EN" pad="P$2"/>
+<connect gate="G$1" pin="FB" pad="P$17"/>
+<connect gate="G$1" pin="FSW" pad="P$3"/>
+<connect gate="G$1" pin="ILIM" pad="P$19"/>
+<connect gate="G$1" pin="MODE" pad="P$13"/>
+<connect gate="G$1" pin="NC@11" pad="P$11"/>
+<connect gate="G$1" pin="NC@12" pad="P$12"/>
+<connect gate="G$1" pin="PGND" pad="P$21"/>
+<connect gate="G$1" pin="SS" pad="P$10"/>
+<connect gate="G$1" pin="SW@4" pad="P$4"/>
+<connect gate="G$1" pin="SW@5" pad="P$5"/>
+<connect gate="G$1" pin="SW@6" pad="P$6"/>
+<connect gate="G$1" pin="SW@7" pad="P$7"/>
+<connect gate="G$1" pin="VCC" pad="P$1"/>
+<connect gate="G$1" pin="VIN" pad="P$9"/>
+<connect gate="G$1" pin="VOUT@14" pad="P$14"/>
+<connect gate="G$1" pin="VOUT@15" pad="P$15"/>
+<connect gate="G$1" pin="VOUT@16" pad="P$16"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="TYPE" value="boost" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
+</drawing>
+</eagle>

@@ -17,5 +17,7 @@ RemoteSystemsTempFiles
 .env.local
 .cproject
 .project
-.s\#*
-.l\#*
+*.s#*
+*.l#*
+*.b#*
+

@@ -140,436 +140,6 @@
 </layers>
 <schematic xreflabel="%F%N/%S.%C%R" xrefpart="/%S.%C%R">
 <libraries>
-<library name="digikey_2">
-<packages>
-<package name="IND_2012">
-<smd name="1" x="-0.9016" y="0" dx="0.8032" dy="1.45" layer="1"/>
-<smd name="2" x="0.9016" y="0" dx="0.8032" dy="1.45" layer="1"/>
-<wire x1="-0.2032" y1="-0.8636" x2="0.2032" y2="-0.8636" width="0.1524" layer="21"/>
-<wire x1="0.2032" y1="0.8636" x2="-0.2032" y2="0.8636" width="0.1524" layer="21"/>
-<wire x1="-2.0574" y1="0" x2="-2.2098" y2="0" width="0.1524" layer="21" curve="-180"/>
-<wire x1="-2.2098" y1="0" x2="-2.0574" y2="0" width="0.1524" layer="21" curve="-180"/>
-<text x="-3.2766" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Name</text>
-<wire x1="-0.508" y1="-0.7366" x2="-0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.508" y1="0.7366" x2="-1.0922" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-1.0922" y1="-0.7366" x2="-0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="0.7366" x2="0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="-0.7366" x2="1.0922" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="1.0922" y1="0.7366" x2="0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.508" y1="-0.7366" x2="0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="1.0922" y1="-0.7366" x2="1.0922" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="0.7366" x2="-0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-1.0922" y1="0.7366" x2="-1.0922" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.6858" y1="0" x2="-0.8382" y2="0" width="0" layer="51" curve="-180"/>
-<wire x1="-0.8382" y1="0" x2="-0.6858" y2="0" width="0" layer="51" curve="-180"/>
-</package>
-<package name="IND_2012-M">
-<smd name="1" x="-0.9524" y="0" dx="0.9048" dy="1.5516" layer="1"/>
-<smd name="2" x="0.9524" y="0" dx="0.9048" dy="1.5516" layer="1"/>
-<wire x1="-0.1778" y1="-0.8636" x2="0.1778" y2="-0.8636" width="0.1524" layer="21"/>
-<wire x1="0.1778" y1="0.8636" x2="-0.1778" y2="0.8636" width="0.1524" layer="21"/>
-<wire x1="-2.159" y1="0" x2="-2.3114" y2="0" width="0.1524" layer="21" curve="-180"/>
-<wire x1="-2.3114" y1="0" x2="-2.159" y2="0" width="0.1524" layer="21" curve="-180"/>
-<text x="-3.2766" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Name</text>
-<wire x1="-0.508" y1="-0.7366" x2="-0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.508" y1="0.7366" x2="-1.0922" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-1.0922" y1="-0.7366" x2="-0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="0.7366" x2="0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="-0.7366" x2="1.0922" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="1.0922" y1="0.7366" x2="0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.508" y1="-0.7366" x2="0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="1.0922" y1="-0.7366" x2="1.0922" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="0.7366" x2="-0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-1.0922" y1="0.7366" x2="-1.0922" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.7366" y1="0" x2="-0.889" y2="0" width="0" layer="51" curve="-180"/>
-<wire x1="-0.889" y1="0" x2="-0.7366" y2="0" width="0" layer="51" curve="-180"/>
-</package>
-<package name="IND_2012-L">
-<smd name="1" x="-0.8508" y="0" dx="0.7016" dy="1.45" layer="1"/>
-<smd name="2" x="0.8508" y="0" dx="0.7016" dy="1.45" layer="1"/>
-<wire x1="-0.2032" y1="-0.8636" x2="0.2032" y2="-0.8636" width="0.1524" layer="21"/>
-<wire x1="0.2032" y1="0.8636" x2="-0.2032" y2="0.8636" width="0.1524" layer="21"/>
-<wire x1="-1.9558" y1="0" x2="-2.1082" y2="0" width="0.1524" layer="21" curve="-180"/>
-<wire x1="-2.1082" y1="0" x2="-1.9558" y2="0" width="0.1524" layer="21" curve="-180"/>
-<text x="-3.2766" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Name</text>
-<wire x1="-0.508" y1="-0.7366" x2="-0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.508" y1="0.7366" x2="-1.0922" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-1.0922" y1="-0.7366" x2="-0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="0.7366" x2="0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="-0.7366" x2="1.0922" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="1.0922" y1="0.7366" x2="0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.508" y1="-0.7366" x2="0.508" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="1.0922" y1="-0.7366" x2="1.0922" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="0.508" y1="0.7366" x2="-0.508" y2="0.7366" width="0.1524" layer="51"/>
-<wire x1="-1.0922" y1="0.7366" x2="-1.0922" y2="-0.7366" width="0.1524" layer="51"/>
-<wire x1="-0.635" y1="0" x2="-0.7874" y2="0" width="0" layer="51" curve="-180"/>
-<wire x1="-0.7874" y1="0" x2="-0.635" y2="0" width="0" layer="51" curve="-180"/>
-</package>
-<package name="DRC10_2P4X1P65">
-<smd name="1" x="-1.475" y="1" dx="0.85" dy="0.28" layer="1" cream="no"/>
-<smd name="2" x="-1.475" y="0.5" dx="0.85" dy="0.28" layer="1" cream="no"/>
-<smd name="3" x="-1.475" y="0" dx="0.85" dy="0.28" layer="1" cream="no"/>
-<smd name="4" x="-1.475" y="-0.5" dx="0.85" dy="0.28" layer="1" cream="no"/>
-<smd name="5" x="-1.475" y="-1" dx="0.85" dy="0.28" layer="1" cream="no"/>
-<smd name="6" x="1.475" y="-1" dx="0.85" dy="0.28" layer="1" rot="R180" cream="no"/>
-<smd name="7" x="1.475" y="-0.5" dx="0.85" dy="0.28" layer="1" rot="R180" cream="no"/>
-<smd name="8" x="1.475" y="0" dx="0.85" dy="0.28" layer="1" rot="R180" cream="no"/>
-<smd name="9" x="1.475" y="0.5" dx="0.85" dy="0.28" layer="1" rot="R180" cream="no"/>
-<smd name="10" x="1.475" y="1" dx="0.85" dy="0.28" layer="1" rot="R180" cream="no"/>
-<polygon width="0.0254" layer="31">
-<vertex x="-1.864946875" y="1.104946875"/>
-<vertex x="-1.864946875" y="0.895053125"/>
-<vertex x="-1.085053125" y="0.895053125"/>
-<vertex x="-1.085053125" y="1.104946875"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="-1.864946875" y="0.604946875"/>
-<vertex x="-1.864946875" y="0.39505"/>
-<vertex x="-1.085053125" y="0.39505"/>
-<vertex x="-1.085053125" y="0.604946875"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="-1.864946875" y="0.104946875"/>
-<vertex x="-1.864946875" y="-0.104946875"/>
-<vertex x="-1.085053125" y="-0.104946875"/>
-<vertex x="-1.085053125" y="0.104946875"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="-1.864946875" y="-0.39505"/>
-<vertex x="-1.864946875" y="-0.604946875"/>
-<vertex x="-1.085053125" y="-0.604946875"/>
-<vertex x="-1.085053125" y="-0.39505"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="-1.864946875" y="-0.895053125"/>
-<vertex x="-1.864946875" y="-1.104946875"/>
-<vertex x="-1.085053125" y="-1.104946875"/>
-<vertex x="-1.085053125" y="-0.895053125"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="1.085053125" y="-0.895053125"/>
-<vertex x="1.085053125" y="-1.104946875"/>
-<vertex x="1.864946875" y="-1.104946875"/>
-<vertex x="1.864946875" y="-0.895053125"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="1.085053125" y="-0.39505"/>
-<vertex x="1.085053125" y="-0.604946875"/>
-<vertex x="1.864946875" y="-0.604946875"/>
-<vertex x="1.864946875" y="-0.39505"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="1.085053125" y="0.104946875"/>
-<vertex x="1.085053125" y="-0.104946875"/>
-<vertex x="1.864946875" y="-0.104946875"/>
-<vertex x="1.864946875" y="0.104946875"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="1.085053125" y="0.604946875"/>
-<vertex x="1.085053125" y="0.39505"/>
-<vertex x="1.864946875" y="0.39505"/>
-<vertex x="1.864946875" y="0.604946875"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="1.085053125" y="1.104946875"/>
-<vertex x="1.085053125" y="0.895053125"/>
-<vertex x="1.864946875" y="0.895053125"/>
-<vertex x="1.864946875" y="1.104946875"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="-1.93505" y="1.175053125"/>
-<vertex x="-1.93505" y="0.82495"/>
-<vertex x="-1.01495" y="0.82495"/>
-<vertex x="-1.01495" y="1.175053125"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="-1.93505" y="0.67505"/>
-<vertex x="-1.93505" y="0.324946875"/>
-<vertex x="-1.01495" y="0.324946875"/>
-<vertex x="-1.01495" y="0.67505"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="-1.93505" y="0.175053125"/>
-<vertex x="-1.93505" y="-0.175053125"/>
-<vertex x="-1.01495" y="-0.175053125"/>
-<vertex x="-1.01495" y="0.175053125"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="-1.93505" y="-0.324946875"/>
-<vertex x="-1.93505" y="-0.67505"/>
-<vertex x="-1.01495" y="-0.67505"/>
-<vertex x="-1.01495" y="-0.324946875"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="-1.93505" y="-0.82495"/>
-<vertex x="-1.93505" y="-1.175053125"/>
-<vertex x="-1.01495" y="-1.175053125"/>
-<vertex x="-1.01495" y="-0.82495"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="1.01495" y="-0.82495"/>
-<vertex x="1.01495" y="-1.175053125"/>
-<vertex x="1.93505" y="-1.175053125"/>
-<vertex x="1.93505" y="-0.82495"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="1.01495" y="-0.324946875"/>
-<vertex x="1.01495" y="-0.67505"/>
-<vertex x="1.93505" y="-0.67505"/>
-<vertex x="1.93505" y="-0.324946875"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="1.01495" y="0.175053125"/>
-<vertex x="1.01495" y="-0.175053125"/>
-<vertex x="1.93505" y="-0.175053125"/>
-<vertex x="1.93505" y="0.175053125"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="1.01495" y="0.67505"/>
-<vertex x="1.01495" y="0.324946875"/>
-<vertex x="1.93505" y="0.324946875"/>
-<vertex x="1.93505" y="0.67505"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="1.01495" y="1.175053125"/>
-<vertex x="1.01495" y="0.82495"/>
-<vertex x="1.93505" y="0.82495"/>
-<vertex x="1.93505" y="1.175053125"/>
-</polygon>
-<wire x1="-1.9304" y1="-1.9304" x2="1.9304" y2="-1.9304" width="0.1524" layer="21"/>
-<wire x1="1.9304" y1="-1.9304" x2="1.9304" y2="-1.4732" width="0.1524" layer="21"/>
-<wire x1="1.9304" y1="1.9304" x2="-1.9304" y2="1.9304" width="0.1524" layer="21"/>
-<wire x1="-1.9304" y1="1.9304" x2="-1.9304" y2="1.4732" width="0.1524" layer="21"/>
-<wire x1="-1.9304" y1="-1.4732" x2="-1.9304" y2="-1.9304" width="0.1524" layer="21"/>
-<wire x1="1.9304" y1="1.4732" x2="1.9304" y2="1.9304" width="0.1524" layer="21"/>
-<wire x1="-2.2352" y1="0.9144" x2="-2.2352" y2="1.0668" width="0.1524" layer="21" curve="-208"/>
-<text x="-3.2766" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Name</text>
-<wire x1="-1.5494" y1="-1.5494" x2="1.5494" y2="-1.5494" width="0.1524" layer="51"/>
-<wire x1="1.5494" y1="-1.5494" x2="1.5494" y2="1.5494" width="0.1524" layer="51"/>
-<wire x1="1.5494" y1="1.5494" x2="0.3048" y2="1.5494" width="0.1524" layer="51"/>
-<wire x1="0.3048" y1="1.5494" x2="-0.3048" y2="1.5494" width="0.1524" layer="51"/>
-<wire x1="-0.3048" y1="1.5494" x2="-1.5494" y2="1.5494" width="0.1524" layer="51"/>
-<wire x1="-1.5494" y1="1.5494" x2="-1.5494" y2="-1.5494" width="0.1524" layer="51"/>
-<wire x1="-0.9652" y1="0.9906" x2="-1.1176" y2="0.9906" width="0" layer="51" curve="-180"/>
-<wire x1="-1.1176" y1="0.9906" x2="-0.9652" y2="0.9906" width="0" layer="51" curve="-180"/>
-<wire x1="0.3048" y1="1.5494" x2="-0.3048" y2="1.5494" width="0.1524" layer="51" curve="-180"/>
-</package>
-</packages>
-<symbols>
-<symbol name="IND">
-<pin name="1" x="15.24" y="0" visible="off" length="short" direction="pas" rot="R180"/>
-<pin name="2" x="0" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
-<wire x1="5.08" y1="0" x2="5.08" y2="1.27" width="0.2032" layer="94"/>
-<wire x1="7.62" y1="0" x2="7.62" y2="1.27" width="0.2032" layer="94"/>
-<wire x1="12.7" y1="0" x2="12.7" y2="1.27" width="0.2032" layer="94"/>
-<wire x1="2.54" y1="0" x2="2.54" y2="1.27" width="0.2032" layer="94"/>
-<wire x1="10.16" y1="0" x2="10.16" y2="1.27" width="0.2032" layer="94"/>
-<wire x1="5.08" y1="1.27" x2="7.62" y2="1.27" width="0.1524" layer="94" curve="-180"/>
-<wire x1="2.54" y1="1.27" x2="5.08" y2="1.27" width="0.1524" layer="94" curve="-180"/>
-<wire x1="7.62" y1="1.27" x2="10.16" y2="1.27" width="0.1524" layer="94" curve="-180"/>
-<wire x1="10.16" y1="1.27" x2="12.7" y2="1.27" width="0.1524" layer="94" curve="-180"/>
-<text x="-1.9812" y="-4.2672" size="3.4798" layer="96" ratio="10" rot="SR0">&gt;Value</text>
-<text x="-0.9144" y="3.3528" size="3.4798" layer="95" ratio="10" rot="SR0">&gt;Name</text>
-</symbol>
-<symbol name="TPS63001_DRC_10">
-<pin name="VOUT" x="2.54" y="0" length="middle" direction="out"/>
-<pin name="L2" x="2.54" y="-2.54" length="middle" direction="in"/>
-<pin name="PGND" x="2.54" y="-5.08" length="middle" direction="pwr"/>
-<pin name="L1" x="2.54" y="-7.62" length="middle" direction="in"/>
-<pin name="VIN" x="2.54" y="-10.16" length="middle" direction="in"/>
-<pin name="EN" x="63.5" y="-10.16" length="middle" direction="in" rot="R180"/>
-<pin name="PS/SYNC" x="63.5" y="-7.62" length="middle" direction="in" rot="R180"/>
-<pin name="VINA" x="63.5" y="-5.08" length="middle" direction="in" rot="R180"/>
-<pin name="GND" x="63.5" y="-2.54" length="middle" direction="pwr" rot="R180"/>
-<pin name="FB" x="63.5" y="0" length="middle" direction="in" rot="R180"/>
-<wire x1="7.62" y1="5.08" x2="7.62" y2="-15.24" width="0.1524" layer="94"/>
-<wire x1="7.62" y1="-15.24" x2="58.42" y2="-15.24" width="0.1524" layer="94"/>
-<wire x1="58.42" y1="-15.24" x2="58.42" y2="5.08" width="0.1524" layer="94"/>
-<wire x1="58.42" y1="5.08" x2="7.62" y2="5.08" width="0.1524" layer="94"/>
-<text x="28.2956" y="9.1186" size="2.0828" layer="95" ratio="6" rot="SR0">&gt;Name</text>
-<text x="27.6606" y="6.5786" size="2.0828" layer="96" ratio="6" rot="SR0">&gt;Value</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="MLP2012S1R5MT0S1" prefix="L">
-<gates>
-<gate name="A" symbol="IND" x="0" y="0" swaplevel="1"/>
-</gates>
-<devices>
-<device name="" package="IND_2012">
-<connects>
-<connect gate="A" pin="1" pad="1"/>
-<connect gate="A" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MANUFACTURER_PART_NUMBER" value="MLP2012S1R5MT0S1" constant="no"/>
-<attribute name="VENDOR" value="TDK" constant="no"/>
-</technology>
-</technologies>
-</device>
-<device name="IND_2012-M" package="IND_2012-M">
-<connects>
-<connect gate="A" pin="1" pad="1"/>
-<connect gate="A" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MANUFACTURER_PART_NUMBER" value="MLP2012S1R5MT0S1" constant="no"/>
-<attribute name="VENDOR" value="TDK" constant="no"/>
-</technology>
-</technologies>
-</device>
-<device name="IND_2012-L" package="IND_2012-L">
-<connects>
-<connect gate="A" pin="1" pad="1"/>
-<connect gate="A" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MANUFACTURER_PART_NUMBER" value="MLP2012S1R5MT0S1" constant="no"/>
-<attribute name="VENDOR" value="TDK" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="TPS63001DRCR" prefix="U">
-<gates>
-<gate name="A" symbol="TPS63001_DRC_10" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="DRC10_2P4X1P65">
-<connects>
-<connect gate="A" pin="EN" pad="6"/>
-<connect gate="A" pin="FB" pad="10"/>
-<connect gate="A" pin="GND" pad="9"/>
-<connect gate="A" pin="L1" pad="4"/>
-<connect gate="A" pin="L2" pad="2"/>
-<connect gate="A" pin="PGND" pad="3"/>
-<connect gate="A" pin="PS/SYNC" pad="7"/>
-<connect gate="A" pin="VIN" pad="5"/>
-<connect gate="A" pin="VINA" pad="8"/>
-<connect gate="A" pin="VOUT" pad="1"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MANUFACTURER_PART_NUMBER" value="TPS63001DRCR" constant="no"/>
-<attribute name="VENDOR" value="Texas Instruments" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
-<library name="Murata_By_element14_Batch_1">
-<description>Developed by element14 :&lt;br&gt;
-element14 CAD Library consolidation.ulp
-at 21/03/2012 17:47:01</description>
-<packages>
-<package name="CAPC1608X85N">
-<smd name="1" x="-0.7112" y="0" dx="0.6604" dy="0.9398" layer="1"/>
-<smd name="2" x="0.7112" y="0" dx="0.6604" dy="0.9398" layer="1"/>
-<wire x1="-0.381" y1="-0.4826" x2="-0.381" y2="0.4826" width="0" layer="51"/>
-<wire x1="-0.381" y1="0.4826" x2="-0.8636" y2="0.4826" width="0" layer="51"/>
-<wire x1="-0.8636" y1="-0.4826" x2="-0.381" y2="-0.4826" width="0" layer="51"/>
-<wire x1="0.381" y1="0.4826" x2="0.381" y2="-0.4826" width="0" layer="51"/>
-<wire x1="0.381" y1="-0.4826" x2="0.8636" y2="-0.4826" width="0" layer="51"/>
-<wire x1="0.8636" y1="0.4826" x2="0.381" y2="0.4826" width="0" layer="51"/>
-<wire x1="-0.381" y1="-0.4826" x2="0.381" y2="-0.4826" width="0" layer="51"/>
-<wire x1="0.8636" y1="-0.4826" x2="0.8636" y2="0.4826" width="0" layer="51"/>
-<wire x1="0.381" y1="0.4826" x2="-0.381" y2="0.4826" width="0" layer="51"/>
-<wire x1="-0.8636" y1="0.4826" x2="-0.8636" y2="-0.4826" width="0" layer="51"/>
-<text x="-3.4544" y="1.27" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
-<text x="-3.4544" y="-3.175" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
-</package>
-<package name="CAPC3216X125N">
-<smd name="1" x="-1.397" y="0" dx="0.9144" dy="1.8034" layer="1"/>
-<smd name="2" x="1.397" y="0" dx="0.9144" dy="1.8034" layer="1"/>
-<wire x1="-0.6096" y1="-0.889" x2="0.6096" y2="-0.889" width="0.1524" layer="21"/>
-<wire x1="0.6096" y1="0.889" x2="-0.6096" y2="0.889" width="0.1524" layer="21"/>
-<wire x1="-0.9398" y1="-0.889" x2="-0.9398" y2="0.889" width="0" layer="51"/>
-<wire x1="-0.9398" y1="0.889" x2="-1.7018" y2="0.889" width="0" layer="51"/>
-<wire x1="-1.7018" y1="-0.889" x2="-0.9398" y2="-0.889" width="0" layer="51"/>
-<wire x1="0.9398" y1="0.889" x2="0.9398" y2="-0.889" width="0" layer="51"/>
-<wire x1="0.9398" y1="-0.889" x2="1.7018" y2="-0.889" width="0" layer="51"/>
-<wire x1="1.7018" y1="0.889" x2="0.9398" y2="0.889" width="0" layer="51"/>
-<wire x1="-0.9398" y1="-0.889" x2="0.9398" y2="-0.889" width="0" layer="51"/>
-<wire x1="1.7018" y1="-0.889" x2="1.7018" y2="0.889" width="0" layer="51"/>
-<wire x1="0.9398" y1="0.889" x2="-0.9398" y2="0.889" width="0" layer="51"/>
-<wire x1="-1.7018" y1="0.889" x2="-1.7018" y2="-0.889" width="0" layer="51"/>
-<text x="-3.4544" y="1.905" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
-<text x="-3.4544" y="-3.937" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
-</package>
-</packages>
-<symbols>
-<symbol name="CAPH">
-<pin name="C2" x="7.62" y="0" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
-<pin name="C1" x="0" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
-<wire x1="3.4798" y1="-1.905" x2="3.4798" y2="0" width="0.2032" layer="94"/>
-<wire x1="3.4798" y1="0" x2="3.4798" y2="1.905" width="0.2032" layer="94"/>
-<wire x1="4.1148" y1="-1.905" x2="4.1148" y2="0" width="0.2032" layer="94"/>
-<wire x1="4.1148" y1="0" x2="4.1148" y2="1.905" width="0.2032" layer="94"/>
-<wire x1="4.1148" y1="0" x2="5.08" y2="0" width="0.2032" layer="94"/>
-<wire x1="2.54" y1="0" x2="3.4798" y2="0" width="0.2032" layer="94"/>
-<text x="-5.6642" y="-9.3472" size="3.4798" layer="96" ratio="10" rot="SR0">&gt;VALUE</text>
-<text x="-0.9144" y="2.7686" size="2.0828" layer="95" ratio="10" rot="SR0">&gt;NAME</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="GRM188R60J106ME47D" prefix="C">
-<description>CAPACITOR, 0603</description>
-<gates>
-<gate name="A" symbol="CAPH" x="0" y="0" swaplevel="1"/>
-</gates>
-<devices>
-<device name="" package="CAPC1608X85N">
-<connects>
-<connect gate="A" pin="C1" pad="1"/>
-<connect gate="A" pin="C2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MPN" value="GRM188R60J106ME47D " constant="no"/>
-<attribute name="OC_FARNELL" value="1735528" constant="no"/>
-<attribute name="OC_NEWARK" value="24R6334" constant="no"/>
-<attribute name="SUPPLIER" value="Murata" constant="no"/>
-<attribute name="TOLERANCE" value="±20%" constant="no"/>
-<attribute name="VALUE" value="10uF" constant="no"/>
-<attribute name="VOLTAGERATING" value="6.3V" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="GRM31MR71E105KA01L" prefix="C">
-<description>CAPACITOR, 1206</description>
-<gates>
-<gate name="A" symbol="CAPH" x="0" y="0" swaplevel="1"/>
-</gates>
-<devices>
-<device name="" package="CAPC3216X125N">
-<connects>
-<connect gate="A" pin="C1" pad="1"/>
-<connect gate="A" pin="C2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MPN" value="GRM31MR71E105KA01L" constant="no"/>
-<attribute name="OC_FARNELL" value="9527761" constant="no"/>
-<attribute name="OC_NEWARK" value="97K0660" constant="no"/>
-<attribute name="SUPPLIER" value="Murata" constant="no"/>
-<attribute name="TOLERANCE" value="±10%" constant="no"/>
-<attribute name="VALUE" value="1uF" constant="no"/>
-<attribute name="VOLTAGERATING" value="25V" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="SparkFun-PowerSymbols">
 <description>&lt;h3&gt;SparkFun Power Symbols&lt;/h3&gt;
 This library contains power, ground, and voltage-supply symbols.
@@ -611,6 +181,158 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
+<library name="digikey">
+<packages>
+<package name="VQFN20">
+<smd name="P$5" x="-0.25" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$6" x="0.25" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$4" x="-0.75" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$7" x="0.75" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$3" x="-1.25" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$8" x="1.25" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$2" x="-1.75" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$9" x="1.75" y="-1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$19" x="-1.75" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$18" x="-1.25" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$17" x="-0.75" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$16" x="-0.25" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$15" x="0.25" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$14" x="0.75" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$13" x="1.25" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$12" x="1.75" y="1.725" dx="0.28" dy="0.85" layer="1" roundness="20"/>
+<smd name="P$20" x="-2.225" y="0.75" dx="0.28" dy="0.85" layer="1" roundness="20" rot="R90"/>
+<smd name="P$1" x="-2.225" y="-0.75" dx="0.28" dy="0.85" layer="1" roundness="20" rot="R90"/>
+<smd name="P$11" x="2.225" y="0.75" dx="0.28" dy="0.85" layer="1" roundness="20" rot="R90"/>
+<smd name="P$10" x="2.225" y="-0.75" dx="0.28" dy="0.85" layer="1" roundness="20" rot="R90"/>
+<wire x1="-2.325" y1="1.825" x2="-2.325" y2="-1.825" width="0.127" layer="51"/>
+<wire x1="2.325" y1="1.825" x2="2.325" y2="-1.825" width="0.127" layer="51"/>
+<wire x1="-2.325" y1="1.825" x2="2.325" y2="1.825" width="0.127" layer="51"/>
+<wire x1="-2.325" y1="-1.825" x2="2.325" y2="-1.825" width="0.127" layer="51"/>
+<smd name="P$21" x="0" y="0" dx="5.3" dy="0.78" layer="1"/>
+<rectangle x1="-1.525" y1="-1.025" x2="1.525" y2="1.025" layer="1"/>
+<circle x="-2.665" y="-2.145" radius="0.127" width="0.127" layer="21"/>
+<text x="-2.25" y="2.25" size="0.5" layer="25">&gt;Name</text>
+<text x="-2.25" y="-2.75" size="0.5" layer="27">&gt;Value</text>
+</package>
+</packages>
+<symbols>
+<symbol name="TPS61088">
+<pin name="SW@4" x="-17.78" y="5.08" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="FSW" x="-17.78" y="-7.62" visible="pin" length="middle" direction="in"/>
+<pin name="VIN" x="-17.78" y="-10.16" visible="pin" length="middle" direction="in"/>
+<pin name="VCC" x="-17.78" y="-12.7" visible="pin" length="middle" direction="pwr"/>
+<pin name="EN" x="-17.78" y="-15.24" visible="pin" length="middle" direction="in"/>
+<pin name="PGND" x="-17.78" y="-17.78" visible="pin" length="middle" direction="pwr"/>
+<pin name="AGND" x="-17.78" y="-20.32" visible="pin" length="middle" direction="pwr"/>
+<pin name="VOUT@14" x="17.78" y="5.08" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
+<pin name="FB" x="17.78" y="-5.08" visible="pin" length="middle" direction="in" rot="R180"/>
+<pin name="COMP" x="17.78" y="-7.62" visible="pin" length="middle" direction="out" rot="R180"/>
+<pin name="ILIM" x="17.78" y="-10.16" visible="pin" length="middle" direction="out" rot="R180"/>
+<pin name="SS" x="17.78" y="-12.7" visible="pin" length="middle" direction="out" rot="R180"/>
+<pin name="MODE" x="17.78" y="-15.24" visible="pin" length="middle" direction="in" rot="R180"/>
+<pin name="BOOT" x="-2.54" y="17.78" visible="pin" length="middle" direction="out" rot="R270"/>
+<wire x1="-12.7" y1="12.7" x2="-12.7" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="-12.7" y1="-22.86" x2="12.7" y2="-22.86" width="0.254" layer="94"/>
+<wire x1="12.7" y1="-22.86" x2="12.7" y2="12.7" width="0.254" layer="94"/>
+<wire x1="12.7" y1="12.7" x2="-12.7" y2="12.7" width="0.254" layer="94"/>
+<text x="-10.16" y="-25.4" size="1.27" layer="95">&gt;Name</text>
+<text x="-10.16" y="-27.94" size="1.016" layer="95">&gt;Value</text>
+<pin name="SW@5" x="-17.78" y="2.54" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="SW@6" x="-17.78" y="0" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="SW@7" x="-17.78" y="-2.54" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="VOUT@15" x="17.78" y="2.54" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
+<pin name="VOUT@16" x="17.78" y="0" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
+<pin name="NC@11" x="17.78" y="-17.78" visible="pin" length="middle" direction="nc" swaplevel="3" rot="R180"/>
+<pin name="NC@12" x="17.78" y="-20.32" visible="pin" length="middle" direction="nc" swaplevel="3" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="TPS61088" prefix="U">
+<description>&lt;h1&gt;TPS61088 10-A Fully-Integrated Synchronous Boost Converter&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Input Voltage Range: 2.7 to 12 V
+&lt;li&gt;Output Voltage Range: 4.5 to 12.6 V
+&lt;li&gt;10-A Switch Current
+&lt;li&gt;Up to 91% Efficiency at VIN = 3.3 V, VOUT = 9 V, and IOUT = 3 A
+&lt;li&gt;Mode Selection Between PFM Mode and ForcedPWM Mode at Light Load
+&lt;li&gt;1.0 μA Current into VIN Pin during Shutdown
+&lt;li&gt;Resistor-Programmable Switch Peak Current Limit
+&lt;li&gt;Adjustable Switching Frequency: 200 kHz to 2.2MHz
+&lt;li&gt;Programmable Soft Start
+&lt;li&gt;Output Overvoltage Protection at 13.2 V
+&lt;li&gt;Cycle-by-Cycle Overcurrent Protection
+&lt;li&gt;Thermal Shutdown
+&lt;li&gt;4.50-mm × 3.50-mm 20-Pin VQFN Package
+&lt;/ul&gt;
+
+&lt;h2&gt;Description&lt;/h2&gt;
+&lt;p&gt;
+The TPS61088 is a high power density, fully
+integrated synchronous boost converter with a 11-mΩ
+power switch and a 13-mΩ rectifier switch to provide
+a high efficiency and small size solution in portable
+systems. The TPS61088 has wide input voltage
+range from 2.7 V to 12 V to support applications with
+single cell or two cell Lithium batteries. The device
+has 10-A switch current capability and is capable of
+providing an output voltage up to 12.6 V.
+The TPS61088 uses adaptive constant off-time peak
+current control topology to regulate the output
+voltage. In moderate to heavy load condition, the
+TPS61088 works in the pulse width modulation
+(PWM) mode. In light load condition, the device has
+two operation modes selected by the MODE pin. One
+is the pulse frequency modulation (PFM) mode to
+improve the efficiency and another one is the forced
+PWM mode to avoid application problems caused by
+low switching frequency. The switching frequency in
+the PWM mode is adjustable ranging from 200 kHz to
+2.2 MHz by an external resistor. The TPS61088 also
+implements a programmable soft-start function and
+an adjustable switching peak current limit function. In
+addition, the device provides 13.2-V output
+overvoltage protection, cycle-by-cycle overcurrent
+protection, and thermal shutdown protection.
+The TPS61088 is available in a 4.50-mm × 3.50-mm
+20-pin VQFN package.&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="TPS61088" x="0" y="0"/>
+</gates>
+<devices>
+<device name="VQFN20" package="VQFN20">
+<connects>
+<connect gate="G$1" pin="AGND" pad="P$20"/>
+<connect gate="G$1" pin="BOOT" pad="P$8"/>
+<connect gate="G$1" pin="COMP" pad="P$18"/>
+<connect gate="G$1" pin="EN" pad="P$2"/>
+<connect gate="G$1" pin="FB" pad="P$17"/>
+<connect gate="G$1" pin="FSW" pad="P$3"/>
+<connect gate="G$1" pin="ILIM" pad="P$19"/>
+<connect gate="G$1" pin="MODE" pad="P$13"/>
+<connect gate="G$1" pin="NC@11" pad="P$11"/>
+<connect gate="G$1" pin="NC@12" pad="P$12"/>
+<connect gate="G$1" pin="PGND" pad="P$21"/>
+<connect gate="G$1" pin="SS" pad="P$10"/>
+<connect gate="G$1" pin="SW@4" pad="P$4"/>
+<connect gate="G$1" pin="SW@5" pad="P$5"/>
+<connect gate="G$1" pin="SW@6" pad="P$6"/>
+<connect gate="G$1" pin="SW@7" pad="P$7"/>
+<connect gate="G$1" pin="VCC" pad="P$1"/>
+<connect gate="G$1" pin="VIN" pad="P$9"/>
+<connect gate="G$1" pin="VOUT@14" pad="P$14"/>
+<connect gate="G$1" pin="VOUT@15" pad="P$15"/>
+<connect gate="G$1" pin="VOUT@16" pad="P$16"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="TYPE" value="boost" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -621,26 +343,32 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </class>
 </classes>
 <parts>
-<part name="L1" library="digikey_2" deviceset="MLP2012S1R5MT0S1" device="IND_2012-M"/>
-<part name="U1" library="digikey_2" deviceset="TPS63001DRCR" device=""/>
-<part name="C1" library="Murata_By_element14_Batch_1" deviceset="GRM188R60J106ME47D" device="" value="10uF"/>
-<part name="C2" library="Murata_By_element14_Batch_1" deviceset="GRM31MR71E105KA01L" device="" value="47uF"/>
 <part name="GND1" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
+<part name="U1" library="digikey" deviceset="TPS61088" device="VQFN20"/>
 </parts>
 <sheets>
 <sheet>
 <plain>
 </plain>
 <instances>
-<instance part="L1" gate="A" x="83.82" y="81.28"/>
-<instance part="U1" gate="A" x="58.42" y="40.64"/>
-<instance part="C1" gate="A" x="96.52" y="15.24"/>
-<instance part="C2" gate="A" x="139.7" y="35.56"/>
-<instance part="GND1" gate="1" x="73.66" y="12.7"/>
+<instance part="GND1" gate="1" x="63.5" y="-5.08"/>
+<instance part="U1" gate="G$1" x="106.68" y="27.94"/>
 </instances>
 <busses>
 </busses>
 <nets>
+<net name="GND" class="0">
+<segment>
+<pinref part="GND1" gate="1" pin="GND"/>
+<wire x1="63.5" y1="-2.54" x2="63.5" y2="10.16" width="0.1524" layer="91"/>
+<pinref part="U1" gate="G$1" pin="PGND"/>
+<wire x1="63.5" y1="10.16" x2="88.9" y2="10.16" width="0.1524" layer="91"/>
+<pinref part="U1" gate="G$1" pin="AGND"/>
+<wire x1="63.5" y1="-2.54" x2="88.9" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="-2.54" x2="88.9" y2="7.62" width="0.1524" layer="91"/>
+<junction x="63.5" y="-2.54"/>
+</segment>
+</net>
 </nets>
 </sheet>
 </sheets>
