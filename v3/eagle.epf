@@ -1,6 +1,7 @@
 [Eagle]
-Version="08 00 01"
+Version="07 07 00"
 Platform="Mac OS X"
+Serial="62191E841E-LSR-WLM-1EL"
 Globals="Globals"
 Desktop="Desktop"
 
@@ -30,6 +31,7 @@ UsedLibrary="lbr/Texas Instruments_By_element14_Batch_1.lbr"
 UsedLibrary="lbr/Vishay_By_element14_Batch_1.lbr"
 UsedLibrary="lbr/Yageo_By_element14_Batch_1.lbr"
 UsedLibrary="lbr/SparkFun-Connectors.lbr"
+UsedLibrary="lbr/Dialight_By_element14_Batch_1.lbr"
 
 [Win_1]
 Type="Control Panel"
@@ -38,5 +40,5 @@ State=2
 Number=0
 
 [Desktop]
-Screen="1920 1200"
+Screen="640 480"
 Window="Win_1"
