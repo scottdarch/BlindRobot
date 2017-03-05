@@ -1992,7 +1992,7 @@ Alternate pin configuration
 <pinref part="COUTX" gate="A" pin="C2"/>
 <wire x1="71.12" y1="10.16" x2="88.9" y2="10.16" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="10.16" x2="88.9" y2="5.08" width="0.1524" layer="91"/>
-<label x="84.328" y="10.922" size="1.27" layer="95"/>
+<label x="84.328" y="10.922" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="6"/>

@@ -2243,9 +2243,13 @@ at 13/06/2012 13:59:22</description>
 </packages>
 <symbols>
 <symbol name="BOARD_REVISION">
-<text x="0" y="0" size="1.27" layer="94" font="vector">&gt;NAME</text>
-<text x="0" y="-2.54" size="1.27" layer="94" font="vector">&gt;VALUE</text>
-<text x="0" y="-5.08" size="1.27" layer="94">&gt;DESC</text>
+<text x="3.81" y="0" size="1.778" layer="94" font="vector" align="bottom-center">&gt;NAME</text>
+<text x="3.81" y="-2.54" size="1.27" layer="94" font="vector" align="bottom-center">&gt;VALUE</text>
+<text x="3.81" y="-5.08" size="1.27" layer="94" align="bottom-center">&gt;DESC</text>
+<wire x1="-2.54" y1="5.08" x2="-2.54" y2="-7.62" width="2.54" layer="94"/>
+<wire x1="-2.54" y1="-7.62" x2="10.16" y2="-7.62" width="2.54" layer="94"/>
+<wire x1="10.16" y1="-7.62" x2="10.16" y2="5.08" width="2.54" layer="94"/>
+<wire x1="10.16" y1="5.08" x2="-2.54" y2="5.08" width="2.54" layer="94"/>
 </symbol>
 </symbols>
 <devicesets>
