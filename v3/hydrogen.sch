@@ -215,36 +215,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <smd name="P$21" x="-2.225" y="0.275" dx="0.85" dy="0.28" layer="1" roundness="20" stop="no"/>
 <smd name="P$24" x="2.225" y="0.275" dx="0.85" dy="0.28" layer="1" roundness="20" stop="no"/>
 <smd name="P$23" x="2.225" y="-0.275" dx="0.85" dy="0.28" layer="1" roundness="20" stop="no"/>
-<polygon width="0.001" layer="1">
-<vertex x="-1.51" y="0.39"/>
-<vertex x="-1.79" y="0.39"/>
-<vertex x="-1.79" y="-0.39"/>
-<vertex x="-1.52" y="-0.39"/>
-<vertex x="-1.52" y="-1.03"/>
-<vertex x="1.53" y="-1.03"/>
-<vertex x="1.53" y="-0.4"/>
-<vertex x="1.8" y="-0.4"/>
-<vertex x="1.8" y="0.39"/>
-<vertex x="1.53" y="0.39"/>
-<vertex x="1.53" y="1.03"/>
-<vertex x="-1.51" y="1.03"/>
-</polygon>
 <rectangle x1="-1.51" y1="0.15" x2="-0.15" y2="1.03" layer="31"/>
 <rectangle x1="-1.52" y1="-1.03" x2="-0.16" y2="-0.15" layer="31"/>
-<polygon width="0.05" layer="1">
-<vertex x="-1.51" y="0.39"/>
-<vertex x="-1.79" y="0.39"/>
-<vertex x="-1.79" y="-0.39"/>
-<vertex x="-1.52" y="-0.39"/>
-<vertex x="-1.52" y="-1.03"/>
-<vertex x="1.53" y="-1.03"/>
-<vertex x="1.53" y="-0.4"/>
-<vertex x="1.8" y="-0.4"/>
-<vertex x="1.8" y="0.39"/>
-<vertex x="1.53" y="0.39"/>
-<vertex x="1.53" y="1.03"/>
-<vertex x="-1.51" y="1.03"/>
-</polygon>
 <rectangle x1="0.17" y1="-1.03" x2="1.53" y2="-0.15" layer="31"/>
 <rectangle x1="0.17" y1="0.15" x2="1.53" y2="1.03" layer="31"/>
 <rectangle x1="-2.72" y1="0.54" x2="-1.73" y2="0.96" layer="29"/>
@@ -267,34 +239,19 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <rectangle x1="-1.245" y1="1.505" x2="-0.255" y2="1.925" layer="29" rot="R90"/>
 <rectangle x1="-1.745" y1="1.505" x2="-0.755" y2="1.925" layer="29" rot="R90"/>
 <rectangle x1="-2.245" y1="1.505" x2="-1.255" y2="1.925" layer="29" rot="R90"/>
-<polygon width="0.01" layer="29" pour="hatch">
-<vertex x="-1.61" y="0.47"/>
-<vertex x="-2.72" y="0.47"/>
-<vertex x="-2.72" y="-0.46"/>
-<vertex x="-1.61" y="-0.46"/>
-<vertex x="-1.61" y="-1.11"/>
-<vertex x="1.62" y="-1.11"/>
-<vertex x="1.62" y="-0.47"/>
-<vertex x="2.71" y="-0.47"/>
-<vertex x="2.71" y="-0.08"/>
-<vertex x="1.9" y="-0.08"/>
-<vertex x="1.9" y="0.08"/>
-<vertex x="2.73" y="0.08"/>
-<vertex x="2.73" y="0.47"/>
-<vertex x="1.62" y="0.47"/>
-<vertex x="1.62" y="1.1"/>
-<vertex x="-1.61" y="1.1"/>
-</polygon>
+<smd name="P$25" x="0" y="0" dx="3.05" dy="2.05" layer="1"/>
+<rectangle x1="-2.72" y1="-0.47" x2="-1.62" y2="0.47" layer="29"/>
+<rectangle x1="1.62" y1="-0.47" x2="2.72" y2="0.47" layer="29"/>
 </package>
 </packages>
 <symbols>
 <symbol name="TPS61088">
-<pin name="SW@4" x="-17.78" y="5.08" visible="pin" length="middle" direction="in" swaplevel="1"/>
-<pin name="FSW" x="-17.78" y="-7.62" visible="pin" length="middle" direction="in"/>
-<pin name="VIN" x="-17.78" y="-10.16" visible="pin" length="middle" direction="in"/>
-<pin name="VCC" x="-17.78" y="-12.7" visible="pin" length="middle" direction="pwr"/>
-<pin name="EN" x="-17.78" y="-15.24" visible="pin" length="middle" direction="in"/>
-<pin name="PGND@21" x="-17.78" y="-17.78" visible="pin" length="middle" direction="pwr"/>
+<pin name="SW@4" x="-17.78" y="7.62" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="FSW" x="-17.78" y="-5.08" visible="pin" length="middle" direction="in"/>
+<pin name="VIN" x="-17.78" y="-7.62" visible="pin" length="middle" direction="in"/>
+<pin name="VCC" x="-17.78" y="-10.16" visible="pin" length="middle" direction="pwr"/>
+<pin name="EN" x="-17.78" y="-12.7" visible="pin" length="middle" direction="in"/>
+<pin name="PGND@21" x="-17.78" y="-15.24" visible="pin" length="middle" direction="pwr" swaplevel="4"/>
 <pin name="AGND" x="17.78" y="-22.86" visible="pin" length="middle" direction="pwr" rot="R180"/>
 <pin name="VOUT@14" x="17.78" y="5.08" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
 <pin name="FB" x="17.78" y="-5.08" visible="pin" length="middle" direction="in" rot="R180"/>
@@ -309,16 +266,17 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="12.7" y1="12.7" x2="-12.7" y2="12.7" width="0.254" layer="94"/>
 <text x="-10.16" y="-30.48" size="1.27" layer="95">&gt;Name</text>
 <text x="-10.16" y="-33.02" size="1.016" layer="95">&gt;Value</text>
-<pin name="SW@5" x="-17.78" y="2.54" visible="pin" length="middle" direction="in" swaplevel="1"/>
-<pin name="SW@6" x="-17.78" y="0" visible="pin" length="middle" direction="in" swaplevel="1"/>
-<pin name="SW@7" x="-17.78" y="-2.54" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="SW@5" x="-17.78" y="5.08" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="SW@6" x="-17.78" y="2.54" visible="pin" length="middle" direction="in" swaplevel="1"/>
+<pin name="SW@7" x="-17.78" y="0" visible="pin" length="middle" direction="in" swaplevel="1"/>
 <pin name="VOUT@15" x="17.78" y="2.54" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
 <pin name="VOUT@16" x="17.78" y="0" visible="pin" length="middle" direction="pwr" swaplevel="2" rot="R180"/>
 <pin name="NC@11" x="17.78" y="-17.78" visible="pin" length="middle" direction="nc" swaplevel="3" rot="R180"/>
 <pin name="NC@12" x="17.78" y="-20.32" visible="pin" length="middle" direction="nc" swaplevel="3" rot="R180"/>
-<pin name="PGND@22" x="-17.78" y="-20.32" visible="pin" length="middle" direction="pwr"/>
-<pin name="PGND@23" x="-17.78" y="-22.86" visible="pin" length="middle" direction="pwr"/>
-<pin name="PGND@24" x="-17.78" y="-25.4" visible="pin" length="middle" direction="pwr"/>
+<pin name="PGND@22" x="-17.78" y="-17.78" visible="pin" length="middle" direction="pwr" swaplevel="4"/>
+<pin name="PGND@23" x="-17.78" y="-20.32" visible="pin" length="middle" direction="pwr" swaplevel="4"/>
+<pin name="PGND@24" x="-17.78" y="-22.86" visible="pin" length="middle" direction="pwr" swaplevel="4"/>
+<pin name="PGND@25" x="-17.78" y="-25.4" visible="pin" length="middle" direction="pwr" swaplevel="4"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -390,6 +348,7 @@ The TPS61088 is available in a 4.50-mm × 3.50-mm
 <connect gate="G$1" pin="PGND@22" pad="P$22"/>
 <connect gate="G$1" pin="PGND@23" pad="P$23"/>
 <connect gate="G$1" pin="PGND@24" pad="P$24"/>
+<connect gate="G$1" pin="PGND@25" pad="P$25"/>
 <connect gate="G$1" pin="SS" pad="P$10"/>
 <connect gate="G$1" pin="SW@4" pad="P$4"/>
 <connect gate="G$1" pin="SW@5" pad="P$5"/>
@@ -2270,6 +2229,40 @@ at 13/06/2012 13:59:22</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="32bits">
+<packages>
+<package name="PERIODIC_SYMBOL_BACK">
+<text x="2.6416" y="1.778" size="0.4064" layer="22" font="vector" rot="MR0" align="bottom-center">&gt;value</text>
+<text x="2.6416" y="1.0414" size="0.4064" layer="22" font="vector" rot="MR0" align="bottom-center">&gt;desc</text>
+<wire x1="0" y1="0" x2="0" y2="5.08" width="0.635" layer="22"/>
+<wire x1="0" y1="5.08" x2="5.08" y2="5.08" width="0.635" layer="22"/>
+<wire x1="5.08" y1="5.08" x2="5.08" y2="0" width="0.635" layer="22"/>
+<wire x1="5.08" y1="0" x2="0" y2="0" width="0.635" layer="22"/>
+<text x="2.54" y="2.54" size="1.778" layer="22" rot="MR0" align="bottom-center">&gt;name</text>
+</package>
+</packages>
+<symbols>
+<symbol name="BOARD_REVISION">
+<text x="0" y="0" size="1.27" layer="94" font="vector">&gt;NAME</text>
+<text x="0" y="-2.54" size="1.27" layer="94" font="vector">&gt;VALUE</text>
+<text x="0" y="-5.08" size="1.27" layer="94">&gt;DESC</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="PERIODIC_SYMBOL" prefix="X" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="BOARD_REVISION" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="PERIODIC_SYMBOL_BACK">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -2301,6 +2294,9 @@ at 13/06/2012 13:59:22</description>
 <part name="+6" library="Dialight_By_element14_Batch_1" deviceset="597-3311-402F" device=""/>
 <part name="R1" library="Vishay_By_element14_Batch_1" deviceset="CRCW1206200RJNEA" device="" value="200 Ohms"/>
 <part name="GND2" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
+<part name="H" library="32bits" deviceset="PERIODIC_SYMBOL" device="" value="1">
+<attribute name="DESC" value="rev.0"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -2334,9 +2330,9 @@ at 13/06/2012 13:59:22</description>
 <attribute name="VALUE" x="150.0632" y="0.4318" size="2.1209" layer="96" ratio="10" rot="SR90"/>
 <attribute name="NAME" x="142.0114" y="1.6256" size="2.0828" layer="95" ratio="10" rot="SR90"/>
 </instance>
-<instance part="CVCC" gate="A" x="50.8" y="15.24" smashed="yes" rot="R180">
-<attribute name="VALUE" x="51.8922" y="20.5232" size="2.1209" layer="96" ratio="10" rot="SR180"/>
-<attribute name="NAME" x="51.7144" y="12.4714" size="2.0828" layer="95" ratio="10" rot="SR180"/>
+<instance part="CVCC" gate="A" x="50.8" y="17.78" smashed="yes" rot="R180">
+<attribute name="VALUE" x="51.8922" y="23.0632" size="2.1209" layer="96" ratio="10" rot="SR180"/>
+<attribute name="NAME" x="51.7144" y="15.0114" size="2.0828" layer="95" ratio="10" rot="SR180"/>
 </instance>
 <instance part="RCOMP" gate="A" x="198.12" y="0" smashed="yes" rot="R90">
 <attribute name="VALUE" x="203.5556" y="0.1778" size="2.1209" layer="96" ratio="10" rot="SR90"/>
@@ -2361,15 +2357,18 @@ at 13/06/2012 13:59:22</description>
 <instance part="L1" gate="A" x="71.12" y="76.2"/>
 <instance part="J1" gate="G$1" x="160.02" y="60.96" rot="R180"/>
 <instance part="J4" gate="G$1" x="137.16" y="60.96" rot="R180"/>
-<instance part="+6" gate="A" x="187.96" y="78.74" smashed="yes" rot="R270">
-<attribute name="VALUE" x="184.7342" y="78.6892" size="1.778" layer="96" ratio="10" rot="SR180"/>
-<attribute name="NAME" x="191.262" y="82.1436" size="2.0828" layer="95" ratio="10" rot="SR270"/>
+<instance part="+6" gate="A" x="195.58" y="58.42" smashed="yes" rot="R270">
+<attribute name="VALUE" x="192.3542" y="58.3692" size="1.778" layer="96" ratio="10" rot="SR180"/>
+<attribute name="NAME" x="198.882" y="61.8236" size="2.0828" layer="95" ratio="10" rot="SR270"/>
 </instance>
-<instance part="R1" gate="A" x="187.96" y="96.52" smashed="yes" rot="R270">
-<attribute name="VALUE" x="182.7784" y="98.3742" size="1.778" layer="96" ratio="10" rot="SR270"/>
-<attribute name="NAME" x="190.7286" y="95.5294" size="2.0828" layer="95" ratio="10" rot="SR270"/>
+<instance part="R1" gate="A" x="195.58" y="76.2" smashed="yes" rot="R270">
+<attribute name="VALUE" x="190.3984" y="78.0542" size="1.778" layer="96" ratio="10" rot="SR270"/>
+<attribute name="NAME" x="198.3486" y="75.2094" size="2.0828" layer="95" ratio="10" rot="SR270"/>
 </instance>
-<instance part="GND2" gate="1" x="187.96" y="55.88"/>
+<instance part="GND2" gate="1" x="195.58" y="43.18"/>
+<instance part="H" gate="G$1" x="121.92" y="83.82">
+<attribute name="DESC" x="121.92" y="83.82" size="1.778" layer="96" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -2378,9 +2377,9 @@ at 13/06/2012 13:59:22</description>
 <segment>
 <pinref part="GND1" gate="1" pin="GND"/>
 <wire x1="114.3" y1="-27.94" x2="58.42" y2="-27.94" width="0.1524" layer="91"/>
-<wire x1="58.42" y1="-27.94" x2="58.42" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="-27.94" x2="58.42" y2="12.7" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="PGND@21"/>
-<wire x1="58.42" y1="10.16" x2="88.9" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="12.7" x2="88.9" y2="12.7" width="0.1524" layer="91"/>
 <junction x="58.42" y="-27.94"/>
 <pinref part="CIN" gate="A" pin="C1"/>
 <wire x1="15.24" y1="-27.94" x2="33.02" y2="-27.94" width="0.1524" layer="91"/>
@@ -2391,8 +2390,8 @@ at 13/06/2012 13:59:22</description>
 <wire x1="33.02" y1="33.02" x2="33.02" y2="-27.94" width="0.1524" layer="91"/>
 <junction x="33.02" y="-27.94"/>
 <pinref part="CVCC" gate="A" pin="C2"/>
-<wire x1="43.18" y1="15.24" x2="40.64" y2="15.24" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="15.24" x2="40.64" y2="-27.94" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="17.78" x2="40.64" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="17.78" x2="40.64" y2="-27.94" width="0.1524" layer="91"/>
 <junction x="40.64" y="-27.94"/>
 <pinref part="U1" gate="G$1" pin="NC@11"/>
 <pinref part="U1" gate="G$1" pin="NC@12"/>
@@ -2428,17 +2427,20 @@ at 13/06/2012 13:59:22</description>
 <wire x1="238.76" y1="-27.94" x2="238.76" y2="2.54" width="0.1524" layer="91"/>
 <junction x="220.98" y="-27.94"/>
 <pinref part="U1" gate="G$1" pin="PGND@22"/>
+<wire x1="88.9" y1="12.7" x2="88.9" y2="10.16" width="0.1524" layer="91"/>
+<junction x="88.9" y="12.7"/>
+<pinref part="U1" gate="G$1" pin="PGND@23"/>
 <wire x1="88.9" y1="10.16" x2="88.9" y2="7.62" width="0.1524" layer="91"/>
 <junction x="88.9" y="10.16"/>
-<pinref part="U1" gate="G$1" pin="PGND@23"/>
+<pinref part="U1" gate="G$1" pin="PGND@24"/>
 <wire x1="88.9" y1="7.62" x2="88.9" y2="5.08" width="0.1524" layer="91"/>
 <junction x="88.9" y="7.62"/>
-<pinref part="U1" gate="G$1" pin="PGND@24"/>
-<wire x1="88.9" y1="5.08" x2="88.9" y2="2.54" width="0.1524" layer="91"/>
-<junction x="88.9" y="5.08"/>
 <pinref part="U1" gate="G$1" pin="AGND"/>
 <wire x1="124.46" y1="5.08" x2="124.46" y2="-27.94" width="0.1524" layer="91"/>
 <junction x="124.46" y="-27.94"/>
+<pinref part="U1" gate="G$1" pin="PGND@25"/>
+<wire x1="88.9" y1="5.08" x2="88.9" y2="2.54" width="0.1524" layer="91"/>
+<junction x="88.9" y="5.08"/>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="&gt;NAME"/>
@@ -2468,22 +2470,22 @@ at 13/06/2012 13:59:22</description>
 <segment>
 <pinref part="+6" gate="A" pin="1"/>
 <pinref part="GND2" gate="1" pin="GND"/>
-<wire x1="187.96" y1="68.58" x2="187.96" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="48.26" x2="195.58" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SW" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="SW@7"/>
 <pinref part="U1" gate="G$1" pin="SW@6"/>
-<wire x1="88.9" y1="25.4" x2="88.9" y2="27.94" width="0.1524" layer="91"/>
-<pinref part="U1" gate="G$1" pin="SW@5"/>
 <wire x1="88.9" y1="27.94" x2="88.9" y2="30.48" width="0.1524" layer="91"/>
-<junction x="88.9" y="27.94"/>
-<pinref part="U1" gate="G$1" pin="SW@4"/>
+<pinref part="U1" gate="G$1" pin="SW@5"/>
 <wire x1="88.9" y1="30.48" x2="88.9" y2="33.02" width="0.1524" layer="91"/>
 <junction x="88.9" y="30.48"/>
+<pinref part="U1" gate="G$1" pin="SW@4"/>
+<wire x1="88.9" y1="33.02" x2="88.9" y2="35.56" width="0.1524" layer="91"/>
 <junction x="88.9" y="33.02"/>
-<wire x1="88.9" y1="33.02" x2="88.9" y2="63.5" width="0.1524" layer="91"/>
+<junction x="88.9" y="35.56"/>
+<wire x1="88.9" y1="35.56" x2="88.9" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="CBST" gate="A" pin="C2"/>
 <wire x1="104.14" y1="58.42" x2="104.14" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="L1" gate="A" pin="1"/>
@@ -2507,8 +2509,8 @@ at 13/06/2012 13:59:22</description>
 <net name="VIN" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="VIN"/>
-<wire x1="88.9" y1="17.78" x2="63.5" y2="17.78" width="0.1524" layer="91"/>
-<wire x1="63.5" y1="17.78" x2="63.5" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="20.32" x2="63.5" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="20.32" x2="63.5" y2="76.2" width="0.1524" layer="91"/>
 <pinref part="L1" gate="A" pin="2"/>
 <wire x1="63.5" y1="76.2" x2="71.12" y2="76.2" width="0.1524" layer="91"/>
 <junction x="63.5" y="76.2"/>
@@ -2541,7 +2543,7 @@ at 13/06/2012 13:59:22</description>
 <segment>
 <pinref part="U1" gate="G$1" pin="VCC"/>
 <pinref part="CVCC" gate="A" pin="C1"/>
-<wire x1="88.9" y1="15.24" x2="50.8" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="17.78" x2="50.8" y2="17.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="COMP" class="0">
@@ -2609,8 +2611,8 @@ at 13/06/2012 13:59:22</description>
 </segment>
 <segment>
 <pinref part="R1" gate="A" pin="2"/>
-<wire x1="187.96" y1="96.52" x2="187.96" y2="104.14" width="0.1524" layer="91"/>
-<label x="185.42" y="106.68" size="1.778" layer="95"/>
+<wire x1="195.58" y1="76.2" x2="195.58" y2="83.82" width="0.1524" layer="91"/>
+<label x="193.04" y="86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="FB" class="0">
@@ -2629,16 +2631,16 @@ at 13/06/2012 13:59:22</description>
 <net name="FSW" class="0">
 <segment>
 <pinref part="RT" gate="A" pin="1"/>
-<wire x1="76.2" y1="45.72" x2="76.2" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="45.72" x2="76.2" y2="22.86" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="FSW"/>
-<wire x1="76.2" y1="20.32" x2="88.9" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="22.86" x2="88.9" y2="22.86" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="EN" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="EN"/>
-<wire x1="88.9" y1="12.7" x2="78.74" y2="12.7" width="0.1524" layer="91"/>
-<label x="79.248" y="12.954" size="1.778" layer="95"/>
+<wire x1="88.9" y1="15.24" x2="78.74" y2="15.24" width="0.1524" layer="91"/>
+<label x="78.486" y="15.494" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="3"/>
@@ -2662,17 +2664,18 @@ at 13/06/2012 13:59:22</description>
 <segment>
 <pinref part="+6" gate="A" pin="2"/>
 <pinref part="R1" gate="A" pin="1"/>
-<wire x1="187.96" y1="78.74" x2="187.96" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="58.42" x2="195.58" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
 </sheet>
 </sheets>
 <errors>
-<approved hash="104,1,88.9,10.16,U1,PGND,GND,,,"/>
+<approved hash="104,1,88.9,12.7,U1,PGND,GND,,,"/>
 <approved hash="104,1,124.46,5.08,U1,AGND,GND,,,"/>
 <approved hash="103,1,124.46,10.16,U1,NC,GND,,,"/>
 <approved hash="103,1,124.46,7.62,U1,NC,GND,,,"/>
+<approved hash="104,1,88.9,10.16,U1,PGND,GND,,,"/>
 <approved hash="104,1,88.9,7.62,U1,PGND,GND,,,"/>
 <approved hash="104,1,88.9,5.08,U1,PGND,GND,,,"/>
 <approved hash="104,1,88.9,2.54,U1,PGND,GND,,,"/>
