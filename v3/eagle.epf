@@ -32,6 +32,7 @@ UsedLibrary="lbr/Vishay_By_element14_Batch_1.lbr"
 UsedLibrary="lbr/Yageo_By_element14_Batch_1.lbr"
 UsedLibrary="lbr/SparkFun-Connectors.lbr"
 UsedLibrary="lbr/Dialight_By_element14_Batch_1.lbr"
+UsedLibrary="lbr/SparkFun-Resistors.lbr"
 
 [Win_1]
 Type="Control Panel"
@@ -45,7 +46,7 @@ Loc="0 -22 599 377"
 State=1
 Number=1
 File="lithium.brd"
-View="7.01655 -10.6778 42.422 66.1603"
+View="18.9097 -50.8035 51.1522 60.6183"
 WireWidths=" 0 0.254 0.3048 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"
@@ -55,7 +56,7 @@ HoleDrills=" 0.5 0.7 0.8 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.6"
 TextSizes=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.778"
 PolygonSpacings=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.27"
 PolygonIsolates=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
-MiterRadiuss=" 0.254 2.54 1 2 2.5 5 7.5 10 0 0.3175 0.635 1.27 3.175 6.35"
+MiterRadiuss=" 0.254 0.3175 0.635 1.27 2.54 1 2 2.5 5 7.5 10 0"
 DimensionWidths=" 0 0.127 0.254 0.1 0.26 0.13"
 DimensionExtWidths=" 0.127 0.254 0.1 0.13 0.26 0"
 DimensionExtLengths=" 1.27 2.54 1 2 3 0"
@@ -89,9 +90,9 @@ Layer=16
 Type="Schematic Editor"
 Loc="0 -22 599 377"
 State=1
-Number=3
+Number=2
 File="lithium.sch"
-View="-23.3165 -9.19243 304.207 200.251"
+View="-24.7873 -73.5425 531.879 216.149"
 WireWidths=" 0 0.3048 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0.1524"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"
@@ -130,6 +131,7 @@ ArcDirection=0
 AddLevel=2
 PadsSameType=0
 Layer=91
+Views=" 1: -24.7873 -73.5425 531.879 216.149"
 Sheet="1"
 
 [Desktop]
