@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.0.1">
+<eagle version="8.1.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -5167,137 +5167,6 @@ diameter 3 mm, horizontal, grid 12.7 mm</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="powerbench">
-<packages>
-<package name="RNR0011A">
-<smd name="1" x="-1.175" y="0.75" dx="0.55" dy="0.25" layer="1"/>
-<smd name="2" x="-1.175" y="0.25" dx="0.55" dy="0.25" layer="1"/>
-<smd name="3" x="-1.175" y="-0.25" dx="0.55" dy="0.25" layer="1"/>
-<smd name="4" x="-1.175" y="-0.75" dx="0.55" dy="0.25" layer="1"/>
-<smd name="5" x="-0.35" y="-0.7" dx="1.1" dy="0.45" layer="1" rot="R90" cream="no"/>
-<smd name="6" x="0.35" y="-0.7" dx="1.1" dy="0.45" layer="1" rot="R90" cream="no"/>
-<smd name="7" x="1.175" y="-0.75" dx="0.55" dy="0.25" layer="1"/>
-<smd name="8" x="1.175" y="-0.25" dx="0.55" dy="0.25" layer="1"/>
-<smd name="9" x="1.175" y="0.25" dx="0.55" dy="0.25" layer="1"/>
-<smd name="10" x="1.175" y="0.75" dx="0.55" dy="0.25" layer="1"/>
-<smd name="11" x="0" y="0.7" dx="1.1" dy="1.1" layer="1" cream="no"/>
-<wire x1="-1.2954" y1="-1.0414" x2="1.2954" y2="-1.0414" width="0.1524" layer="25"/>
-<wire x1="-1.2954" y1="1.0414" x2="1.2954" y2="1.0414" width="0.1524" layer="25"/>
-<wire x1="1.2954" y1="-1.0414" x2="1.2954" y2="1.0414" width="0.1524" layer="25"/>
-<wire x1="-1.2954" y1="-1.0414" x2="-1.2954" y2="1.0414" width="0.1524" layer="25"/>
-<wire x1="-0.635" y1="0.508" x2="-0.9144" y2="0.508" width="0.0762" layer="25" curve="-180"/>
-<wire x1="-0.9144" y1="0.508" x2="-0.635" y2="0.508" width="0.0762" layer="25" curve="-180"/>
-<wire x1="1.143" y1="1.143" x2="1.3716" y2="1.143" width="0.2032" layer="21"/>
-<wire x1="-1.3716" y1="1.143" x2="-0.762" y2="1.143" width="0.2032" layer="21"/>
-<wire x1="1.143" y1="-1.143" x2="1.3716" y2="-1.143" width="0.2032" layer="21"/>
-<wire x1="-1.3716" y1="-1.143" x2="-1.143" y2="-1.143" width="0.2032" layer="21"/>
-<polygon width="0.0254" layer="31">
-<vertex x="-0.52501875" y="-1.199971875"/>
-<vertex x="-0.17493125" y="-1.199971875"/>
-<vertex x="-0.17493125" y="-0.280034375"/>
-<vertex x="-0.52501875" y="-0.280034375"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="0.17503125" y="-1.199971875"/>
-<vertex x="0.52501875" y="-1.199971875"/>
-<vertex x="0.52501875" y="-0.280009375"/>
-<vertex x="0.17503125" y="-0.280009375"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="-0.499975" y="0.199975"/>
-<vertex x="0.5" y="0.199975"/>
-<vertex x="0.5" y="0.7198625"/>
-<vertex x="-0.499975" y="0.7198625"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="-0.5" y="0.920165625"/>
-<vertex x="-0.250165625" y="0.920165625"/>
-<vertex x="-0.250165625" y="1.199946875"/>
-<vertex x="-0.5" y="1.199946875"/>
-</polygon>
-<polygon width="0.0254" layer="31">
-<vertex x="0.2500125" y="0.9199875"/>
-<vertex x="0.49969375" y="0.9199875"/>
-<vertex x="0.49969375" y="1.200046875"/>
-<vertex x="0.2500125" y="1.200046875"/>
-</polygon>
-<polygon width="0.0254" layer="29">
-<vertex x="-0.45" y="0.200003125"/>
-<vertex x="-0.5" y="0.250003125"/>
-<vertex x="-0.5" y="1.15"/>
-<vertex x="-0.45" y="1.2"/>
-<vertex x="-0.3" y="1.2"/>
-<vertex x="-0.25" y="1.15"/>
-<vertex x="-0.25" y="0.87"/>
-<vertex x="-0.2" y="0.82"/>
-<vertex x="0.2" y="0.82"/>
-<vertex x="0.25" y="0.87"/>
-<vertex x="0.25" y="1.15"/>
-<vertex x="0.3" y="1.2"/>
-<vertex x="0.45" y="1.2"/>
-<vertex x="0.5" y="1.15"/>
-<vertex x="0.5" y="0.250003125"/>
-<vertex x="0.45" y="0.200003125"/>
-</polygon>
-</package>
-</packages>
-<symbols>
-<symbol name="TPS61089RNR">
-<pin name="FSW" x="17.78" y="5.08" length="middle" direction="in" rot="R180"/>
-<pin name="VCC" x="-17.78" y="20.32" length="middle" direction="pwr"/>
-<pin name="FB" x="17.78" y="-15.24" length="middle" direction="in" rot="R180"/>
-<pin name="COMP" x="-17.78" y="2.54" length="middle" direction="out"/>
-<pin name="GND" x="17.78" y="-27.94" length="middle" direction="pwr" rot="R180"/>
-<pin name="VOUT" x="17.78" y="-5.08" length="middle" direction="pwr" rot="R180"/>
-<pin name="EN" x="-17.78" y="10.16" length="middle" direction="in"/>
-<pin name="ILIM" x="-17.78" y="-5.08" length="middle" direction="in"/>
-<pin name="VIN" x="-17.78" y="25.4" length="middle" direction="pwr"/>
-<pin name="BOOT" x="17.78" y="25.4" length="middle" direction="pwr" rot="R180"/>
-<pin name="SW" x="17.78" y="15.24" length="middle" direction="pwr" rot="R180"/>
-<wire x1="-12.7" y1="-30.48" x2="12.7" y2="-30.48" width="0.2032" layer="94"/>
-<wire x1="12.7" y1="-30.48" x2="12.7" y2="30.48" width="0.2032" layer="94"/>
-<wire x1="12.7" y1="30.48" x2="-12.7" y2="30.48" width="0.2032" layer="94"/>
-<wire x1="-12.7" y1="30.48" x2="-12.7" y2="-30.48" width="0.2032" layer="94"/>
-<text x="-4.7244" y="1.4986" size="2.0828" layer="95" ratio="6" rot="SR0">&gt;Name</text>
-<text x="-5.3594" y="-1.0414" size="2.0828" layer="96" ratio="6" rot="SR0">&gt;Value</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="TPS61089RNRR" prefix="U">
-<gates>
-<gate name="A" symbol="TPS61089RNR" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="RNR0011A">
-<connects>
-<connect gate="A" pin="BOOT" pad="10"/>
-<connect gate="A" pin="COMP" pad="4"/>
-<connect gate="A" pin="EN" pad="7"/>
-<connect gate="A" pin="FB" pad="3"/>
-<connect gate="A" pin="FSW" pad="1"/>
-<connect gate="A" pin="GND" pad="5"/>
-<connect gate="A" pin="ILIM" pad="8"/>
-<connect gate="A" pin="SW" pad="11"/>
-<connect gate="A" pin="VCC" pad="2"/>
-<connect gate="A" pin="VIN" pad="9"/>
-<connect gate="A" pin="VOUT" pad="6"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MANUFACTURER" value="Texas Instruments" constant="no"/>
-<attribute name="MANUFACTURER_NAME" value="Texas Instruments" constant="no"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="TPS61089RNRR" constant="no"/>
-<attribute name="PARTNUMBER" value="TPS61089RNRR" constant="no"/>
-<attribute name="REFDES" value="RefDes" constant="no"/>
-<attribute name="TYPE" value="TYPE" constant="no"/>
-<attribute name="VALUE" value="Value" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 </libraries>
 <attributes>
 </attributes>
@@ -5368,7 +5237,6 @@ diameter 3 mm, horizontal, grid 12.7 mm</description>
 <part name="SUPPLY17" library="SparkFun-PowerSymbols" deviceset="VIN" device=""/>
 <part name="C6" library="SparkFun-Capacitors" deviceset="0.1UF" device="-0603-25V-(+80/-20%)" value="0.1uF"/>
 <part name="SUPPLY18" library="SparkFun-PowerSymbols" deviceset="AGND" device=""/>
-<part name="U3" library="powerbench" deviceset="TPS61089RNRR" device="" value="Value"/>
 </parts>
 <sheets>
 <sheet>
@@ -5542,7 +5410,6 @@ diameter 3 mm, horizontal, grid 12.7 mm</description>
 <attribute name="VALUE" x="222.504" y="221.361" size="1.27" layer="96" font="vector"/>
 </instance>
 <instance part="SUPPLY18" gate="G$1" x="220.98" y="215.9"/>
-<instance part="U3" gate="A" x="279.4" y="175.26"/>
 </instances>
 <busses>
 </busses>
