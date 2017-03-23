@@ -2880,14 +2880,14 @@ at 13/06/2012 13:59:22</description>
 <rectangle x1="-0.1999" y1="-0.4001" x2="0.1999" y2="0.4001" layer="35"/>
 </package>
 <package name="2X4-0.01&quot;(2.54MM)-SOCKET">
-<smd name="P$1" x="0" y="-1.651" dx="2.0066" dy="0.9906" layer="1" rot="R90" thermals="no"/>
-<smd name="P$3" x="2.54" y="-1.651" dx="2.0066" dy="0.9906" layer="1" rot="R90" thermals="no"/>
-<smd name="P$5" x="5.08" y="-1.651" dx="2.0066" dy="0.9906" layer="1" rot="R90" thermals="no"/>
-<smd name="P$7" x="7.62" y="-1.651" dx="2.0066" dy="0.9906" layer="1" rot="R90" thermals="no"/>
-<smd name="P$2" x="0" y="4.1402" dx="2.0066" dy="0.9906" layer="1" rot="R90" thermals="no"/>
-<smd name="P$4" x="2.54" y="4.1402" dx="2.0066" dy="0.9906" layer="1" rot="R90" thermals="no"/>
-<smd name="P$6" x="5.08" y="4.1402" dx="2.0066" dy="0.9906" layer="1" rot="R90" thermals="no"/>
-<smd name="P$8" x="7.62" y="4.1402" dx="2.0066" dy="0.9906" layer="1" rot="R90" thermals="no"/>
+<smd name="P$1" x="0" y="-1.651" dx="2.0066" dy="0.9906" layer="1" rot="R90"/>
+<smd name="P$3" x="2.54" y="-1.651" dx="2.0066" dy="0.9906" layer="1" rot="R90"/>
+<smd name="P$5" x="5.08" y="-1.651" dx="2.0066" dy="0.9906" layer="1" rot="R90"/>
+<smd name="P$7" x="7.62" y="-1.651" dx="2.0066" dy="0.9906" layer="1" rot="R90"/>
+<smd name="P$2" x="0" y="4.1402" dx="2.0066" dy="0.9906" layer="1" rot="R90"/>
+<smd name="P$4" x="2.54" y="4.1402" dx="2.0066" dy="0.9906" layer="1" rot="R90"/>
+<smd name="P$6" x="5.08" y="4.1402" dx="2.0066" dy="0.9906" layer="1" rot="R90"/>
+<smd name="P$8" x="7.62" y="4.1402" dx="2.0066" dy="0.9906" layer="1" rot="R90"/>
 <rectangle x1="-0.31" y1="-0.32" x2="0.31" y2="0.3" layer="51"/>
 <rectangle x1="-0.31" y1="2.22" x2="0.31" y2="2.84" layer="51"/>
 <wire x1="-1.2319" y1="3.7465" x2="8.8519" y2="3.7465" width="0.127" layer="21"/>
@@ -3154,26 +3154,26 @@ at 13/06/2012 13:59:22</description>
 <text x="0" y="-5.08" size="1.27" layer="27">&gt;VALUE</text>
 </package>
 <package name="20M1">
-<smd name="1" x="-1.905" y="1" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="2" x="-1.905" y="0.5" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="3" x="-1.905" y="0" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="4" x="-1.905" y="-0.5" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="5" x="-1.905" y="-1" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="6" x="-1" y="-1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="7" x="-0.5" y="-1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="8" x="0" y="-1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="9" x="0.5" y="-1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="10" x="1" y="-1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="11" x="1.905" y="-1" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="12" x="1.905" y="-0.5" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="13" x="1.905" y="0" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="14" x="1.905" y="0.5" dx="0.3048" dy="0.8128" layer="1" rot="R270"/>
-<smd name="15" x="1.9304" y="1" dx="0.3048" dy="0.7874" layer="1" rot="R270"/>
-<smd name="16" x="1" y="1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="17" x="0.5" y="1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="18" x="0" y="1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="19" x="-0.5" y="1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
-<smd name="20" x="-1" y="1.905" dx="0.3048" dy="0.8128" layer="1" rot="R180"/>
+<smd name="1" x="-1.9304" y="1" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="2" x="-1.9304" y="0.5" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="3" x="-1.9304" y="0" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="4" x="-1.9304" y="-0.5" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="5" x="-1.9304" y="-1" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="6" x="-1" y="-1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="7" x="-0.5" y="-1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="8" x="0" y="-1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="9" x="0.5" y="-1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="10" x="1" y="-1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="11" x="1.9304" y="-1" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="12" x="1.9304" y="-0.5" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="13" x="1.9304" y="0" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="14" x="1.9304" y="0.5" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="15" x="1.9304" y="1" dx="0.3048" dy="0.762" layer="1" rot="R270"/>
+<smd name="16" x="1" y="1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="17" x="0.5" y="1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="18" x="0" y="1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="19" x="-0.5" y="1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
+<smd name="20" x="-1" y="1.9304" dx="0.3048" dy="0.762" layer="1" rot="R180"/>
 <smd name="21" x="0" y="0" dx="2.7432" dy="2.7432" layer="1" cream="no"/>
 <wire x1="-2.1336" y1="-2.1336" x2="-1.4732" y2="-2.1336" width="0.1524" layer="21"/>
 <wire x1="2.1336" y1="-2.1336" x2="2.1336" y2="-1.4732" width="0.1524" layer="21"/>
@@ -5209,7 +5209,7 @@ Diode with low voltage drop</description>
 <part name="J2" library="32bits" deviceset="2X4-0.01&quot;(2.54MM)-JUMPERS" device="SOCKET" value="battery"/>
 <part name="J3" library="32bits" deviceset="2X4-0.01&quot;(2.54MM)-JUMPERS" device="SOCKET" value="motor"/>
 <part name="S1" library="32bits" deviceset="SS312SAH4" device=""/>
-<part name="Q1" library="32bits" deviceset="SI7137DP" device=""/>
+<part name="Q1" library="32bits" deviceset="SI7137DP" device="" value="Si7137DP"/>
 <part name="U2" library="32bits" deviceset="ATTINY84-20MU" device=""/>
 <part name="J4" library="32bits" deviceset="AVR_ISP" device=""/>
 <part name="U4_RPG" library="Vishay_By_element14_Batch_1" deviceset="CRCW1206100KFKEA" device="" value="100K Ohms"/>
@@ -5614,6 +5614,7 @@ Diode with low voltage drop</description>
 <segment>
 <pinref part="Q1_R1" gate="G$1" pin="1"/>
 <wire x1="-38.1" y1="241.3" x2="-48.26" y2="241.3" width="0.1524" layer="91"/>
+<label x="-48.006" y="241.808" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SW" class="0">
@@ -6120,7 +6121,7 @@ Diode with low voltage drop</description>
 <wire x1="2.54" y1="144.78" x2="7.62" y2="144.78" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="VBAT_MON" class="0">
+<net name="VBAT_CON" class="0">
 <segment>
 <pinref part="Q1" gate="G$1" pin="DRAIN#5"/>
 <pinref part="Q1" gate="G$1" pin="DRAIN#6"/>
@@ -6237,6 +6238,11 @@ Diode with low voltage drop</description>
 <approved hash="104,1,73.66,30.48,U1,PGND,GND,,,"/>
 <approved hash="104,1,76.2,182.88,U6,VIN,VCC,,,"/>
 <approved hash="104,1,106.68,172.72,U6,VOUT,SYS_5V,,,"/>
+<approved hash="104,1,38.1,-58.42,U2,VCC,SYS_5V,,,"/>
+<approved hash="104,1,10.16,210.82,J4,VTG,SYS_5V,,,"/>
+<approved hash="206,1,-12.7,243.84,VBAT,,,,,"/>
+<approved hash="206,1,-12.7,246.38,VBAT,,,,,"/>
+<approved hash="206,1,-12.7,248.92,VBAT,,,,,"/>
 </errors>
 </schematic>
 </drawing>
