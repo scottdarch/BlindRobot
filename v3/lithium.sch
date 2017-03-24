@@ -2396,13 +2396,13 @@ at 13/06/2012 13:59:22</description>
 <library name="32bits">
 <packages>
 <package name="PERIODIC_SYMBOL_BACK">
-<text x="2.6416" y="1.778" size="0.4064" layer="22" font="vector" rot="MR0" align="bottom-center">&gt;NAME</text>
-<text x="2.6416" y="1.0414" size="0.4064" layer="22" font="vector" rot="MR0" align="bottom-center">&gt;VALUE</text>
-<wire x1="0" y1="0" x2="0" y2="5.08" width="0.635" layer="22"/>
-<wire x1="0" y1="5.08" x2="5.08" y2="5.08" width="0.635" layer="22"/>
-<wire x1="5.08" y1="5.08" x2="5.08" y2="0" width="0.635" layer="22"/>
-<wire x1="5.08" y1="0" x2="0" y2="0" width="0.635" layer="22"/>
-<text x="2.54" y="2.54" size="1.778" layer="22" rot="MR0" align="bottom-center">&gt;ELEMENT</text>
+<text x="2.6416" y="1.143" size="0.762" layer="26" font="vector" rot="MR0" align="bottom-center">&gt;NAME</text>
+<text x="2.6416" y="-0.2286" size="0.762" layer="26" font="vector" rot="MR0" align="bottom-center">&gt;VALUE</text>
+<text x="2.54" y="2.54" size="2.286" layer="26" ratio="25" rot="MR0" align="bottom-center">&gt;ELEMENT</text>
+<rectangle x1="-1.27" y1="5.715" x2="6.35" y2="6.35" layer="26"/>
+<rectangle x1="5.715" y1="-1.27" x2="6.35" y2="6.35" layer="26"/>
+<rectangle x1="-1.27" y1="-1.27" x2="6.35" y2="-0.635" layer="26"/>
+<rectangle x1="-1.27" y1="-1.27" x2="-0.635" y2="6.35" layer="26"/>
 </package>
 <package name="23X3X2">
 <pad name="P$1" x="19.685" y="1.905" drill="1.016" diameter="1.8796" shape="square"/>
@@ -6163,7 +6163,7 @@ Diode with low voltage drop</description>
 <wire x1="297.18" y1="38.1" x2="297.18" y2="33.02" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="LOCAL_VBAT" class="0">
+<net name="VBAT_JST" class="0">
 <segment>
 <pinref part="J1" gate="G$1" pin="1"/>
 <pinref part="R8" gate="A" pin="2"/>

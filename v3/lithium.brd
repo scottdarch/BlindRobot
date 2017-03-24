@@ -9,19 +9,19 @@
 <grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.001" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
@@ -211,6 +211,19 @@
 <vertex x="29.7434" y="4.8514"/>
 <vertex x="29.718" y="4.826"/>
 </polygon>
+<text x="66.3956" y="53.975" size="1.016" layer="25" font="vector" ratio="20">5V</text>
+<text x="70.866" y="44.704" size="1.016" layer="25" font="vector" ratio="20" rot="R180">SCK</text>
+<text x="74.422" y="44.704" size="1.016" layer="25" font="vector" ratio="20" rot="R180">SDA</text>
+<text x="80.01" y="50.292" size="1.016" layer="25" font="vector" ratio="20" rot="R90">+5IN</text>
+<rectangle x1="68.58" y1="45.72" x2="70.866" y2="50.038" layer="25"/>
+<rectangle x1="71.374" y1="45.72" x2="73.66" y2="50.038" layer="25"/>
+<text x="61.849" y="12.065" size="1.016" layer="25" font="vector" ratio="20" rot="R180">6V</text>
+<wire x1="62.23" y1="11.43" x2="62.992" y2="11.43" width="0.1524" layer="25"/>
+<wire x1="62.992" y1="11.43" x2="64.77" y2="9.652" width="0.1524" layer="25"/>
+<rectangle x1="68.58" y1="51.562" x2="73.66" y2="55.88" layer="25"/>
+<rectangle x1="76.454" y1="45.72" x2="78.486" y2="56.134" layer="25"/>
+<rectangle x1="63.5" y1="1.27" x2="66.04" y2="10.922" layer="25"/>
+<text x="52.2224" y="2.54" size="1.27" layer="25" ratio="15" rot="R90">6V</text>
 </plain>
 <libraries>
 <library name="AVX_By_element14_Batch_1">
@@ -643,13 +656,13 @@ at 13/06/2012 13:59:22</description>
 <library name="32bits">
 <packages>
 <package name="PERIODIC_SYMBOL_BACK">
-<text x="2.6416" y="1.778" size="0.4064" layer="22" font="vector" rot="MR0" align="bottom-center">&gt;NAME</text>
-<text x="2.6416" y="1.0414" size="0.4064" layer="22" font="vector" rot="MR0" align="bottom-center">&gt;VALUE</text>
-<wire x1="0" y1="0" x2="0" y2="5.08" width="0.635" layer="22"/>
-<wire x1="0" y1="5.08" x2="5.08" y2="5.08" width="0.635" layer="22"/>
-<wire x1="5.08" y1="5.08" x2="5.08" y2="0" width="0.635" layer="22"/>
-<wire x1="5.08" y1="0" x2="0" y2="0" width="0.635" layer="22"/>
-<text x="2.54" y="2.54" size="1.778" layer="22" rot="MR0" align="bottom-center">&gt;ELEMENT</text>
+<text x="2.6416" y="1.143" size="0.762" layer="26" font="vector" rot="MR0" align="bottom-center">&gt;NAME</text>
+<text x="2.6416" y="-0.2286" size="0.762" layer="26" font="vector" rot="MR0" align="bottom-center">&gt;VALUE</text>
+<text x="2.54" y="2.54" size="2.286" layer="26" ratio="25" rot="MR0" align="bottom-center">&gt;ELEMENT</text>
+<rectangle x1="-1.27" y1="5.715" x2="6.35" y2="6.35" layer="26"/>
+<rectangle x1="5.715" y1="-1.27" x2="6.35" y2="6.35" layer="26"/>
+<rectangle x1="-1.27" y1="-1.27" x2="6.35" y2="-0.635" layer="26"/>
+<rectangle x1="-1.27" y1="-1.27" x2="-0.635" y2="6.35" layer="26"/>
 </package>
 <package name="MSOP10_MC">
 <smd name="1" x="-2.0447" y="1" dx="1.524" dy="0.3302" layer="1"/>
@@ -1558,23 +1571,23 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="TOLERANCE" value="±5%" x="28.962321875" y="-4.85818125" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VOLTAGERATING" value="50V" x="28.962321875" y="-4.85818125" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="U1_CIN" library="Kemet_By_element14_Batch_1" package="CAPC3216X180N" value="0.47uF" x="58.7375" y="25.0825" smashed="yes">
-<attribute name="MPN" value="C1206F474K5RACAUTO" x="40.9575" y="30.1625" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="58.2803" y="26.3017" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
-<attribute name="OC_FARNELL" value="1869060" x="40.9575" y="30.1625" size="1.778" layer="27" display="off"/>
-<attribute name="OC_NEWARK" value="32T6755" x="40.9575" y="30.1625" size="1.778" layer="27" display="off"/>
-<attribute name="SUPPLIER" value="KEMET" x="40.9575" y="30.1625" size="1.778" layer="27" display="off"/>
-<attribute name="TOLERANCE" value="±10%" x="40.9575" y="30.1625" size="1.778" layer="27" display="off"/>
-<attribute name="VOLTAGERATING" value="50V" x="40.9575" y="30.1625" size="1.778" layer="27" display="off"/>
+<element name="U1_CIN" library="Kemet_By_element14_Batch_1" package="CAPC3216X180N" value="0.47uF" x="58.8391" y="27.5717" smashed="yes">
+<attribute name="MPN" value="C1206F474K5RACAUTO" x="41.0591" y="32.6517" size="1.778" layer="27" display="off"/>
+<attribute name="NAME" x="58.3819" y="28.7909" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
+<attribute name="OC_FARNELL" value="1869060" x="41.0591" y="32.6517" size="1.778" layer="27" display="off"/>
+<attribute name="OC_NEWARK" value="32T6755" x="41.0591" y="32.6517" size="1.778" layer="27" display="off"/>
+<attribute name="SUPPLIER" value="KEMET" x="41.0591" y="32.6517" size="1.778" layer="27" display="off"/>
+<attribute name="TOLERANCE" value="±10%" x="41.0591" y="32.6517" size="1.778" layer="27" display="off"/>
+<attribute name="VOLTAGERATING" value="50V" x="41.0591" y="32.6517" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U1_CIN2" library="Murata_By_element14_Batch_1" package="CAPC1005X60N" value="100nF" x="59.4995" y="23.0124" smashed="yes">
-<attribute name="MPN" value="GRM155R71C104KA88D" x="26.4795" y="45.8724" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="58.8391" y="22.2504" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
-<attribute name="OC_FARNELL" value="8819742" x="26.4795" y="45.8724" size="1.778" layer="27" display="off"/>
-<attribute name="OC_NEWARK" value="38K1647" x="26.4795" y="45.8724" size="1.778" layer="27" display="off"/>
-<attribute name="SUPPLIER" value="Murata" x="26.4795" y="45.8724" size="1.778" layer="27" display="off"/>
-<attribute name="TOLERANCE" value="±10%" x="26.4795" y="45.8724" size="1.778" layer="27" display="off"/>
-<attribute name="VOLTAGERATING" value="16V" x="26.4795" y="45.8724" size="1.778" layer="27" display="off"/>
+<element name="U1_CIN2" library="Murata_By_element14_Batch_1" package="CAPC1005X60N" value="100nF" x="59.4995" y="25.5524" smashed="yes">
+<attribute name="MPN" value="GRM155R71C104KA88D" x="26.4795" y="48.4124" size="1.778" layer="27" display="off"/>
+<attribute name="NAME" x="58.8391" y="24.7904" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
+<attribute name="OC_FARNELL" value="8819742" x="26.4795" y="48.4124" size="1.778" layer="27" display="off"/>
+<attribute name="OC_NEWARK" value="38K1647" x="26.4795" y="48.4124" size="1.778" layer="27" display="off"/>
+<attribute name="SUPPLIER" value="Murata" x="26.4795" y="48.4124" size="1.778" layer="27" display="off"/>
+<attribute name="TOLERANCE" value="±10%" x="26.4795" y="48.4124" size="1.778" layer="27" display="off"/>
+<attribute name="VOLTAGERATING" value="16V" x="26.4795" y="48.4124" size="1.778" layer="27" display="off"/>
 </element>
 <element name="U1_COUT" library="Kemet_By_element14_Batch_1" package="CAPC3216X180N" value="0.47uF" x="61.849" y="14.0335" smashed="yes">
 <attribute name="MPN" value="C1206F474K5RACAUTO" x="31.369" y="1.3335" size="1.778" layer="27" display="off"/>
@@ -1652,7 +1665,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="CURRENTRATING" value="5.28A" x="152.4" y="-19.05" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="INDUCTANCE" value="1µH" x="152.4" y="-19.05" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MPN" value="DR73-1R0-R" x="152.4" y="-19.05" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="60.4266" y="24.3586" size="0.254" layer="25" font="vector" ratio="1" rot="SR90"/>
+<attribute name="NAME" x="61.595" y="31.0896" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1463503" x="152.4" y="-19.05" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="29K6167" x="152.4" y="-19.05" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="PACKAGE" value="SMD" x="152.4" y="-19.05" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1662,14 +1675,13 @@ Please make sure your boards conform to these design rules.</description>
 <element name="MOTORS" library="Dialight_By_element14_Batch_1" package="LED_597-3311-402F" value="QTLP650C-B" x="53.34" y="6.35" smashed="yes" rot="R90">
 <attribute name="COLOR" value="Green" x="166.37" y="-7.62" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MPN" value="597-3311-402F" x="166.37" y="-7.62" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="52.2732" y="2.5146" size="1.27" layer="25" font="vector" ratio="15" rot="SR90"/>
 <attribute name="OC_FARNELL" value="1179613" x="166.37" y="-7.62" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="30K4956" x="166.37" y="-7.62" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="PACKAGE" value="1206- Green LED" x="166.37" y="-7.62" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="Dialight" x="166.37" y="-7.62" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="3" library="32bits" package="PERIODIC_SYMBOL_BACK" value="rev.0" x="11.05" y="39.37" rot="MR0">
-<attribute name="ELEMENT" value="Li" x="46.61" y="-64.77" size="1.778" layer="28" rot="MR0" display="off"/>
+<element name="3" library="32bits" package="PERIODIC_SYMBOL_BACK" value="rev.0" x="11.05" y="35.56" rot="MR0">
+<attribute name="ELEMENT" value="Li" x="46.61" y="-68.58" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
 <element name="5V" library="Dialight_By_element14_Batch_1" package="LED_597-3311-407F" value="QTLP650C-4" x="49.53" y="6.35" smashed="yes" rot="R90">
 <attribute name="COLOR" value="Green" x="67.31" y="-1.27" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1682,25 +1694,25 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="U5" library="32bits" package="MSOP10_MC" value="MCP73833-FCI/UN" x="79.1845" y="36.83" smashed="yes" rot="R180">
 <attribute name="MANUFACTURER_PART_NUMBER" value="MCP73833XXXUN" x="79.1845" y="36.83" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="NAME" x="81.8261" y="34.29" size="1.016" layer="21" font="vector" ratio="1" rot="SR180"/>
+<attribute name="NAME" x="79.7179" y="37.846" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="VENDOR" value="Microchip" x="79.1845" y="36.83" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="U4" library="32bits" package="PW8" value="TPS2113APWR" x="79.375" y="30.1625" smashed="yes" rot="R180">
 <attribute name="MANUFACTURER_PART_NUMBER" value="TPS2113APWR" x="79.375" y="30.1625" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="NAME" x="79.7306" y="27.94" size="1.016" layer="21" font="vector" ratio="1" rot="SR180"/>
+<attribute name="NAME" x="80.7974" y="30.988" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="VENDOR" value="Texas Instruments" x="79.375" y="30.1625" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="U5_C1" library="SparkFun-Capacitors" package="0402" value="1.0uF" x="83.6295" y="34.29" smashed="yes" rot="R270">
-<attribute name="NAME" x="84.3915" y="34.29" size="1.016" layer="25" font="vector" ratio="1" rot="R270" align="bottom-center"/>
+<attribute name="NAME" x="84.3915" y="34.29" size="0.254" layer="48" font="vector" ratio="1" rot="R270" align="bottom-center"/>
 <attribute name="PROD_ID" value="CAP-12417" x="83.6295" y="34.29" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="U5_C2" library="SparkFun-Capacitors" package="0402" value="1.0uF" x="71.755" y="39.878" smashed="yes">
-<attribute name="NAME" x="71.755" y="40.64" size="1.016" layer="25" font="vector" ratio="1" align="bottom-center"/>
+<attribute name="NAME" x="71.755" y="40.64" size="0.254" layer="48" font="vector" ratio="1" align="bottom-center"/>
 <attribute name="PROD_ID" value="CAP-12417" x="71.755" y="39.878" size="1.778" layer="27" display="off"/>
 </element>
 <element name="U5_R1" library="Vishay_By_element14_Batch_1" package="RESC1005X40N" value="1K Ohm" x="76.6445" y="39.37" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW04021K00JNED" x="76.6445" y="39.37" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="75.3745" y="35.9156" size="1.016" layer="25" font="vector" ratio="1" rot="SR90"/>
+<attribute name="NAME" x="75.8825" y="38.9636" size="0.254" layer="48" font="vector" ratio="1" rot="SR90"/>
 <attribute name="OC_FARNELL" value="1514656" x="76.6445" y="39.37" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="59M6691" x="76.6445" y="39.37" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="76.6445" y="39.37" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1735,11 +1747,11 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="SUPPLIER" value="Dialight" x="40.005" y="6.35" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="U4_C3" library="SparkFun-Capacitors" package="0402" value="0.1uF" x="73.4695" y="32.0675" smashed="yes" rot="R90">
-<attribute name="NAME" x="72.7075" y="32.0675" size="1.016" layer="25" font="vector" ratio="1" rot="R90" align="bottom-center"/>
+<attribute name="NAME" x="74.2315" y="31.5595" size="0.254" layer="48" font="vector" ratio="1" rot="R90" align="bottom-center"/>
 <attribute name="PROD_ID" value="CAP-12416" x="73.4695" y="32.0675" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="U4_C4" library="SparkFun-Capacitors" package="0402" value="0.1uF" x="71.755" y="41.5925" smashed="yes">
-<attribute name="NAME" x="71.755" y="42.3545" size="1.016" layer="25" font="vector" ratio="1" align="bottom-center"/>
+<attribute name="NAME" x="71.755" y="42.3545" size="0.254" layer="48" font="vector" ratio="1" align="bottom-center"/>
 <attribute name="PROD_ID" value="CAP-12416" x="71.755" y="41.5925" size="1.778" layer="27" display="off"/>
 </element>
 <element name="BATT" library="Dialight_By_element14_Batch_1" package="LED_597-3311-407F" value="QTLP650C-4" x="43.815" y="6.35" smashed="yes" rot="R90">
@@ -1752,11 +1764,11 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="SUPPLIER" value="Dialight" x="43.815" y="6.35" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="U6" library="32bits" package="VQFN7" value="TPS61230A" x="64.77" y="40.64" smashed="yes" rot="R270">
-<attribute name="NAME" x="63.5" y="43.18" size="1.016" layer="21" font="vector" ratio="1" align="bottom-center"/>
+<attribute name="NAME" x="64.008" y="41.402" size="0.254" layer="48" font="vector" ratio="1" align="bottom-center"/>
 </element>
 <element name="L2" library="Bourns_By_element14_Batch_1" package="INDC3225X22N" value="1.0 uH" x="66.4845" y="36.5125" smashed="yes" rot="R270">
 <attribute name="MPN" value="PM1210-1R0J-RC" x="66.4845" y="36.5125" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="68.1609" y="35.9283" size="1.016" layer="25" font="vector" ratio="1" rot="SR270"/>
+<attribute name="NAME" x="65.6717" y="37.4269" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1180462" x="66.4845" y="36.5125" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="OC_NEWARK" value="63K3090" x="66.4845" y="36.5125" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SUPPLIER" value="BOURNS" x="66.4845" y="36.5125" size="1.778" layer="27" rot="R270" display="off"/>
@@ -1764,7 +1776,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="U6_CBST" library="Kemet_By_element14_Batch_1" package="CAPC1005X60N" value="10 nF" x="65.2145" y="42.799" smashed="yes" rot="R180">
 <attribute name="MPN" value="C0402C103K5RACTU" x="65.2145" y="42.799" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="NAME" x="68.6689" y="41.529" size="1.016" layer="25" font="vector" ratio="1" rot="SR180"/>
+<attribute name="NAME" x="64.6811" y="43.307" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1414575" x="65.2145" y="42.799" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="OC_NEWARK" value="78H4783" x="65.2145" y="42.799" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="SUPPLIER" value="Kemet" x="65.2145" y="42.799" size="1.778" layer="27" rot="R180" display="off"/>
@@ -1773,7 +1785,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="U6_RFBT" library="Vishay_By_element14_Batch_1" package="RESC1005X40N" value="316K Ohms" x="67.564" y="41.021" smashed="yes" rot="R270">
 <attribute name="MPN" value="CRCW0402316KFKED" x="67.564" y="41.021" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="68.834" y="44.4754" size="1.016" layer="25" font="vector" ratio="1" rot="SR270"/>
+<attribute name="NAME" x="66.2686" y="42.418" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1652782" x="67.564" y="41.021" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="OC_NEWARK" value="52K6969" x="67.564" y="41.021" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SUPPLIER" value="Vishay" x="67.564" y="41.021" size="1.778" layer="27" rot="R270" display="off"/>
@@ -1782,7 +1794,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="U6_RFBB" library="Vishay_By_element14_Batch_1" package="RESC1005X40N" value="100K Ohms" x="68.199" y="39.624" smashed="yes">
 <attribute name="MPN" value="CRCW0402100KFKED" x="68.199" y="39.624" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="64.7446" y="40.894" size="1.016" layer="25" font="vector" ratio="1" rot="SR0"/>
+<attribute name="NAME" x="67.5386" y="38.862" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1469671" x="68.199" y="39.624" size="1.778" layer="27" display="off"/>
 <attribute name="OC_NEWARK" value="-" x="68.199" y="39.624" size="1.778" layer="27" display="off"/>
 <attribute name="SUPPLIER" value="Vishay" x="68.199" y="39.624" size="1.778" layer="27" display="off"/>
@@ -1791,7 +1803,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="U6_CFF" library="Kemet_By_element14_Batch_1" package="CAPC1608X85N" value="10pF" x="68.6435" y="41.148" smashed="yes" rot="R90">
 <attribute name="MPN" value="C0603C100J5GACTU" x="68.6435" y="41.148" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="67.3735" y="37.6936" size="1.016" layer="25" font="vector" ratio="1" rot="SR90"/>
+<attribute name="NAME" x="68.1736" y="42.1005" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1414601" x="68.6435" y="41.148" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="64K2831" x="68.6435" y="41.148" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="Kemet" x="68.6435" y="41.148" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1800,7 +1812,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="U6_CIN" library="Murata_By_element14_Batch_1" package="CAPC2013X135N" value="22uF" x="63.627" y="37.2745" smashed="yes" rot="R270">
 <attribute name="MPN" value="GRM21BR60J226ME39L " x="63.627" y="37.2745" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="64.897" y="40.7289" size="1.016" layer="25" font="vector" ratio="1" rot="SR270"/>
+<attribute name="NAME" x="62.9031" y="35.687" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1735531" x="63.627" y="37.2745" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="OC_NEWARK" value="24R6338" x="63.627" y="37.2745" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SUPPLIER" value="Murata" x="63.627" y="37.2745" size="1.778" layer="27" rot="R270" display="off"/>
@@ -1809,7 +1821,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="U6_COUT" library="Murata_By_element14_Batch_1" package="CAPC3225X270N" value="22uF" x="60.96" y="40.64" smashed="yes" rot="R90">
 <attribute name="MPN" value="GRM32ER61C226KE20L" x="60.96" y="40.64" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="58.42" y="37.1856" size="1.016" layer="25" font="vector" ratio="1" rot="SR90"/>
+<attribute name="NAME" x="60.5536" y="42.672" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="9527800" x="60.96" y="40.64" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="97K0673" x="60.96" y="40.64" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="Murata" x="60.96" y="40.64" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1818,7 +1830,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="R1" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="48.26" y="11.43" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW080515R0JNEA" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="47.3456" y="13.97" size="1.016" layer="48" font="vector" ratio="1" rot="SR0"/>
+<attribute name="NAME" x="47.3456" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1514816" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="59M6857" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1827,7 +1839,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="R2" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="50.8" y="11.43" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW080515R0JNEA" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="49.8856" y="13.97" size="1.016" layer="48" font="vector" ratio="1" rot="SR0"/>
+<attribute name="NAME" x="49.911" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1514816" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="59M6857" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1836,7 +1848,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="R3" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="36.83" y="11.43" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW080515R0JNEA" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="35.9156" y="13.97" size="1.016" layer="48" font="vector" ratio="1" rot="SR0"/>
+<attribute name="NAME" x="35.9664" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1514816" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="59M6857" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1845,7 +1857,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="R4" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="39.37" y="11.43" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW080515R0JNEA" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="38.4556" y="13.97" size="1.016" layer="48" font="vector" ratio="1" rot="SR0"/>
+<attribute name="NAME" x="38.5064" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1514816" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="59M6857" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1854,7 +1866,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="R5" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="41.91" y="11.43" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW080515R0JNEA" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="40.9956" y="13.97" size="1.016" layer="48" font="vector" ratio="1" rot="SR0"/>
+<attribute name="NAME" x="41.021" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1514816" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="59M6857" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1863,7 +1875,7 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="R6" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="44.45" y="11.4427" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW080515R0JNEA" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="43.5356" y="13.9827" size="1.016" layer="48" font="vector" ratio="1" rot="SR0"/>
+<attribute name="NAME" x="43.5356" y="13.1445" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1514816" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="59M6857" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
@@ -1872,19 +1884,20 @@ Please make sure your boards conform to these design rules.</description>
 </element>
 <element name="R7" library="Vishay_By_element14_Batch_1" package="RESC1005X40N" value="22 Ohms" x="84.1375" y="31.8135" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW040222R0JNED" x="84.1375" y="31.8135" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="82.8675" y="28.3591" size="2.0828" layer="25" ratio="10" rot="SR90"/>
+<attribute name="NAME" x="84.8995" y="31.4071" size="0.254" layer="48" ratio="10" rot="SR90"/>
 <attribute name="OC_FARNELL" value="1514685" x="84.1375" y="31.8135" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="59M6716" x="84.1375" y="31.8135" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="84.1375" y="31.8135" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="TOLERANCE" value="±5%" x="84.1375" y="31.8135" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="0.063 W" x="84.1375" y="31.8135" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="J1" library="SparkFun-Connectors" package="JST-2-SMD" value="batt" x="46.99" y="50.292" rot="R90">
+<element name="J1" library="SparkFun-Connectors" package="JST-2-SMD" value="batt" x="46.99" y="50.292" smashed="yes" rot="R90">
 <attribute name="PROD_ID" value="CONN-11443" x="46.99" y="50.292" size="0.6096" layer="27" ratio="1" rot="R90" display="off"/>
+<attribute name="VALUE" x="46.609" y="51.435" size="0.254" layer="48" font="vector" ratio="10" rot="R180"/>
 </element>
 <element name="R8" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="0Ohm" x="55.753" y="50.546" smashed="yes" rot="R180">
 <attribute name="MPN" value="CRCW08050000Z0EB" x="55.753" y="50.546" size="0.6096" layer="27" ratio="1" rot="R180" display="off"/>
-<attribute name="NAME" x="59.2074" y="49.276" size="2.0828" layer="25" ratio="10" rot="SR180"/>
+<attribute name="NAME" x="54.3306" y="51.562" size="0.254" layer="48" ratio="10" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1853266" x="55.753" y="50.546" size="0.6096" layer="27" ratio="1" rot="R180" display="off"/>
 <attribute name="OC_NEWARK" value="48P9971" x="55.753" y="50.546" size="0.6096" layer="27" ratio="1" rot="R180" display="off"/>
 <attribute name="SUPPLIER" value="Vishay" x="55.753" y="50.546" size="0.6096" layer="27" ratio="1" rot="R180" display="off"/>
@@ -1892,26 +1905,25 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="WATTAGE" value="0.125W" x="55.753" y="50.546" size="0.6096" layer="27" ratio="1" rot="R180" display="off"/>
 </element>
 <element name="R9" library="32bits" package="1206" value="10k" x="35.56" y="29.21" smashed="yes">
-<attribute name="NAME" x="35.7124" y="30.4292" size="0.762" layer="25" font="vector" ratio="20" align="bottom-center"/>
+<attribute name="NAME" x="35.7124" y="30.4292" size="0.254" layer="48" font="vector" ratio="10" align="bottom-center"/>
 </element>
-<element name="J2" library="32bits" package="2X4-0.01&quot;(2.54MM)-SOCKET" value="battery" x="69.85" y="49.53"/>
-<element name="J3" library="32bits" package="2X4-0.01&quot;(2.54MM)-SOCKET" value="motor" x="59.69" y="5.08" smashed="yes">
-<attribute name="VALUE" x="70.231" y="6.35" size="1.524" layer="27" ratio="10" rot="R90" align="bottom-center"/>
-</element>
+<element name="J2" library="32bits" package="2X4-0.01&quot;(2.54MM)-SOCKET" value="battery" x="69.85" y="49.53" smashed="yes"/>
+<element name="J3" library="32bits" package="2X4-0.01&quot;(2.54MM)-SOCKET" value="motor" x="59.69" y="5.08" smashed="yes"/>
 <element name="S1" library="32bits" package="SS312SAH4" value="SS312SAH4" x="82.55" y="19.05" smashed="yes" rot="R90"/>
-<element name="Q1" library="32bits" package="SO-8" value="Si7137DP" x="60.8584" y="51.6763"/>
+<element name="Q1" library="32bits" package="SO-8" value="Si7137DP" x="60.8584" y="51.6763" smashed="yes">
+<attribute name="NAME" x="62.6364" y="51.1683" size="0.254" layer="48"/>
+</element>
 <element name="U2" library="32bits" package="20M1" value="ATTINY84-20MU" x="73.66" y="20.32" smashed="yes" rot="R315">
 <attribute name="MANUFACTURER_PART_NUMBER" value="ATTINY8420MU" x="73.66" y="20.32" size="1.778" layer="27" rot="R315" display="off"/>
 <attribute name="NAME" x="73.52098125" y="21.77414375" size="0.254" layer="48" font="vector" ratio="6" rot="SR315"/>
 <attribute name="VENDOR" value="Atmel" x="73.66" y="20.32" size="1.778" layer="27" rot="R315" display="off"/>
 </element>
 <element name="J4" library="32bits" package=".1-ISP-PADS" value="AVR_ISP" x="81.28" y="22.86" smashed="yes" rot="MR270">
-<attribute name="NAME" x="77.47" y="24.13" size="1.27" layer="26" rot="MR270"/>
-<attribute name="VALUE" x="83.82" y="24.13" size="1.27" layer="28" rot="MR270"/>
+<attribute name="VALUE" x="85.09" y="20.32" size="1.016" layer="28" ratio="15" rot="SMR270" align="bottom-center"/>
 </element>
 <element name="U4_RPG" library="Vishay_By_element14_Batch_1" package="RESC3216X71N" value="100K Ohms" x="79.4004" y="26.5938" smashed="yes">
 <attribute name="MPN" value="CRCW1206100KFKEA" x="79.4004" y="26.5938" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="75.946" y="28.4988" size="2.0828" layer="25" ratio="10" rot="SR0"/>
+<attribute name="NAME" x="78.994" y="26.9748" size="0.254" layer="48" ratio="10" rot="SR0"/>
 <attribute name="OC_FARNELL" value="1469975" x="79.4004" y="26.5938" size="1.778" layer="27" display="off"/>
 <attribute name="OC_NEWARK" value="53K1920" x="79.4004" y="26.5938" size="1.778" layer="27" display="off"/>
 <attribute name="SUPPLIER" value="Vishay" x="79.4004" y="26.5938" size="1.778" layer="27" display="off"/>
@@ -1919,19 +1931,19 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="WATTAGE" value="0.25W" x="79.4004" y="26.5938" size="1.778" layer="27" display="off"/>
 </element>
 <element name="Q1_R1" library="SparkFun-Resistors" package="0603" value="100k" x="64.2366" y="45.72" smashed="yes" rot="R180">
-<attribute name="NAME" x="64.2366" y="44.958" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="bottom-center"/>
+<attribute name="NAME" x="64.2366" y="44.958" size="0.254" layer="48" font="vector" ratio="10" rot="R180" align="bottom-center"/>
 <attribute name="PROD_ID" value="RES-07828" x="64.2366" y="45.72" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="D1" library="SparkFun-DiscreteSemi" package="SOD-323" value="1SS367,H3F" x="59.7154" y="45.6946" smashed="yes">
-<attribute name="NAME" x="59.7154" y="46.4566" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center"/>
+<attribute name="NAME" x="59.7154" y="46.4566" size="0.254" layer="48" font="vector" ratio="10" align="bottom-center"/>
 <attribute name="PROD_ID" value="DIO-11623" x="59.7154" y="45.6946" size="1.778" layer="27" display="off"/>
 </element>
 <element name="U2_R2" library="SparkFun-Resistors" package="0402" value="10k" x="67.9958" y="45.72" smashed="yes" rot="R180">
-<attribute name="NAME" x="67.9958" y="44.958" size="0.6096" layer="25" font="vector" ratio="20" rot="R180" align="bottom-center"/>
+<attribute name="NAME" x="67.9958" y="44.958" size="0.254" layer="48" font="vector" ratio="10" rot="R180" align="bottom-center"/>
 <attribute name="PROD_ID" value=" " x="67.9958" y="45.72" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="U2_R1" library="SparkFun-Resistors" package="0402" value="10k" x="74.295" y="45.72" smashed="yes">
-<attribute name="NAME" x="74.295" y="46.482" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center"/>
+<attribute name="NAME" x="74.295" y="46.482" size="0.254" layer="48" font="vector" ratio="10" align="bottom-center"/>
 <attribute name="PROD_ID" value=" " x="74.295" y="45.72" size="1.778" layer="27" display="off"/>
 </element>
 <element name="U2_C1" library="Yageo_By_element14_Batch_1" package="CAPC1005X55N" value="10nF" x="71.447115625" y="24.64108125" smashed="yes" rot="R225">
@@ -1993,13 +2005,13 @@ Please make sure your boards conform to these design rules.</description>
 <via x="33.02" y="36.83" extent="1-16" drill="0.3302"/>
 <via x="34.29" y="36.83" extent="1-16" drill="0.3302"/>
 <via x="34.29" y="35.56" extent="1-16" drill="0.3302"/>
-<via x="40.64" y="30.48" extent="1-16" drill="0.3302"/>
+<via x="40.132" y="30.48" extent="1-16" drill="0.3302"/>
 <via x="43.18" y="30.48" extent="1-16" drill="0.3302"/>
-<via x="45.72" y="30.48" extent="1-16" drill="0.3302"/>
-<via x="45.72" y="27.94" extent="1-16" drill="0.3302"/>
+<via x="45.212" y="30.48" extent="1-16" drill="0.3302"/>
+<via x="45.212" y="27.94" extent="1-16" drill="0.3302"/>
 <via x="43.18" y="27.94" extent="1-16" drill="0.3302"/>
-<via x="40.64" y="27.94" extent="1-16" drill="0.3302"/>
-<via x="35.56" y="20.32" extent="1-16" drill="0.3302"/>
+<via x="40.132" y="27.94" extent="1-16" drill="0.3302"/>
+<via x="35.56" y="20.828" extent="1-16" drill="0.3302"/>
 <via x="36.83" y="20.32" extent="1-16" drill="0.3302"/>
 <via x="59.69" y="36.83" extent="1-16" drill="0.3302"/>
 <via x="59.69" y="38.1" extent="1-16" drill="0.3302"/>
@@ -2053,6 +2065,60 @@ Please make sure your boards conform to these design rules.</description>
 <via x="82.55" y="33.02" extent="1-16" drill="0.3302"/>
 <contactref element="U2_C1" pad="1"/>
 <contactref element="U2_C2" pad="1"/>
+<via x="55.88" y="27.94" extent="1-16" drill="0.3302"/>
+<via x="55.88" y="26.924" extent="1-16" drill="0.3302"/>
+<via x="54.864" y="27.94" extent="1-16" drill="0.3302"/>
+<via x="54.864" y="26.924" extent="1-16" drill="0.3302"/>
+<via x="57.658" y="25.4" extent="1-16" drill="0.3302"/>
+<via x="57.912" y="24.384" extent="1-16" drill="0.3302"/>
+<via x="34.29" y="53.34" extent="1-16" drill="0.3302"/>
+<via x="35.56" y="53.34" extent="1-16" drill="0.3302"/>
+<via x="44.45" y="19.304" extent="1-16" drill="0.3302"/>
+<via x="46.99" y="20.32" extent="1-16" drill="0.3302"/>
+<via x="54.61" y="19.812" extent="1-16" drill="0.3302"/>
+<via x="36.576" y="2.794" extent="1-16" drill="0.3302"/>
+<via x="35.56" y="2.794" extent="1-16" drill="0.3302"/>
+<via x="58.166" y="2.794" extent="1-16" drill="0.3302"/>
+<via x="58.166" y="5.334" extent="1-16" drill="0.3302"/>
+<via x="58.166" y="6.858" extent="1-16" drill="0.3302"/>
+<via x="75.946" y="4.064" extent="1-16" drill="0.3302"/>
+<via x="75.946" y="5.842" extent="1-16" drill="0.3302"/>
+<via x="74.93" y="8.89" extent="1-16" drill="0.3302"/>
+<via x="78.486" y="5.334" extent="1-16" drill="0.3302"/>
+<via x="39.116" y="14.732" extent="1-16" drill="0.3302"/>
+<via x="47.752" y="36.576" extent="1-16" drill="0.3302"/>
+<via x="50.8" y="42.672" extent="1-16" drill="0.3302"/>
+<via x="53.34" y="47.752" extent="1-16" drill="0.3302"/>
+<via x="54.356" y="48.768" extent="1-16" drill="0.3302"/>
+<via x="51.816" y="47.752" extent="1-16" drill="0.3302"/>
+<via x="53.848" y="52.324" extent="1-16" drill="0.3302"/>
+<via x="59.436" y="47.244" extent="1-16" drill="0.3302"/>
+<via x="74.93" y="13.462" extent="1-16" drill="0.3302"/>
+<via x="82.296" y="15.748" extent="1-16" drill="0.3302"/>
+<via x="84.074" y="25.654" extent="1-16" drill="0.3302"/>
+<via x="84.582" y="27.178" extent="1-16" drill="0.3302"/>
+<via x="85.09" y="28.702" extent="1-16" drill="0.3302"/>
+<via x="85.852" y="39.116" extent="1-16" drill="0.3302"/>
+<via x="85.344" y="38.1" extent="1-16" drill="0.3302"/>
+<via x="86.36" y="40.132" extent="1-16" drill="0.3302"/>
+<via x="83.82" y="45.212" extent="1-16" drill="0.3302"/>
+<via x="72.644" y="38.354" extent="1-16" drill="0.3302"/>
+<via x="81.534" y="39.624" extent="1-16" drill="0.3302"/>
+<via x="80.518" y="40.386" extent="1-16" drill="0.3302"/>
+<via x="76.2" y="47.244" extent="1-16" drill="0.3302"/>
+<via x="75.438" y="42.672" extent="1-16" drill="0.3302"/>
+<via x="71.12" y="51.308" extent="1-16" drill="0.3302"/>
+<via x="79.248" y="48.006" extent="1-16" drill="0.3302"/>
+<via x="64.008" y="52.578" extent="1-16" drill="0.3302"/>
+<via x="61.976" y="46.482" extent="1-16" drill="0.3302"/>
+<via x="67.564" y="49.022" extent="1-16" drill="0.3302"/>
+<via x="31.75" y="9.398" extent="1-16" drill="0.3302"/>
+<via x="32.258" y="15.748" extent="1-16" drill="0.3302"/>
+<via x="32.004" y="41.402" extent="1-16" drill="0.3302"/>
+<via x="32.004" y="47.752" extent="1-16" drill="0.3302"/>
+<via x="32.004" y="54.864" extent="1-16" drill="0.3302"/>
+<via x="32.258" y="29.464" extent="1-16" drill="0.3302"/>
+<via x="32.004" y="2.286" extent="1-16" drill="0.3302"/>
 </signal>
 <signal name="SW">
 <contactref element="U1" pad="P$7"/>
@@ -2673,7 +2739,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="82.296" y1="31.1375" x2="84.0457" y2="31.1375" width="0.381" layer="1"/>
 <wire x1="84.0457" y1="31.1375" x2="84.1375" y2="31.2293" width="0.381" layer="1"/>
 </signal>
-<signal name="LOCAL_VBAT">
+<signal name="VBAT_JST">
 <contactref element="J1" pad="2"/>
 <contactref element="R8" pad="2"/>
 <wire x1="50.69" y1="51.292" x2="53.34" y2="51.308" width="0.762" layer="1"/>
