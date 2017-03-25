@@ -5437,7 +5437,10 @@ Diode with low voltage drop</description>
 <instance part="Q1" gate="G$1" x="-7.62" y="251.46"/>
 <instance part="U2" gate="A" x="35.56" y="-38.1"/>
 <instance part="J4" gate="A" x="-12.7" y="213.36"/>
-<instance part="U4_RPG" gate="A" x="292.1" y="53.34" rot="R90"/>
+<instance part="U4_RPG" gate="A" x="292.1" y="53.34" smashed="yes" rot="R90">
+<attribute name="VALUE" x="298.2976" y="52.7558" size="2.032" layer="96" ratio="10" rot="SR90"/>
+<attribute name="NAME" x="289.3314" y="54.3306" size="2.0828" layer="95" ratio="10" rot="SR90"/>
+</instance>
 <instance part="Q1_R1" gate="G$1" x="-33.02" y="241.3"/>
 <instance part="D1" gate="G$1" x="-22.86" y="233.68" rot="R270"/>
 <instance part="U2_R2" gate="G$1" x="12.7" y="-27.94" rot="R90"/>
