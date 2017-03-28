@@ -1355,6 +1355,34 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </package>
 </packages>
 </library>
+<library name="Panasonic_By_element14_Batch_1">
+<description>Developed by element14 :&lt;br&gt;
+element14 CAD Library consolidation.ulp
+at 30/07/2012 15:23:17</description>
+<packages>
+<package name="RESC2013X65N">
+<description>RESISTOR, 0805</description>
+<smd name="1" x="-0.9398" y="0" dx="1.016" dy="1.397" layer="1"/>
+<smd name="2" x="0.9398" y="0" dx="1.016" dy="1.397" layer="1"/>
+<text x="-3.4544" y="1.27" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
+<text x="-3.4544" y="-3.175" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
+<wire x1="-0.1016" y1="-0.7112" x2="0.1016" y2="-0.7112" width="0.1524" layer="21"/>
+<wire x1="0.1016" y1="0.7112" x2="-0.1016" y2="0.7112" width="0.1524" layer="21"/>
+<wire x1="-0.4318" y1="-0.7112" x2="-0.4318" y2="0.7112" width="0" layer="51"/>
+<wire x1="-0.4318" y1="0.7112" x2="-1.0668" y2="0.7112" width="0" layer="51"/>
+<wire x1="-1.0668" y1="-0.7112" x2="-0.4318" y2="-0.7112" width="0" layer="51"/>
+<wire x1="0.4318" y1="0.7112" x2="0.4318" y2="-0.7112" width="0" layer="51"/>
+<wire x1="0.4318" y1="-0.7112" x2="1.0668" y2="-0.7112" width="0" layer="51"/>
+<wire x1="1.0668" y1="0.7112" x2="0.4318" y2="0.7112" width="0" layer="51"/>
+<wire x1="-0.4318" y1="-0.7112" x2="0.4318" y2="-0.7112" width="0" layer="51"/>
+<wire x1="1.0668" y1="-0.7112" x2="1.0668" y2="0.7112" width="0" layer="51"/>
+<wire x1="0.4318" y1="0.7112" x2="-0.4318" y2="0.7112" width="0" layer="51"/>
+<wire x1="-1.0668" y1="0.7112" x2="-1.0668" y2="-0.7112" width="0" layer="51"/>
+<text x="-3.4544" y="1.27" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
+<text x="-3.4544" y="-3.175" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
+</package>
+</packages>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -1828,58 +1856,58 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="TOLERANCE" value="±10%" x="60.2996" y="40.7162" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VOLTAGERATING" value="16V" x="60.2996" y="40.7162" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="R1" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="48.26" y="11.43" smashed="yes" rot="R90">
-<attribute name="MPN" value="CRCW080515R0JNEA" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="R1" library="Panasonic_By_element14_Batch_1" package="RESC2013X65N" value="150 Ohm" x="48.26" y="11.43" smashed="yes" rot="R90">
+<attribute name="MPN" value="ERA-6AEB151V" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="NAME" x="47.3456" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
-<attribute name="OC_FARNELL" value="1514816" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="OC_NEWARK" value="59M6857" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="TOLERANCE" value="±5%" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_FARNELL" value="1811409" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_NEWARK" value="08N2149" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="SUPPLIER" value="Panasonic" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="TOLERANCE" value="±0.1 %" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="0.125 W" x="48.26" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="R2" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="50.8" y="11.43" smashed="yes" rot="R90">
-<attribute name="MPN" value="CRCW080515R0JNEA" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="R2" library="Panasonic_By_element14_Batch_1" package="RESC2013X65N" value="200 Ohm" x="50.8" y="11.43" smashed="yes" rot="R90">
+<attribute name="MPN" value="ERA-6AEB201V" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="NAME" x="49.911" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
-<attribute name="OC_FARNELL" value="1514816" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="OC_NEWARK" value="59M6857" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="TOLERANCE" value="±5%" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_FARNELL" value="1670217" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_NEWARK" value="40P0007" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="SUPPLIER" value="Panasonic" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="TOLERANCE" value="±0.1 %" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="0.125 W" x="50.8" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="R3" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="36.83" y="11.43" smashed="yes" rot="R90">
-<attribute name="MPN" value="CRCW080515R0JNEA" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="R3" library="Panasonic_By_element14_Batch_1" package="RESC2013X65N" value="150 Ohm" x="36.83" y="11.43" smashed="yes" rot="R90">
+<attribute name="MPN" value="ERA-6AEB151V" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="NAME" x="35.9664" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
-<attribute name="OC_FARNELL" value="1514816" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="OC_NEWARK" value="59M6857" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="TOLERANCE" value="±5%" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_FARNELL" value="1811409" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_NEWARK" value="08N2149" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="SUPPLIER" value="Panasonic" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="TOLERANCE" value="±0.1 %" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="0.125 W" x="36.83" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="R4" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="39.37" y="11.43" smashed="yes" rot="R90">
-<attribute name="MPN" value="CRCW080515R0JNEA" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="R4" library="Panasonic_By_element14_Batch_1" package="RESC2013X65N" value="100 Ohm" x="39.37" y="11.43" smashed="yes" rot="R90">
+<attribute name="MPN" value="ERA-6AEB101V" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="NAME" x="38.5064" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
-<attribute name="OC_FARNELL" value="1514816" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="OC_NEWARK" value="59M6857" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="TOLERANCE" value="±5%" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_FARNELL" value="1811403" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_NEWARK" value="08N2140" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="SUPPLIER" value="Panasonic" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="TOLERANCE" value="±0.1 %" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="0.125 W" x="39.37" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="R5" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="41.91" y="11.43" smashed="yes" rot="R90">
-<attribute name="MPN" value="CRCW080515R0JNEA" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="R5" library="Panasonic_By_element14_Batch_1" package="RESC2013X65N" value="150 Ohm" x="41.91" y="11.43" smashed="yes" rot="R90">
+<attribute name="MPN" value="ERA-6AEB151V" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="NAME" x="41.021" y="13.1572" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
-<attribute name="OC_FARNELL" value="1514816" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="OC_NEWARK" value="59M6857" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="TOLERANCE" value="±5%" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_FARNELL" value="1811409" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_NEWARK" value="08N2149" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="SUPPLIER" value="Panasonic" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="TOLERANCE" value="±0.1 %" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="0.125 W" x="41.91" y="11.43" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="R6" library="Vishay_By_element14_Batch_1" package="RESC2013X65N" value="15 Ohm" x="44.45" y="11.4427" smashed="yes" rot="R90">
-<attribute name="MPN" value="CRCW080515R0JNEA" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="R6" library="Panasonic_By_element14_Batch_1" package="RESC2013X65N" value="100 Ohm" x="44.45" y="11.4427" smashed="yes" rot="R90">
+<attribute name="MPN" value="ERA-6AEB101V" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="NAME" x="43.5356" y="13.1445" size="0.254" layer="48" font="vector" ratio="1" rot="SR0"/>
-<attribute name="OC_FARNELL" value="1514816" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="OC_NEWARK" value="59M6857" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="TOLERANCE" value="±5%" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_FARNELL" value="1811403" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="OC_NEWARK" value="08N2140" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="SUPPLIER" value="Panasonic" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="TOLERANCE" value="±0.1 %" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="0.125 W" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="R7" library="Vishay_By_element14_Batch_1" package="RESC1005X40N" value="22 Ohms" x="84.1375" y="31.5595" smashed="yes" rot="R90">

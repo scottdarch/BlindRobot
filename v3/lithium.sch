@@ -963,31 +963,6 @@ at 30/07/2012 16:36:08</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="CRCW080515R0JNEA" prefix="R">
-<description>RESISTOR, 0805</description>
-<gates>
-<gate name="A" symbol="RESH" x="0" y="0" swaplevel="1"/>
-</gates>
-<devices>
-<device name="" package="RESC2013X65N">
-<connects>
-<connect gate="A" pin="1" pad="1"/>
-<connect gate="A" pin="2" pad="2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MPN" value="CRCW080515R0JNEA" constant="no"/>
-<attribute name="OC_FARNELL" value="1514816" constant="no"/>
-<attribute name="OC_NEWARK" value="59M6857" constant="no"/>
-<attribute name="SUPPLIER" value="VISHAY DALE ELECTRONICS" constant="no"/>
-<attribute name="TOLERANCE" value="±5%" constant="no"/>
-<attribute name="VALUE" value="15 Ohm" constant="no"/>
-<attribute name="WATTAGE" value="0.125 W" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="CRCW040222R0JNED" prefix="R">
 <description>RESISTOR, 0402</description>
 <gates>
@@ -5162,6 +5137,126 @@ Diode with low voltage drop</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="Panasonic_By_element14_Batch_1">
+<description>Developed by element14 :&lt;br&gt;
+element14 CAD Library consolidation.ulp
+at 30/07/2012 15:23:17</description>
+<packages>
+<package name="RESC2013X65N">
+<description>RESISTOR, 0805</description>
+<smd name="1" x="-0.9398" y="0" dx="1.016" dy="1.397" layer="1"/>
+<smd name="2" x="0.9398" y="0" dx="1.016" dy="1.397" layer="1"/>
+<text x="-3.4544" y="1.27" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
+<text x="-3.4544" y="-3.175" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
+<wire x1="-0.1016" y1="-0.7112" x2="0.1016" y2="-0.7112" width="0.1524" layer="21"/>
+<wire x1="0.1016" y1="0.7112" x2="-0.1016" y2="0.7112" width="0.1524" layer="21"/>
+<wire x1="-0.4318" y1="-0.7112" x2="-0.4318" y2="0.7112" width="0" layer="51"/>
+<wire x1="-0.4318" y1="0.7112" x2="-1.0668" y2="0.7112" width="0" layer="51"/>
+<wire x1="-1.0668" y1="-0.7112" x2="-0.4318" y2="-0.7112" width="0" layer="51"/>
+<wire x1="0.4318" y1="0.7112" x2="0.4318" y2="-0.7112" width="0" layer="51"/>
+<wire x1="0.4318" y1="-0.7112" x2="1.0668" y2="-0.7112" width="0" layer="51"/>
+<wire x1="1.0668" y1="0.7112" x2="0.4318" y2="0.7112" width="0" layer="51"/>
+<wire x1="-0.4318" y1="-0.7112" x2="0.4318" y2="-0.7112" width="0" layer="51"/>
+<wire x1="1.0668" y1="-0.7112" x2="1.0668" y2="0.7112" width="0" layer="51"/>
+<wire x1="0.4318" y1="0.7112" x2="-0.4318" y2="0.7112" width="0" layer="51"/>
+<wire x1="-1.0668" y1="0.7112" x2="-1.0668" y2="-0.7112" width="0" layer="51"/>
+<text x="-3.4544" y="1.27" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
+<text x="-3.4544" y="-3.175" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
+</package>
+</packages>
+<symbols>
+<symbol name="RESH">
+<pin name="R2" x="0" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
+<pin name="R1" x="12.7" y="0" visible="off" length="short" direction="pas" rot="R180"/>
+<wire x1="3.175" y1="1.27" x2="4.445" y2="-1.27" width="0.2032" layer="94"/>
+<wire x1="4.445" y1="-1.27" x2="5.715" y2="1.27" width="0.2032" layer="94"/>
+<wire x1="5.715" y1="1.27" x2="6.985" y2="-1.27" width="0.2032" layer="94"/>
+<wire x1="6.985" y1="-1.27" x2="8.255" y2="1.27" width="0.2032" layer="94"/>
+<wire x1="8.255" y1="1.27" x2="9.525" y2="-1.27" width="0.2032" layer="94"/>
+<wire x1="2.54" y1="0" x2="3.175" y2="1.27" width="0.2032" layer="94"/>
+<wire x1="9.525" y1="-1.27" x2="10.16" y2="0" width="0.2032" layer="94"/>
+<text x="-3.1242" y="-8.7376" size="3.4798" layer="96" ratio="10" rot="SR0">&gt;VALUE</text>
+<text x="0.9906" y="2.7686" size="2.0828" layer="95" ratio="10" rot="SR0">&gt;NAME</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="ERA-6AEB101V" prefix="R">
+<description>RESISTOR, 0805</description>
+<gates>
+<gate name="A" symbol="RESH" x="0" y="0" swaplevel="1"/>
+</gates>
+<devices>
+<device name="" package="RESC2013X65N">
+<connects>
+<connect gate="A" pin="R1" pad="1"/>
+<connect gate="A" pin="R2" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MPN" value="ERA-6AEB101V" constant="no"/>
+<attribute name="OC_FARNELL" value="1811403" constant="no"/>
+<attribute name="OC_NEWARK" value="08N2140" constant="no"/>
+<attribute name="SUPPLIER" value="Panasonic" constant="no"/>
+<attribute name="TOLERANCE" value="±0.1 %" constant="no"/>
+<attribute name="VALUE" value="100 Ohm" constant="no"/>
+<attribute name="WATTAGE" value="0.125 W" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="ERA-6AEB151V" prefix="R">
+<description>RESISTOR, 0805</description>
+<gates>
+<gate name="A" symbol="RESH" x="0" y="0" swaplevel="1"/>
+</gates>
+<devices>
+<device name="" package="RESC2013X65N">
+<connects>
+<connect gate="A" pin="R1" pad="1"/>
+<connect gate="A" pin="R2" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MPN" value="ERA-6AEB151V" constant="no"/>
+<attribute name="OC_FARNELL" value="1811409" constant="no"/>
+<attribute name="OC_NEWARK" value="08N2149" constant="no"/>
+<attribute name="SUPPLIER" value="Panasonic" constant="no"/>
+<attribute name="TOLERANCE" value="±0.1 %" constant="no"/>
+<attribute name="VALUE" value="150 Ohm" constant="no"/>
+<attribute name="WATTAGE" value="0.125 W" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="ERA-6AEB201V" prefix="R">
+<description>RESISTOR, 0805</description>
+<gates>
+<gate name="A" symbol="RESH" x="0" y="0" swaplevel="1"/>
+</gates>
+<devices>
+<device name="" package="RESC2013X65N">
+<connects>
+<connect gate="A" pin="R1" pad="1"/>
+<connect gate="A" pin="R2" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MPN" value="ERA-6AEB201V" constant="no"/>
+<attribute name="OC_FARNELL" value="1670217" constant="no"/>
+<attribute name="OC_NEWARK" value="40P0007" constant="no"/>
+<attribute name="SUPPLIER" value="Panasonic" constant="no"/>
+<attribute name="TOLERANCE" value="±0.1 %" constant="no"/>
+<attribute name="VALUE" value="200 Ohm" constant="no"/>
+<attribute name="WATTAGE" value="0.125 W" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -5239,12 +5334,12 @@ Diode with low voltage drop</description>
 <part name="U6_CIN" library="Murata_By_element14_Batch_1" deviceset="GRM21BR60J226ME39L" device="" value="22uF"/>
 <part name="U6_COUT" library="Murata_By_element14_Batch_1" deviceset="GRM32ER61C226KE20L" device="" value="22uF"/>
 <part name="GND" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
-<part name="R1" library="Vishay_By_element14_Batch_1" deviceset="CRCW080515R0JNEA" device="" value="15 Ohm"/>
-<part name="R2" library="Vishay_By_element14_Batch_1" deviceset="CRCW080515R0JNEA" device="" value="15 Ohm"/>
-<part name="R3" library="Vishay_By_element14_Batch_1" deviceset="CRCW080515R0JNEA" device="" value="15 Ohm"/>
-<part name="R4" library="Vishay_By_element14_Batch_1" deviceset="CRCW080515R0JNEA" device="" value="15 Ohm"/>
-<part name="R5" library="Vishay_By_element14_Batch_1" deviceset="CRCW080515R0JNEA" device="" value="15 Ohm"/>
-<part name="R6" library="Vishay_By_element14_Batch_1" deviceset="CRCW080515R0JNEA" device="" value="15 Ohm"/>
+<part name="R1" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB151V" device="" value="150 Ohm"/>
+<part name="R2" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB201V" device="" value="200 Ohm"/>
+<part name="R3" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB151V" device="" value="150 Ohm"/>
+<part name="R4" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB101V" device="" value="100 Ohm"/>
+<part name="R5" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB151V" device="" value="150 Ohm"/>
+<part name="R6" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB101V" device="" value="100 Ohm"/>
 <part name="R7" library="Vishay_By_element14_Batch_1" deviceset="CRCW040222R0JNED" device="" value="22 Ohms"/>
 <part name="J1" library="SparkFun-Connectors" deviceset="CONN_02" device="-JST-2MM-SMT" value="batt"/>
 <part name="R8" library="Vishay_By_element14_Batch_1" deviceset="CRCW08050000Z0EB" device="" value="0Ohm"/>
@@ -5722,7 +5817,7 @@ Diode with low voltage drop</description>
 <segment>
 <wire x1="261.62" y1="119.38" x2="261.62" y2="127" width="0.1524" layer="91"/>
 <label x="262.89" y="124.968" size="1.778" layer="95"/>
-<pinref part="R6" gate="A" pin="2"/>
+<pinref part="R6" gate="A" pin="R2"/>
 </segment>
 <segment>
 <wire x1="292.1" y1="66.04" x2="292.1" y2="73.66" width="0.1524" layer="91"/>
@@ -5811,14 +5906,14 @@ Diode with low voltage drop</description>
 <segment>
 <pinref part="MOTORS" gate="A" pin="2"/>
 <wire x1="200.66" y1="101.6" x2="200.66" y2="106.68" width="0.1524" layer="91"/>
-<pinref part="R2" gate="A" pin="1"/>
+<pinref part="R2" gate="A" pin="R1"/>
 </segment>
 </net>
 <net name="LA_5" class="0">
 <segment>
 <pinref part="5V" gate="A" pin="2"/>
 <wire x1="185.42" y1="101.6" x2="185.42" y2="106.68" width="0.1524" layer="91"/>
-<pinref part="R1" gate="A" pin="1"/>
+<pinref part="R1" gate="A" pin="R1"/>
 </segment>
 </net>
 <net name="MOT_6V" class="0">
@@ -5842,7 +5937,7 @@ Diode with low voltage drop</description>
 <segment>
 <wire x1="200.66" y1="119.38" x2="200.66" y2="127" width="0.1524" layer="91"/>
 <label x="201.676" y="125.222" size="1.778" layer="95"/>
-<pinref part="R2" gate="A" pin="2"/>
+<pinref part="R2" gate="A" pin="R2"/>
 </segment>
 <segment>
 <pinref part="J3" gate="A" pin="5"/>
@@ -5924,9 +6019,9 @@ Diode with low voltage drop</description>
 <wire x1="215.9" y1="170.18" x2="203.2" y2="170.18" width="0.1524" layer="91"/>
 <junction x="215.9" y="170.18"/>
 <label x="203.2" y="171.45" size="1.778" layer="95"/>
-<pinref part="R3" gate="A" pin="2"/>
-<pinref part="R4" gate="A" pin="2"/>
-<pinref part="R5" gate="A" pin="2"/>
+<pinref part="R3" gate="A" pin="R2"/>
+<pinref part="R4" gate="A" pin="R2"/>
+<pinref part="R5" gate="A" pin="R2"/>
 </segment>
 <segment>
 <pinref part="U4" gate="A" pin="IN2"/>
@@ -5995,28 +6090,28 @@ Diode with low voltage drop</description>
 <segment>
 <pinref part="CHG" gate="A" pin="2"/>
 <wire x1="215.9" y1="106.68" x2="215.9" y2="101.6" width="0.1524" layer="91"/>
-<pinref part="R3" gate="A" pin="1"/>
+<pinref part="R3" gate="A" pin="R1"/>
 </segment>
 </net>
 <net name="LA_DONE" class="0">
 <segment>
 <pinref part="DONE" gate="A" pin="2"/>
 <wire x1="231.14" y1="106.68" x2="231.14" y2="101.6" width="0.1524" layer="91"/>
-<pinref part="R4" gate="A" pin="1"/>
+<pinref part="R4" gate="A" pin="R1"/>
 </segment>
 </net>
 <net name="LA_USB" class="0">
 <segment>
 <pinref part="USB" gate="A" pin="2"/>
 <wire x1="246.38" y1="101.6" x2="246.38" y2="106.68" width="0.1524" layer="91"/>
-<pinref part="R5" gate="A" pin="1"/>
+<pinref part="R5" gate="A" pin="R1"/>
 </segment>
 </net>
 <net name="LA_BATT" class="0">
 <segment>
 <pinref part="BATT" gate="A" pin="2"/>
 <wire x1="261.62" y1="106.68" x2="261.62" y2="101.6" width="0.1524" layer="91"/>
-<pinref part="R6" gate="A" pin="1"/>
+<pinref part="R6" gate="A" pin="R1"/>
 </segment>
 </net>
 <net name="U4_STAT" class="0">
@@ -6096,7 +6191,7 @@ Diode with low voltage drop</description>
 <segment>
 <wire x1="185.42" y1="119.38" x2="185.42" y2="127" width="0.1524" layer="91"/>
 <label x="186.436" y="125.222" size="1.778" layer="95"/>
-<pinref part="R1" gate="A" pin="2"/>
+<pinref part="R1" gate="A" pin="R2"/>
 </segment>
 <segment>
 <pinref part="J2" gate="A" pin="4"/>
