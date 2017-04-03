@@ -60,6 +60,7 @@ endif
 # | BOARD
 # +----------------------------------------------------------------------------+
 BOARD                    := samc21_xplained_pro
+BOARD_OCD                := atmel_$(BOARD)
 BOARD_CPU_ARCH           := arm-none-eabi
 BOARD_GCC_PREFIX         := $(BOARD_CPU_ARCH)-
 BOARD_FAMILY             := sam0
@@ -142,8 +143,6 @@ LISTING_FILE    := $(BUILD_FOLDER)/$(PROJECT_NAME).lss
 # | TOOLCHAIN
 # +----------------------------------------------------------------------------+
 
-LOCAL_ENV_PROGRAM ?= avrdude -c $(BOARD_PROGRAMMER) -p $(BOARD_CPU)
-
 ASFLAGS         := -Wa,-g \
                    -Wa,-gdwarf2 \
 
@@ -187,7 +186,7 @@ LDFLAGS         += -pipe \
                    -Wl,--warn-common \
                    -Wl,--warn-section-align \
                    -Wl,-M=$(MAP_FILE) \
-                   -T$(LINKER_SCRIPT) \
+                   -Wl,-T$(LINKER_SCRIPT) \
 
 BINFLAGS         = -j .text -j .data -O ihex
 
@@ -235,10 +234,10 @@ clean:
 	$(RMDIR) $(BUILD_ROOT)
 
 size: $(HEX)
-	$(BOARD_GCC_PREFIX)size --mcu=$(BOARD_CPU) --format=avr --target=binary $<
+	$(BOARD_GCC_PREFIX)size --mcu=$(BOARD_CPU) --target=binary $<
 
-flash: $(HEX)
-	$(LOCAL_ENV_PROGRAM) -U $@:w:$<:i
+flash: $(ELF)
+	openocd -f board/$(BOARD_OCD).cfg -c "program $< verify reset exit"
 
 info:
 	@echo SOURCE: $(addprefix "\n\t", $(SOURCE))
