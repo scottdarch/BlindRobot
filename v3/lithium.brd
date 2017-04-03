@@ -2082,7 +2082,7 @@ Please make sure your boards conform to these design rules.</description>
 <via x="73.8124" y="24.4602" extent="1-16" drill="0.3302"/>
 <via x="70.866" y="33.5534" extent="1-16" drill="0.3302"/>
 <via x="75.7936" y="23.7998" extent="1-16" drill="0.3302"/>
-<via x="78.74" y="19.05" extent="1-16" drill="0.3302"/>
+<via x="77.7748" y="19.1516" extent="1-16" drill="0.3302"/>
 <via x="76.2" y="16.51" extent="1-16" drill="0.3302"/>
 <via x="74.93" y="16.51" extent="1-16" drill="0.3302"/>
 <via x="70.8152" y="19.1262" extent="1-16" drill="0.3302"/>
