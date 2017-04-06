@@ -44,6 +44,8 @@
 #include <power.h>
 #include <reset.h>
 
+static volatile bool systick_gate = false;
+
 /** Handler for the device SysTick module, called when the SysTick counter
  *  reaches the set period.
  *
@@ -55,6 +57,7 @@ void
 SysTick_Handler(void)
 {
     port_pin_toggle_output_level(LED_0_PIN);
+    systick_gate = !systick_gate;
 }
 
 /** Configure LED0, turn it off*/
@@ -69,6 +72,33 @@ config_led(void)
     port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
 }
 
+#define PERIPHERAL_ADDR 0x12
+
+/* Init software module. */
+struct i2c_master_module i2c_master_instance;
+
+static void
+configure_i2c_master(void)
+{
+    /* Initialize config structure and software module. */
+    struct i2c_master_config config_i2c_master;
+    i2c_master_get_config_defaults(&config_i2c_master);
+
+    /* Change buffer timeout to something longer. */
+    config_i2c_master.buffer_timeout = 10000;
+
+    /* Initialize and enable device with config. */
+    i2c_master_init(
+      &i2c_master_instance, CONF_I2C_MASTER_MODULE, &config_i2c_master);
+
+    i2c_master_enable(&i2c_master_instance);
+}
+
+COMPILER_ALIGNED(16)
+DmacDescriptor example_descriptor SECTION_DMAC_DESCRIPTOR;
+
+static volatile enum status_code last_status;
+
 int
 main(void)
 {
@@ -79,6 +109,18 @@ main(void)
 
     config_led();
 
+    configure_i2c_master();
+
+    static uint8_t data = 0xAA;
+
+    static struct i2c_master_packet packet = {.address = PERIPHERAL_ADDR,
+                                              .data_length = 1,
+                                              .data = &data,
+                                              .ten_bit_address = false,
+                                              .high_speed = false,
+                                              .hs_master_code = 0 };
     while (true) {
+        last_status =
+          i2c_master_write_packet_wait(&i2c_master_instance, &packet);
     }
 }

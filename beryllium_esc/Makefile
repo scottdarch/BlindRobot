@@ -70,6 +70,9 @@ BOARD_ARM_CPU            := cortex-m0plus
 BOARD_PROGRAMMER         := dragon_isp
 CFLAGS                   += -D__SAMC21J18A__ \
                             -DBOARD=SAMC21_XPLAINED_PRO \
+                            -DWDT_CALLBACK_MODE=false \
+                            -DI2C_MASTER_CALLBACK_MODE=false \
+                            -DUSART_CALLBACK_MODE=false \
 
 # +----------------------------------------------------------------------------+
 # | INPUTS
@@ -152,6 +155,8 @@ POSTCOMPILE      = mv -f $(patsubst %.o,%.Td,$@) $(patsubst %.o,%.d,$@)
 
 CFLAGS          +=  \
                     -std=c99 \
+                    -mthumb \
+                    --specs=nano.specs \
                     -Wall \
                     -Werror \
                     -mcpu=$(BOARD_ARM_CPU) \
@@ -164,6 +169,42 @@ CFLAGS          +=  \
                     -fshort-enums \
                     -Dprintf=iprintf \
                     -Dscanf=iscanf \
+
+# extra warnings/errors
+CFLAGS           += -Werror-implicit-function-declaration \
+                    -Wstrict-prototypes \
+                    -Wmissing-prototypes \
+                    -Wpointer-arith \
+                    -Wchar-subscripts \
+                    -Wcomment \
+                    -Wformat=2 \
+                    -Wimplicit-int \
+                    -Wmain \
+                    -Wparentheses \
+                    -Wsequence-point \
+                    -Wreturn-type \
+                    -Wswitch \
+                    -Wtrigraphs \
+                    -Wunused \
+                    -Wuninitialized \
+                    -Wunknown-pragmas \
+                    -Wfloat-equal \
+                    -Wundef \
+                    -Wshadow \
+                    -Wbad-function-cast \
+                    -Wwrite-strings \
+                    -Wsign-compare \
+                    -Waggregate-return \
+                    -Wmissing-declarations \
+                    -Wformat \
+                    -Wmissing-format-attribute \
+                    -Wno-deprecated-declarations \
+                    -Wredundant-decls \
+                    -Wnested-externs \
+                    -Wlong-long \
+                    -Wunreachable-code \
+                    -Wcast-align \
+                    --param max-inline-insns-single=500 \
 
 ifdef DEBUG
 CFLAGS          += -ggdb \
@@ -185,7 +226,7 @@ LDFLAGS         += -pipe \
                    -Wl,--unresolved-symbols=report-all \
                    -Wl,--warn-common \
                    -Wl,--warn-section-align \
-                   -Wl,-M=$(MAP_FILE) \
+                   -Wl,-M=$(MAP_FILE),--cref\
                    -Wl,-T$(LINKER_SCRIPT) \
 
 BINFLAGS         = -j .text -j .data -O ihex

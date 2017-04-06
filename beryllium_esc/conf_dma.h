@@ -41,12 +41,14 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef CONF_DMA_H_INCLUDED
 #define CONF_DMA_H_INCLUDED
 
-#  define CONF_MAX_USED_CHANNEL_NUM     1
+#define CONF_MAX_USED_CHANNEL_NUM 1
+#define CONF_I2C_DMA_TRIGGER SERCOM2_DMAC_ID_TX
 
 #endif

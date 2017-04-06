@@ -44,6 +44,7 @@
 #ifndef SAMC21_XPLAINED_PRO_H_INCLUDED
 #define SAMC21_XPLAINED_PRO_H_INCLUDED
 
+#include <conf_board.h>
 #include <compiler.h>
 
 #ifdef __cplusplus
