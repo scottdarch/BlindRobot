@@ -245,9 +245,9 @@ $(ELF) : $(OBJS)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(BOARD_GCC_PREFIX)gcc $(CFLAGS) $(LDFLAGS) -o $@ $^
 
-$(BUILD_FOLDER)/%.o : %.s $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
+$(BUILD_FOLDER)/%.o : %.S $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
-	$(BOARD_GCC_PREFIX)as $(DEPFLAGS) $(CFLAGS) $(ASFLAGS) -D__ASSEMBLY__ -c $< -o $@
+	$(BOARD_GCC_PREFIX)gcc $(DEPFLAGS) $(CFLAGS) $(ASFLAGS) -D__ASSEMBLY__ -c $< -o $@
 	$(POSTCOMPILE)
 
 $(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
