@@ -86,6 +86,8 @@ configure_i2c_master(void)
 
     /* Change buffer timeout to something longer. */
     config_i2c_master.buffer_timeout = 10000;
+    config_i2c_master.pinmux_pad0 = EXT1_PIN_I2C_SDA;
+    config_i2c_master.pinmux_pad1 = EXT1_PIN_I2C_SCL;
 
     /* Initialize and enable device with config. */
     i2c_master_init(
@@ -93,9 +95,6 @@ configure_i2c_master(void)
 
     i2c_master_enable(&i2c_master_instance);
 }
-
-COMPILER_ALIGNED(16)
-DmacDescriptor example_descriptor SECTION_DMAC_DESCRIPTOR;
 
 static volatile enum status_code last_status;
 
