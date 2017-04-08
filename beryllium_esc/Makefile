@@ -67,11 +67,10 @@ BOARD_FAMILY             := sam0
 BOARD_CPU                := samc21
 BOARD_CPU_PART           := j18a
 BOARD_ARM_CPU            := cortex-m0plus
+BOARD_SEGGER_DEVICE      := ATSAMC21J18A
 CFLAGS                   += -D__SAMC21J18A__ \
                             -DBOARD=SAMC21_XPLAINED_PRO \
-                            -DWDT_CALLBACK_MODE=false \
                             -DI2C_MASTER_CALLBACK_MODE=false \
-                            -DUSART_CALLBACK_MODE=false \
                             -DDARM_MATH_CM0PLUS=true \
 
 # +----------------------------------------------------------------------------+
@@ -236,6 +235,8 @@ LDFLAGS         += -pipe \
 GCCPREFIX       := $(strip $(shell $(BOARD_GCC_PREFIX)gcc -v 2>&1 | awk '{FS="--|="; if ( $$2 ~ /prefix/ ) print $$3 }'))
 GCCHEADERS      := $(GCCPREFIX)/$(BOARD_CPU_ARCH)/include
 
+JLINK_LOADSCRIPT := samc21_xplained_pro_load.jlink
+
 # +----------------------------------------------------------------------------+
 # | RECIPIES
 # +----------------------------------------------------------------------------+
@@ -269,6 +270,9 @@ $(MAP_FILE) : $(ELF)
 $(LISTING_FILE) : $(ELF)
 	$(BOARD_GCC_PREFIX)objdump -h -S $< > $@
 
+$(BUILD_FOLDER)/$(JLINK_LOADSCRIPT) : $(JLINK_LOADSCRIPT) $(HEX)
+	sed 's/{{hex}}/$(subst /,\/,$(filter %.hex,$^))/g' $< > $@
+
 .DELETE_ON_ERROR: ;
 
 # +----------------------------------------------------------------------------+
@@ -286,8 +290,11 @@ clean:
 size: $(ELF)
 	$(BOARD_GCC_PREFIX)size $<
 
-flash: $(ELF)
+flash: $(HEX)
 	openocd -f board/$(BOARD_OCD).cfg -c "program $< verify reset exit"
+
+flash-jlink: $(BUILD_FOLDER)/$(JLINK_LOADSCRIPT)
+	JLinkExe -device $(BOARD_SEGGER_DEVICE) < $<
 
 info:
 	@echo SOURCE: $(addprefix "\n\t", $(SOURCE))

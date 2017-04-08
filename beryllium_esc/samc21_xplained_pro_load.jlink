@@ -1,0 +1,9 @@
+
+si 1
+speed 4000
+connect
+loadfile {{hex}}
+r
+g
+exit
+
