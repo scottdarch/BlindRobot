@@ -44,35 +44,32 @@
 #include <power.h>
 #include <reset.h>
 
+#define TIMEOUT 1000
+
 #define DATA_LENGTH 10
 static uint8_t write_buffer[DATA_LENGTH] = {
     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
 };
 
-/** Handler for the device SysTick module, called when the SysTick counter
- *  reaches the set period.
- *
- *  \note As this is a raw device interrupt, the function name is significant
- *        and must not be altered to ensure it is hooked into the device's
- *        vector table.
- */
+static uint8_t read_buffer[DATA_LENGTH];
+
 void
 SysTick_Handler(void)
 {
     port_pin_toggle_output_level(LED_0_PIN);
 }
 
-/** Configure LED0, turn it off*/
-static void
-config_led(void)
-{
-    struct port_config pin_conf;
-    port_get_config_defaults(&pin_conf);
-
-    pin_conf.direction = PORT_PIN_DIR_OUTPUT;
-    port_pin_set_config(LED_0_PIN, &pin_conf);
-    port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
-}
+///** Configure LED0, turn it off*/
+// static void
+// config_led(void)
+//{
+//    struct port_config pin_conf;
+//    port_get_config_defaults(&pin_conf);
+//
+//    pin_conf.direction = PORT_PIN_DIR_OUTPUT;
+//    port_pin_set_config(LED_0_PIN, &pin_conf);
+//    port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
+//}
 
 #define PERIPHERAL_ADDR 0x12
 
@@ -88,10 +85,6 @@ configure_i2c_master(void)
 
     /* Change buffer timeout to something longer. */
     config_i2c_master.buffer_timeout = 10000;
-    //    config_i2c_master.pinmux_pad0 = EXT1_PIN_I2C_SDA;
-    //    config_i2c_master.pinmux_pad1 = EXT1_PIN_I2C_SCL;
-    //    config_i2c_master.baud_rate = I2C_MASTER_BAUD_RATE_100KHZ;
-    //    config_i2c_master.generator_source = GCLK_GENERATOR_0;
 
     /* Initialize and enable device with config. */
     i2c_master_init(
@@ -100,19 +93,19 @@ configure_i2c_master(void)
     i2c_master_enable(&i2c_master_instance);
 }
 
-static volatile enum status_code last_status;
-
 int
 main(void)
 {
     system_init();
 
     /*Configure system tick to generate periodic interrupts */
-    SysTick_Config(system_gclk_gen_get_hz(GCLK_GENERATOR_0));
+    // SysTick_Config(system_gclk_gen_get_hz(GCLK_GENERATOR_0));
 
-    config_led();
+    // config_led();
 
     configure_i2c_master();
+
+    uint16_t timeout = 0;
 
     static struct i2c_master_packet packet = {.address = PERIPHERAL_ADDR,
                                               .data_length = DATA_LENGTH,
@@ -121,10 +114,24 @@ main(void)
                                               .high_speed = false,
                                               .hs_master_code = 0 };
 
-    while ((last_status = i2c_master_write_packet_wait(&i2c_master_instance,
-                                                       &packet)) != STATUS_OK) {
+    while (i2c_master_write_packet_wait(&i2c_master_instance, &packet) !=
+           STATUS_OK) {
+        /* Increment timeout counter and check if timed out. */
+        if (timeout++ == TIMEOUT) {
+            break;
+        }
+    }
+
+    packet.data = read_buffer;
+    while (i2c_master_read_packet_wait(&i2c_master_instance, &packet) !=
+           STATUS_OK) {
+        /* Increment timeout counter and check if timed out. */
+        if (timeout++ == TIMEOUT) {
+            break;
+        }
     }
 
     while (true) {
+        /* Infinite loop */
     }
 }

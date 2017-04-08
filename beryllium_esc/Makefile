@@ -272,7 +272,7 @@ $(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
 $(MAP_FILE) : $(ELF)
 
 $(LISTING_FILE) : $(ELF)
-	$(BOARD_GCC_PREFIX)objdump -l -h -S -D $< > $@
+	$(BOARD_GCC_PREFIX)objdump -h -S $< > $@
 
 .DELETE_ON_ERROR: ;
 
