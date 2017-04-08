@@ -162,7 +162,6 @@ CFLAGS          +=  \
                     -funsigned-char \
                     -funsigned-bitfields \
                     -fno-strict-aliasing \
-                    -fpack-struct \
                     -fshort-enums \
                     -Dprintf=iprintf \
                     -Dscanf=iscanf \

@@ -42,6 +42,9 @@
 #include <power.h>
 #include <reset.h>
 
+#define DO_PRAGMA(x) _Pragma(#x)
+#define TODO(x) DO_PRAGMA(message("TODO - " #x))
+
 #define TIMEOUT 1000
 
 #define DATA_LENGTH 10
@@ -111,6 +114,8 @@ main(void)
                                               .ten_bit_address = false,
                                               .high_speed = false,
                                               .hs_master_code = 0 };
+
+    TODO(Break this out into a SMBBus service);
 
     while (i2c_master_write_packet_wait(&i2c_master_instance, &packet) !=
            STATUS_OK) {
