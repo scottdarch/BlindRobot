@@ -48,15 +48,13 @@ extern "C" {
 #endif
 
 /**
- * \defgroup asfdoc_sam0_system_clock_group SAM System Clock Management (SYSTEM
- * CLOCK) Driver
+ * \defgroup asfdoc_sam0_system_clock_group SAM System Clock Management (SYSTEM CLOCK) Driver
  *
- * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides
- * an interface for the configuration and management of the device's clocking
- * related functions. This includes the various clock sources, bus clocks, and
- * generic clocks within the device, with functions to manage the enabling,
- * disabling, source selection, and prescaling of clocks to various internal
- * peripherals.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides an interface for the configuration
+ * and management of the device's clocking related functions. This includes
+ * the various clock sources, bus clocks, and generic clocks within the device,
+ * with functions to manage the enabling, disabling, source selection, and
+ * prescaling of clocks to various internal peripherals.
  *
  * The following peripherals are used by this module:
  *
@@ -94,19 +92,19 @@ extern "C" {
  * of the various clock related functionality within the device.
  *
  *
- * \subsection asfdoc_sam0_system_clock_module_overview_clock_sources Clock
- * Sources The SAM devices have a number of master clock source modules, each of
- * which being capable of producing a stabilized output frequency, which can
- * then be fed into the various peripherals and modules within the device.
+ * \subsection asfdoc_sam0_system_clock_module_overview_clock_sources Clock Sources
+ * The SAM devices have a number of master clock source modules, each of
+ * which being capable of producing a stabilized output frequency, which can then
+ * be fed into the various peripherals and modules within the device.
  *
- * Possible clock source modules include internal R/C oscillators as well as
- * external crystal oscillators and/or clock inputs.
+ * Possible clock source modules include internal R/C oscillators as well as external
+ * crystal oscillators and/or clock inputs.
  *
- * \subsection asfdoc_sam0_system_clock_module_overview_cpu_clock CPU / Bus
- * Clocks The CPU and AHB/APBx buses are clocked by the same physical clock
- * source (referred in this module as the Main Clock), however the APBx buses
- * may have additional prescaler division ratios set to give each peripheral bus
- * a different clock speed.
+ * \subsection asfdoc_sam0_system_clock_module_overview_cpu_clock CPU / Bus Clocks
+ * The CPU and AHB/APBx buses are clocked by the same physical clock source
+ * (referred in this module as the Main Clock), however the APBx buses may
+ * have additional prescaler division ratios set to give each peripheral bus a
+ * different clock speed.
  *
  * The general main clock tree for the CPU and associated buses is shown in
  * the figure below.
@@ -125,8 +123,7 @@ extern "C" {
  *   node [label="APBA Bus\nPrescaler" shape=square] apb_a_prescaler;
  *   node [label="APBB Bus\nPrescaler" shape=square] apb_b_prescaler;
  *   node [label="APBC Bus\nPrescaler" shape=square] apb_c_prescaler;
- *   node [label="", shape=polygon, sides=4, distortion=0.6, orientation=90,
- * style=filled, fillcolor=black, height=0.9, width=0.2] main_clock_mux;
+ *   node [label="", shape=polygon, sides=4, distortion=0.6, orientation=90, style=filled, fillcolor=black, height=0.9, width=0.2] main_clock_mux;
  *
  *   clk_src         -> main_clock_mux;
  *   main_clock_mux  -> main_prescaler;
@@ -141,15 +138,15 @@ extern "C" {
  * }
  * \enddot
  *
- * \subsection asfdoc_sam0_system_clock_module_overview_clock_masking Clock
- * Masking To save power, the input clock to one or more peripherals on the AHB
- * and APBx buses can be masked away - when masked, no clock is passed into the
- * module. Disabling of clocks of unused modules will prevent all access to the
- * masked module, and will reduce the overall device power consumption.
+ * \subsection asfdoc_sam0_system_clock_module_overview_clock_masking Clock Masking
+ * To save power, the input clock to one or more peripherals on the AHB and APBx
+ * buses can be masked away - when masked, no clock is passed into the module.
+ * Disabling of clocks of unused modules will prevent all access to the masked
+ * module, and will reduce the overall device power consumption.
  *
  * \subsection asfdoc_sam0_system_clock_module_overview_gclk Generic Clocks
- * Within the SAM devices there are a number of Generic Clocks; these are used
- * to provide clocks to the various peripheral clock domains in the device in a
+ * Within the SAM devices there are a number of Generic Clocks; these are used to
+ * provide clocks to the various peripheral clock domains in the device in a
  * standardized manner. One or more master source clocks can be selected as the
  * input clock to a Generic Clock Generator, which can prescale down the input
  * frequency to a slower rate for use in a peripheral.
@@ -168,9 +165,8 @@ extern "C" {
  *   node [label="Generator 1" shape=square] clock_gen;
  *   node [label="Channel x" shape=square] clock_chan0;
  *   node [label="Channel y" shape=square] clock_chan1;
- *   node [label="Peripheral x" shape=ellipse style=filled fillcolor=lightgray]
- * peripheral0; node [label="Peripheral y" shape=ellipse style=filled
- * fillcolor=lightgray] peripheral1;
+ *   node [label="Peripheral x" shape=ellipse style=filled fillcolor=lightgray] peripheral0;
+ *   node [label="Peripheral y" shape=ellipse style=filled fillcolor=lightgray] peripheral1;
  *
  *   system_clock_source -> clock_gen;
  *   clock_gen   -> clock_chan0;
@@ -180,9 +176,9 @@ extern "C" {
  * }
  * \enddot
  *
- * \subsubsection asfdoc_sam0_system_clock_module_chain_example Clock Chain
- * Example An example setup of a complete clock chain within the device is shown
- * in the figure below.
+ * \subsubsection asfdoc_sam0_system_clock_module_chain_example Clock Chain Example
+ * An example setup of a complete clock chain within the device is shown in
+ * the figure below.
  *
  * \anchor asfdoc_sam0_system_clock_module_chain_example_fig
  * \dot
@@ -191,19 +187,17 @@ extern "C" {
  *   node [label="External\nOscillator" shape=square] system_clock_source0;
  *   node [label="Generator 0" shape=square] clock_gen0;
  *   node [label="Channel x" shape=square] clock_chan0;
- *   node [label="Core CPU" shape=ellipse  style=filled fillcolor=lightgray]
- * peripheral0;
+ *   node [label="Core CPU" shape=ellipse  style=filled fillcolor=lightgray] peripheral0;
  *
  *   system_clock_source0 -> clock_gen0;
  *   clock_gen0    -> clock_chan0;
  *   clock_chan0   -> peripheral0;
- *   node [label="48MHz R/C\nOscillator (OSC48M)" shape=square fillcolor=white]
- * system_clock_source1; node [label="Generator 1" shape=square] clock_gen1;
+ *   node [label="48MHz R/C\nOscillator (OSC48M)" shape=square fillcolor=white] system_clock_source1;
+ *   node [label="Generator 1" shape=square] clock_gen1;
  *   node [label="Channel y" shape=square] clock_chan1;
  *   node [label="Channel z" shape=square] clock_chan2;
- *   node [label="SERCOM\nModule" shape=ellipse  style=filled
- * fillcolor=lightgray] peripheral1; node [label="Timer\nModule" shape=ellipse
- * style=filled fillcolor=lightgray] peripheral2;
+ *   node [label="SERCOM\nModule" shape=ellipse  style=filled fillcolor=lightgray] peripheral1;
+ *   node [label="Timer\nModule" shape=ellipse  style=filled fillcolor=lightgray] peripheral2;
  *
  *   system_clock_source1 -> clock_gen1;
  *   clock_gen1    -> clock_chan1;
@@ -213,36 +207,34 @@ extern "C" {
  * }
  * \enddot
  *
- * \subsubsection asfdoc_sam0_system_clock_module_overview_gclk_generators
- * Generic Clock Generators Each Generic Clock generator within the device can
- * source its input clock from one of the provided Source Clocks, and prescale
- * the output for one or more Generic Clock Channels in a one-to-many
- * relationship. The generators thus allow for several clocks to be generated of
- * different frequencies, power usages, and accuracies, which can be turned on
- * and off individually to disable the clocks to multiple peripherals as a
- * group.
+ * \subsubsection asfdoc_sam0_system_clock_module_overview_gclk_generators Generic Clock Generators
+ * Each Generic Clock generator within the device can source its input clock
+ * from one of the provided Source Clocks, and prescale the output for one or
+ * more Generic Clock Channels in a one-to-many relationship. The generators
+ * thus allow for several clocks to be generated of different frequencies,
+ * power usages, and accuracies, which can be turned on and off individually to
+ * disable the clocks to multiple peripherals as a group.
  *
- * \subsubsection asfdoc_sam0_system_clock_module_overview_gclk_channels Generic
- * Clock Channels To connect a Generic Clock Generator to a peripheral within
- * the device, a Generic Clock Channel is used. Each peripheral or peripheral
- * group has an associated Generic Clock Channel, which serves as the clock
- * input for the peripheral(s). To supply a clock to the peripheral module(s),
- * the associated channel must be connected to a running Generic Clock Generator
- * and the channel enabled.
+ * \subsubsection asfdoc_sam0_system_clock_module_overview_gclk_channels Generic Clock Channels
+ * To connect a Generic Clock Generator to a peripheral within the
+ * device, a Generic Clock Channel is used. Each peripheral or
+ * peripheral group has an associated Generic Clock Channel, which serves as the
+ * clock input for the peripheral(s). To supply a clock to the peripheral
+ * module(s), the associated channel must be connected to a running Generic
+ * Clock Generator and the channel enabled.
  *
- * \section asfdoc_sam0_system_clock_special_considerations Special
- * Considerations
+ * \section asfdoc_sam0_system_clock_special_considerations Special Considerations
  *
  * There are no special considerations for this module.
  *
  *
  * \section asfdoc_sam0_system_clock_extra_info Extra Information
  *
- * For extra information, see \ref asfdoc_sam0_system_clock_extra. This
- * includes: - \ref asfdoc_sam0_system_clock_extra_acronyms - \ref
- * asfdoc_sam0_system_clock_extra_dependencies - \ref
- * asfdoc_sam0_system_clock_extra_errata - \ref
- * asfdoc_sam0_system_clock_extra_history
+ * For extra information, see \ref asfdoc_sam0_system_clock_extra. This includes:
+ *  - \ref asfdoc_sam0_system_clock_extra_acronyms
+ *  - \ref asfdoc_sam0_system_clock_extra_dependencies
+ *  - \ref asfdoc_sam0_system_clock_extra_errata
+ *  - \ref asfdoc_sam0_system_clock_extra_history
  *
  *
  * \section asfdoc_sam0_system_clock_examples Examples
@@ -258,28 +250,29 @@ extern "C" {
 #include <compiler.h>
 #include <gclk.h>
 
+
+
 /**
  * \brief Available startup times for the XOSC32K.
  *
  * Available external 32KHz oscillator startup times, as a number of external
  * clock cycles.
  */
-enum system_xosc32k_startup
-{
-    /** Wait 2048 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC32K_STARTUP_2048,
-    /** Wait 4096 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC32K_STARTUP_4096,
-    /** Wait 16384 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC32K_STARTUP_16384,
-    /** Wait 32768 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC32K_STARTUP_32768,
-    /** Wait 65536 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC32K_STARTUP_65536,
-    /** Wait 131072 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC32K_STARTUP_131072,
-    /** Wait 262144 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC32K_STARTUP_262144,
+enum system_xosc32k_startup {
+	/** Wait 2048 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC32K_STARTUP_2048,
+	/** Wait 4096 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC32K_STARTUP_4096,
+	/** Wait 16384 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC32K_STARTUP_16384,
+	/** Wait 32768 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC32K_STARTUP_32768,
+	/** Wait 65536 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC32K_STARTUP_65536,
+	/** Wait 131072 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC32K_STARTUP_131072,
+	/** Wait 262144 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC32K_STARTUP_262144,
 };
 
 /**
@@ -288,40 +281,39 @@ enum system_xosc32k_startup
  * Available external oscillator startup times, as a number of external clock
  * cycles.
  */
-enum system_xosc_startup
-{
-    /** Wait one clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_1,
-    /** Wait two clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_2,
-    /** Wait four clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_4,
-    /** Wait eight clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_8,
-    /** Wait 16 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_16,
-    /** Wait 32 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_32,
-    /** Wait 64 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_64,
-    /** Wait 128 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_128,
-    /** Wait 256 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_256,
-    /** Wait 512 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_512,
-    /** Wait 1024 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_1024,
-    /** Wait 2048 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_2048,
-    /** Wait 4096 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_4096,
-    /** Wait 8192 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_8192,
-    /** Wait 16384 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_16384,
-    /** Wait 32768 clock cycles until the clock source is considered stable */
-    SYSTEM_XOSC_STARTUP_32768,
+enum system_xosc_startup {
+	/** Wait one clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_1,
+	/** Wait two clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_2,
+	/** Wait four clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_4,
+	/** Wait eight clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_8,
+	/** Wait 16 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_16,
+	/** Wait 32 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_32,
+	/** Wait 64 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_64,
+	/** Wait 128 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_128,
+	/** Wait 256 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_256,
+	/** Wait 512 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_512,
+	/** Wait 1024 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_1024,
+	/** Wait 2048 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_2048,
+	/** Wait 4096 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_4096,
+	/** Wait 8192 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_8192,
+	/** Wait 16384 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_16384,
+	/** Wait 32768 clock cycles until the clock source is considered stable */
+	SYSTEM_XOSC_STARTUP_32768,
 };
 
 /**
@@ -330,24 +322,23 @@ enum system_xosc_startup
  * Available internal 32KHz oscillator startup times, as a number of internal
  * OSC32K clock cycles.
  */
-enum system_osc32k_startup
-{
-    /** Wait three clock cycles until the clock source is considered stable */
-    SYSTEM_OSC32K_STARTUP_3,
-    /** Wait four clock cycles until the clock source is considered stable */
-    SYSTEM_OSC32K_STARTUP_4,
-    /** Wait six clock cycles until the clock source is considered stable */
-    SYSTEM_OSC32K_STARTUP_6,
-    /** Wait ten clock cycles until the clock source is considered stable */
-    SYSTEM_OSC32K_STARTUP_10,
-    /** Wait 18 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC32K_STARTUP_18,
-    /** Wait 34 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC32K_STARTUP_34,
-    /** Wait 66 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC32K_STARTUP_66,
-    /** Wait 130 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC32K_STARTUP_130,
+enum system_osc32k_startup {
+	/** Wait three clock cycles until the clock source is considered stable */
+	SYSTEM_OSC32K_STARTUP_3,
+	/** Wait four clock cycles until the clock source is considered stable */
+	SYSTEM_OSC32K_STARTUP_4,
+	/** Wait six clock cycles until the clock source is considered stable */
+	SYSTEM_OSC32K_STARTUP_6,
+	/** Wait ten clock cycles until the clock source is considered stable */
+	SYSTEM_OSC32K_STARTUP_10,
+	/** Wait 18 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC32K_STARTUP_18,
+	/** Wait 34 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC32K_STARTUP_34,
+	/** Wait 66 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC32K_STARTUP_66,
+	/** Wait 130 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC32K_STARTUP_130,
 };
 
 /**
@@ -355,40 +346,39 @@ enum system_osc32k_startup
  *
  * Available prescalers for the internal 48MHz (nominal) system clock.
  */
-enum system_osc48m_div
-{
-    /** Divide the 48MHz RC oscillator output by one */
-    SYSTEM_OSC48M_DIV_1,
-    /** Divide the 48MHz RC oscillator output by two */
-    SYSTEM_OSC48M_DIV_2,
-    /** Divide the 48MHz RC oscillator output by three */
-    SYSTEM_OSC48M_DIV_3,
-    /** Divide the 48MHz RC oscillator output by four */
-    SYSTEM_OSC48M_DIV_4,
-    /** Divide the 48MHz RC oscillator output by five */
-    SYSTEM_OSC48M_DIV_5,
-    /** Divide the 48MHz RC oscillator output by six */
-    SYSTEM_OSC48M_DIV_6,
-    /** Divide the 48MHz RC oscillator output by seven */
-    SYSTEM_OSC48M_DIV_7,
-    /** Divide the 48MHz RC oscillator output by eight */
-    SYSTEM_OSC48M_DIV_8,
-    /** Divide the 48MHz RC oscillator output by nine */
-    SYSTEM_OSC48M_DIV_9,
-    /** Divide the 48MHz RC oscillator output by ten */
-    SYSTEM_OSC48M_DIV_10,
-    /** Divide the 48MHz RC oscillator output by eleven */
-    SYSTEM_OSC48M_DIV_11,
-    /** Divide the 48MHz RC oscillator output by twelve */
-    SYSTEM_OSC48M_DIV_12,
-    /** Divide the 48MHz RC oscillator output by thirteen */
-    SYSTEM_OSC48M_DIV_13,
-    /** Divide the 48MHz RC oscillator output by fourteen */
-    SYSTEM_OSC48M_DIV_14,
-    /** Divide the 48MHz RC oscillator output by fifteen */
-    SYSTEM_OSC48M_DIV_15,
-    /** Divide the 48MHz RC oscillator output by sixteen */
-    SYSTEM_OSC48M_DIV_16,
+enum system_osc48m_div {
+	/** Divide the 48MHz RC oscillator output by one */
+	SYSTEM_OSC48M_DIV_1,
+	/** Divide the 48MHz RC oscillator output by two */
+	SYSTEM_OSC48M_DIV_2,
+	/** Divide the 48MHz RC oscillator output by three */
+	SYSTEM_OSC48M_DIV_3,
+	/** Divide the 48MHz RC oscillator output by four */
+	SYSTEM_OSC48M_DIV_4,
+	/** Divide the 48MHz RC oscillator output by five */
+	SYSTEM_OSC48M_DIV_5,
+	/** Divide the 48MHz RC oscillator output by six */
+	SYSTEM_OSC48M_DIV_6,
+	/** Divide the 48MHz RC oscillator output by seven */
+	SYSTEM_OSC48M_DIV_7,
+	/** Divide the 48MHz RC oscillator output by eight */
+	SYSTEM_OSC48M_DIV_8,
+	/** Divide the 48MHz RC oscillator output by nine */
+	SYSTEM_OSC48M_DIV_9,
+	/** Divide the 48MHz RC oscillator output by ten */
+	SYSTEM_OSC48M_DIV_10,
+	/** Divide the 48MHz RC oscillator output by eleven */
+	SYSTEM_OSC48M_DIV_11,
+	/** Divide the 48MHz RC oscillator output by twelve */
+	SYSTEM_OSC48M_DIV_12,
+	/** Divide the 48MHz RC oscillator output by thirteen */
+	SYSTEM_OSC48M_DIV_13,
+	/** Divide the 48MHz RC oscillator output by fourteen */
+	SYSTEM_OSC48M_DIV_14,
+	/** Divide the 48MHz RC oscillator output by fifteen */
+	SYSTEM_OSC48M_DIV_15,
+	/** Divide the 48MHz RC oscillator output by sixteen */
+	SYSTEM_OSC48M_DIV_16,
 };
 
 /**
@@ -397,24 +387,23 @@ enum system_osc48m_div
  * Available internal 48MHz oscillator startup times, as a number of internal
  * clock cycles.
  */
-enum system_osc48m_startup
-{
-    /** Wait 8 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC48M_STARTUP_8,
-    /** Wait 16 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC48M_STARTUP_16,
-    /** Wait 32 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC48M_STARTUP_32,
-    /** Wait 64 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC48M_STARTUP_64,
-    /** Wait 128 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC48M_STARTUP_128,
-    /** Wait 256 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC48M_STARTUP_256,
-    /** Wait 512 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC48M_STARTUP_512,
-    /** Wait 1024 clock cycles until the clock source is considered stable */
-    SYSTEM_OSC48M_STARTUP_1024,
+enum system_osc48m_startup {
+	/** Wait 8 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC48M_STARTUP_8,
+	/** Wait 16 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC48M_STARTUP_16,
+	/** Wait 32 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC48M_STARTUP_32,
+	/** Wait 64 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC48M_STARTUP_64,
+	/** Wait 128 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC48M_STARTUP_128,
+	/** Wait 256 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC48M_STARTUP_256,
+	/** Wait 512 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC48M_STARTUP_512,
+	/** Wait 1024 clock cycles until the clock source is considered stable */
+	SYSTEM_OSC48M_STARTUP_1024,
 };
 
 /**
@@ -422,24 +411,23 @@ enum system_osc48m_startup
  *
  * Available clock failure detector prescaler.
  */
-enum system_clock_xosc_failure_detector_prescaler
-{
-    /** Divide OSC48M frequency by 1 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_1,
-    /** Divide OSC48M frequency by 2 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_2,
-    /** Divide OSC48M frequency by 4 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_4,
-    /** Divide OSC48M frequency by 8 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_8,
-    /** Divide OSC48M frequency by 16 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_16,
-    /** Divide OSC48M frequency by 32 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_32,
-    /** Divide OSC48M frequency by 64 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_64,
-    /** Divide OSC48M frequency by 128 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_128,
+enum system_clock_xosc_failure_detector_prescaler {
+	/** Divide OSC48M frequency by 1 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_1,
+	/** Divide OSC48M frequency by 2 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_2,
+	/** Divide OSC48M frequency by 4 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_4,
+	/** Divide OSC48M frequency by 8 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_8,
+	/** Divide OSC48M frequency by 16 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_16,
+	/** Divide OSC48M frequency by 32 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_32,
+	/** Divide OSC48M frequency by 64 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_64,
+	/** Divide OSC48M frequency by 128 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_128,
 };
 
 /**
@@ -447,12 +435,11 @@ enum system_clock_xosc_failure_detector_prescaler
  *
  * Available clock failure detector prescaler.
  */
-enum system_clock_xosc32k_failure_detector_prescaler
-{
-    /** Divide OSCULP32K frequency by 1 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC32K_FAILURE_DETECTOR_PRESCALER_1,
-    /** Divide OSCULP32K frequency by 2 for clock failure detector clock */
-    SYSTEM_CLOCK_XOSC32K_FAILURE_DETECTOR_PRESCALER_2,
+enum system_clock_xosc32k_failure_detector_prescaler {
+	/** Divide OSCULP32K frequency by 1 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC32K_FAILURE_DETECTOR_PRESCALER_1,
+	/** Divide OSCULP32K frequency by 2 for clock failure detector clock */
+	SYSTEM_CLOCK_XOSC32K_FAILURE_DETECTOR_PRESCALER_2,
 };
 
 /**
@@ -460,24 +447,23 @@ enum system_clock_xosc32k_failure_detector_prescaler
  *
  * Available division ratios for the CPU clocks.
  */
-enum system_main_clock_div
-{
-    /** Divide Main clock by one */
-    SYSTEM_MAIN_CLOCK_DIV_1,
-    /** Divide Main clock by two */
-    SYSTEM_MAIN_CLOCK_DIV_2,
-    /** Divide Main clock by four */
-    SYSTEM_MAIN_CLOCK_DIV_4,
-    /** Divide Main clock by eight */
-    SYSTEM_MAIN_CLOCK_DIV_8,
-    /** Divide Main clock by 16 */
-    SYSTEM_MAIN_CLOCK_DIV_16,
-    /** Divide Main clock by 32 */
-    SYSTEM_MAIN_CLOCK_DIV_32,
-    /** Divide Main clock by 64 */
-    SYSTEM_MAIN_CLOCK_DIV_64,
-    /** Divide Main clock by 128 */
-    SYSTEM_MAIN_CLOCK_DIV_128,
+enum system_main_clock_div {
+	/** Divide Main clock by one */
+	SYSTEM_MAIN_CLOCK_DIV_1,
+	/** Divide Main clock by two */
+	SYSTEM_MAIN_CLOCK_DIV_2,
+	/** Divide Main clock by four */
+	SYSTEM_MAIN_CLOCK_DIV_4,
+	/** Divide Main clock by eight */
+	SYSTEM_MAIN_CLOCK_DIV_8,
+	/** Divide Main clock by 16 */
+	SYSTEM_MAIN_CLOCK_DIV_16,
+	/** Divide Main clock by 32 */
+	SYSTEM_MAIN_CLOCK_DIV_32,
+	/** Divide Main clock by 64 */
+	SYSTEM_MAIN_CLOCK_DIV_64,
+	/** Divide Main clock by 128 */
+	SYSTEM_MAIN_CLOCK_DIV_128,
 };
 
 /**
@@ -485,12 +471,11 @@ enum system_main_clock_div
  *
  * Available external clock source types.
  */
-enum system_clock_external
-{
-    /** The external clock source is a crystal oscillator */
-    SYSTEM_CLOCK_EXTERNAL_CRYSTAL,
-    /** The connected clock source is an external logic level clock signal */
-    SYSTEM_CLOCK_EXTERNAL_CLOCK,
+enum system_clock_external {
+	/** The external clock source is a crystal oscillator */
+	SYSTEM_CLOCK_EXTERNAL_CRYSTAL,
+	/** The connected clock source is an external logic level clock signal */
+	SYSTEM_CLOCK_EXTERNAL_CLOCK,
 };
 
 /**
@@ -498,24 +483,23 @@ enum system_clock_external
  *
  * Clock sources available to the GCLK generators
  */
-enum system_clock_source
-{
-    /** Internal 48MHz RC oscillator */
-    SYSTEM_CLOCK_SOURCE_OSC48M = GCLK_SOURCE_OSC48M,
-    /** Internal 32KHz RC oscillator */
-    SYSTEM_CLOCK_SOURCE_OSC32K = GCLK_SOURCE_OSC32K,
-    /** External oscillator */
-    SYSTEM_CLOCK_SOURCE_XOSC = GCLK_SOURCE_XOSC,
-    /** External 32KHz oscillator */
-    SYSTEM_CLOCK_SOURCE_XOSC32K = GCLK_SOURCE_XOSC32K,
-    /** Internal Ultra Low Power 32KHz oscillator */
-    SYSTEM_CLOCK_SOURCE_ULP32K = GCLK_SOURCE_OSCULP32K,
-    /** Generator input pad */
-    SYSTEM_CLOCK_SOURCE_GCLKIN = GCLK_SOURCE_GCLKIN,
-    /** Generic clock generator one output */
-    SYSTEM_CLOCK_SOURCE_GCLKGEN1 = GCLK_SOURCE_GCLKGEN1,
-    /** Digital Phase Locked Loop (DPLL) */
-    SYSTEM_CLOCK_SOURCE_DPLL = GCLK_SOURCE_FDPLL,
+enum system_clock_source {
+	/** Internal 48MHz RC oscillator */
+	SYSTEM_CLOCK_SOURCE_OSC48M    = GCLK_SOURCE_OSC48M,
+	/** Internal 32KHz RC oscillator */
+	SYSTEM_CLOCK_SOURCE_OSC32K   = GCLK_SOURCE_OSC32K,
+	/** External oscillator */
+	SYSTEM_CLOCK_SOURCE_XOSC     = GCLK_SOURCE_XOSC ,
+	/** External 32KHz oscillator */
+	SYSTEM_CLOCK_SOURCE_XOSC32K  = GCLK_SOURCE_XOSC32K,
+	/** Internal Ultra Low Power 32KHz oscillator */
+	SYSTEM_CLOCK_SOURCE_ULP32K   = GCLK_SOURCE_OSCULP32K,
+	/** Generator input pad */
+	SYSTEM_CLOCK_SOURCE_GCLKIN     = GCLK_SOURCE_GCLKIN,
+	/** Generic clock generator one output */
+	SYSTEM_CLOCK_SOURCE_GCLKGEN1   = GCLK_SOURCE_GCLKGEN1,
+	/** Digital Phase Locked Loop (DPLL) */
+	SYSTEM_CLOCK_SOURCE_DPLL     = GCLK_SOURCE_FDPLL,
 };
 
 /**
@@ -523,14 +507,13 @@ enum system_clock_source
  *
  * Available bus clock domains on the APB bus.
  */
-enum system_clock_apb_bus
-{
-    /** Peripheral bus A on the APB bus */
-    SYSTEM_CLOCK_APB_APBA,
-    /** Peripheral bus B on the APB bus */
-    SYSTEM_CLOCK_APB_APBB,
-    /** Peripheral bus C on the APB bus */
-    SYSTEM_CLOCK_APB_APBC,
+enum system_clock_apb_bus {
+	/** Peripheral bus A on the APB bus */
+	SYSTEM_CLOCK_APB_APBA,
+	/** Peripheral bus B on the APB bus */
+	SYSTEM_CLOCK_APB_APBB,
+	/** Peripheral bus C on the APB bus */
+	SYSTEM_CLOCK_APB_APBC,
 };
 
 /**
@@ -538,31 +521,28 @@ enum system_clock_apb_bus
  *
  * External oscillator clock configuration structure.
  */
-struct system_clock_source_xosc_config
-{
-    /** External clock type */
-    enum system_clock_external external_clock;
-    /** Crystal oscillator startup time */
-    enum system_xosc_startup startup_time;
-    /** Enable automatic amplitude gain control */
-    bool auto_gain_control;
-    /** External clock/crystal frequency */
-    uint32_t frequency;
-    /** Keep the XOSC enabled in standby sleep mode */
-    bool run_in_standby;
-    /** Run On Demand. If this is set the XOSC won't run
-     * until requested by a peripheral */
-    bool on_demand;
-    /** Clock failure detector prescaler from OSC48M for clock the CFD prescaler
-     */
-    enum system_clock_xosc_failure_detector_prescaler
-      clock_failure_detector_prescaler;
-    /** Enable clock failure detector event output */
-    bool enable_clock_failure_detector_event_outut;
-    /** Enable clock failure detector */
-    bool enable_clock_failure_detector;
-    /** Enable clock switch back */
-    bool enable_clock_switch_back;
+struct system_clock_source_xosc_config {
+	/** External clock type */
+	enum system_clock_external external_clock;
+	/** Crystal oscillator startup time */
+	enum system_xosc_startup startup_time;
+	/** Enable automatic amplitude gain control */
+	bool auto_gain_control;
+	/** External clock/crystal frequency */
+	uint32_t frequency;
+	/** Keep the XOSC enabled in standby sleep mode */
+	bool run_in_standby;
+	/** Run On Demand. If this is set the XOSC won't run
+	 * until requested by a peripheral */
+	bool on_demand;
+	/** Clock failure detector prescaler from OSC48M for clock the CFD prescaler */
+	enum system_clock_xosc_failure_detector_prescaler clock_failure_detector_prescaler;
+	/** Enable clock failure detector event output */
+	bool enable_clock_failure_detector_event_outut;
+	/** Enable clock failure detector */
+	bool enable_clock_failure_detector;
+	/** Enable clock switch back */
+	bool enable_clock_switch_back;
 };
 
 /**
@@ -570,35 +550,33 @@ struct system_clock_source_xosc_config
  *
  * External 32KHz oscillator clock configuration structure.
  */
-struct system_clock_source_xosc32k_config
-{
-    /** External clock type */
-    enum system_clock_external external_clock;
-    /** Crystal oscillator startup time */
-    enum system_xosc32k_startup startup_time;
-    /** Enable 1KHz output */
-    bool enable_1khz_output;
-    /** Enable 32KHz output */
-    bool enable_32khz_output;
-    /** External clock/crystal frequency */
-    uint32_t frequency;
-    /** Keep the XOSC32K enabled in standby sleep mode */
-    bool run_in_standby;
-    /** Run On Demand. If this is set the XOSC32K won't run
-     * until requested by a peripheral */
-    bool on_demand;
-    /** Lock configuration after it has been written.
-     *  A device reset will release the lock */
-    bool write_once;
-    /** Clock failure detector prescaler from OSCULP32K */
-    enum system_clock_xosc32k_failure_detector_prescaler
-      clock_failure_detector_prescaler;
-    /** Enable clock failure detector event output */
-    bool enable_clock_failure_detector_event_outut;
-    /** Enable clock failure detector */
-    bool enable_clock_failure_detector;
-    /** Enable clock switch back */
-    bool enable_clock_switch_back;
+struct system_clock_source_xosc32k_config {
+	/** External clock type */
+	enum system_clock_external external_clock;
+	/** Crystal oscillator startup time */
+	enum system_xosc32k_startup startup_time;
+	/** Enable 1KHz output */
+	bool enable_1khz_output;
+	/** Enable 32KHz output */
+	bool enable_32khz_output;
+	/** External clock/crystal frequency */
+	uint32_t frequency;
+	/** Keep the XOSC32K enabled in standby sleep mode */
+	bool run_in_standby;
+	/** Run On Demand. If this is set the XOSC32K won't run
+	 * until requested by a peripheral */
+	bool on_demand;
+	/** Lock configuration after it has been written.
+	 *  A device reset will release the lock */
+	bool write_once;
+	/** Clock failure detector prescaler from OSCULP32K */
+	enum system_clock_xosc32k_failure_detector_prescaler clock_failure_detector_prescaler;
+	/** Enable clock failure detector event output */
+	bool enable_clock_failure_detector_event_outut;
+	/** Enable clock failure detector */
+	bool enable_clock_failure_detector;
+	/** Enable clock switch back */
+	bool enable_clock_switch_back;
 };
 
 /**
@@ -606,17 +584,16 @@ struct system_clock_source_xosc32k_config
  *
  * Internal 48MHz (nominal) oscillator configuration structure.
  */
-struct system_clock_source_osc48m_config
-{
-    /** Internal 48MHz RC oscillator divider */
-    enum system_osc48m_div div;
-    /** Keep the OSC48M enabled in standby sleep mode */
-    bool run_in_standby;
-    /** Run On Demand. If this is set the OSC48M won't run
-     * until requested by a peripheral */
-    bool on_demand;
-    /** Crystal oscillator startup time */
-    enum system_osc48m_startup startup_time;
+struct system_clock_source_osc48m_config {
+	/** Internal 48MHz RC oscillator divider */
+	enum system_osc48m_div div;
+	/** Keep the OSC48M enabled in standby sleep mode */
+	bool run_in_standby;
+	/** Run On Demand. If this is set the OSC48M won't run
+	 * until requested by a peripheral */
+	bool on_demand;
+	/** Crystal oscillator startup time */
+	enum system_osc48m_startup startup_time;
 };
 
 /**
@@ -624,11 +601,10 @@ struct system_clock_source_osc48m_config
  *
  * Internal 32KHz Ultra Low Power oscillator configuration structure.
  */
-struct system_clock_source_osculp32k_config
-{
-    /** Lock configuration after it has been written,
-     *  a device reset will release the lock */
-    bool write_once;
+struct system_clock_source_osculp32k_config {
+	/** Lock configuration after it has been written,
+	 *  a device reset will release the lock */
+	bool write_once;
 };
 
 /**
@@ -636,22 +612,21 @@ struct system_clock_source_osculp32k_config
  *
  * Internal 32KHz  oscillator configuration structure.
  */
-struct system_clock_source_osc32k_config
-{
-    /** Startup time */
-    enum system_osc32k_startup startup_time;
-    /** Enable 1KHz output */
-    bool enable_1khz_output;
-    /** Enable 32KHz output */
-    bool enable_32khz_output;
-    /** Keep the OSC32K enabled in standby sleep mode */
-    bool run_in_standby;
-    /** Run On Demand. If this is set the OSC32K won't run
-     * until requested by a peripheral */
-    bool on_demand;
-    /** Lock configuration after it has been written,
-     *  a device reset will release the lock */
-    bool write_once;
+struct system_clock_source_osc32k_config {
+	/** Startup time */
+	enum system_osc32k_startup startup_time;
+	/** Enable 1KHz output */
+	bool enable_1khz_output;
+	/** Enable 32KHz output */
+	bool enable_32khz_output;
+	/** Keep the OSC32K enabled in standby sleep mode */
+	bool run_in_standby;
+	/** Run On Demand. If this is set the OSC32K won't run
+	 * until requested by a peripheral */
+	bool on_demand;
+	/** Lock configuration after it has been written,
+	 *  a device reset will release the lock */
+	bool write_once;
 };
 
 /**
@@ -677,28 +652,25 @@ struct system_clock_source_osc32k_config
  *
  * \param[out] config  Configuration structure to fill with default values
  */
-static inline void
-system_clock_source_xosc_get_config_defaults(
-  struct system_clock_source_xosc_config* const config)
+static inline void system_clock_source_xosc_get_config_defaults(
+		struct system_clock_source_xosc_config *const config)
 {
-    Assert(config);
+	Assert(config);
 
-    config->external_clock = SYSTEM_CLOCK_EXTERNAL_CRYSTAL;
-    config->startup_time = SYSTEM_XOSC_STARTUP_16384;
-    config->auto_gain_control = true;
-    config->frequency = 12000000UL;
-    config->run_in_standby = false;
-    config->on_demand = true;
-    config->clock_failure_detector_prescaler =
-      SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_1;
-    config->enable_clock_failure_detector_event_outut = false;
-    config->enable_clock_failure_detector = false;
-    config->enable_clock_switch_back = false;
+	config->external_clock    = SYSTEM_CLOCK_EXTERNAL_CRYSTAL;
+	config->startup_time      = SYSTEM_XOSC_STARTUP_16384;
+	config->auto_gain_control = true;
+	config->frequency         = 12000000UL;
+	config->run_in_standby    = false;
+	config->on_demand         = true;
+	config->clock_failure_detector_prescaler = SYSTEM_CLOCK_XOSC_FAILURE_DETECTOR_PRESCALER_1;
+	config->enable_clock_failure_detector_event_outut = false;
+	config->enable_clock_failure_detector = false;
+	config->enable_clock_switch_back = false;
 }
 
-void
-system_clock_source_xosc_set_config(
-  struct system_clock_source_xosc_config* const config);
+void system_clock_source_xosc_set_config(
+		struct system_clock_source_xosc_config *const config);
 
 /**
  * \brief Checks if XOSC clock failure detected
@@ -711,11 +683,9 @@ system_clock_source_xosc_set_config(
  * \retval true   XOSC clock failure detected
  * \retval false  XOSC clock failure is not detected
  */
-static inline bool
-system_clock_xosc_clock_failure_detected(void)
+static inline bool system_clock_xosc_clock_failure_detected(void)
 {
-    return ((OSCCTRL->STATUS.reg & OSCCTRL_STATUS_XOSCFAIL) ==
-            OSCCTRL_STATUS_XOSCFAIL);
+	return ((OSCCTRL->STATUS.reg & OSCCTRL_STATUS_XOSCFAIL) == OSCCTRL_STATUS_XOSCFAIL);
 }
 
 /**
@@ -731,16 +701,15 @@ system_clock_xosc_clock_failure_detected(void)
  *  or crystal oscillator clock
  */
 
-static inline bool
-system_clock_xosc_is_switched(void)
+static inline bool system_clock_xosc_is_switched(void)
 {
-    return ((OSCCTRL->STATUS.reg & OSCCTRL_STATUS_XOSCCKSW) ==
-            OSCCTRL_STATUS_XOSCCKSW);
+	return ((OSCCTRL->STATUS.reg & OSCCTRL_STATUS_XOSCCKSW) == OSCCTRL_STATUS_XOSCCKSW);
 }
 
 /**
  * @}
  */
+
 
 /**
  * \name External 32KHz Oscillator Management
@@ -768,30 +737,27 @@ system_clock_xosc_is_switched(void)
  *
  * \param[out] config  Configuration structure to fill with default values
  */
-static inline void
-system_clock_source_xosc32k_get_config_defaults(
-  struct system_clock_source_xosc32k_config* const config)
+static inline void system_clock_source_xosc32k_get_config_defaults(
+		struct system_clock_source_xosc32k_config *const config)
 {
-    Assert(config);
+	Assert(config);
 
-    config->external_clock = SYSTEM_CLOCK_EXTERNAL_CRYSTAL;
-    config->startup_time = SYSTEM_XOSC32K_STARTUP_16384;
-    config->frequency = 32768UL;
-    config->enable_1khz_output = false;
-    config->enable_32khz_output = true;
-    config->run_in_standby = false;
-    config->on_demand = true;
-    config->write_once = false;
-    config->clock_failure_detector_prescaler =
-      SYSTEM_CLOCK_XOSC32K_FAILURE_DETECTOR_PRESCALER_1;
-    config->enable_clock_failure_detector_event_outut = false;
-    config->enable_clock_failure_detector = false;
-    config->enable_clock_switch_back = false;
+	config->external_clock      = SYSTEM_CLOCK_EXTERNAL_CRYSTAL;
+	config->startup_time        = SYSTEM_XOSC32K_STARTUP_16384;
+	config->frequency           = 32768UL;
+	config->enable_1khz_output  = false;
+	config->enable_32khz_output = true;
+	config->run_in_standby      = false;
+	config->on_demand           = true;
+	config->write_once          = false;
+	config->clock_failure_detector_prescaler = SYSTEM_CLOCK_XOSC32K_FAILURE_DETECTOR_PRESCALER_1;
+	config->enable_clock_failure_detector_event_outut = false;
+	config->enable_clock_failure_detector = false;
+	config->enable_clock_switch_back = false;
 }
 
-void
-system_clock_source_xosc32k_set_config(
-  struct system_clock_source_xosc32k_config* const config);
+void system_clock_source_xosc32k_set_config(
+		struct system_clock_source_xosc32k_config *const config);
 
 /**
  * \brief Checks if XOSC32K clock failure detected
@@ -804,11 +770,9 @@ system_clock_source_xosc32k_set_config(
  * \retval true   XOSC32K clock failure detected
  * \retval false  XOSC32K clock failure is not detected
  */
-static inline bool
-system_clock_xosc32k_clock_failure_detected(void)
+static inline bool system_clock_xosc32k_clock_failure_detected(void)
 {
-    return ((OSC32KCTRL->STATUS.reg & OSC32KCTRL_STATUS_CLKFAIL) ==
-            OSC32KCTRL_STATUS_CLKFAIL);
+	return ((OSC32KCTRL->STATUS.reg & OSC32KCTRL_STATUS_CLKFAIL) == OSC32KCTRL_STATUS_CLKFAIL);
 }
 
 /**
@@ -823,16 +787,15 @@ system_clock_xosc32k_clock_failure_detected(void)
  * \retval false  XOSC32K clock is not switched and provides the external clock
  *  or crystal oscillator clock
  */
-static inline bool
-system_clock_xosc32k_is_switched(void)
+static inline bool system_clock_xosc32k_is_switched(void)
 {
-    return ((OSC32KCTRL->STATUS.reg & OSC32KCTRL_STATUS_CLKSW) ==
-            OSC32KCTRL_STATUS_CLKSW);
+	return ((OSC32KCTRL->STATUS.reg & OSC32KCTRL_STATUS_CLKSW) == OSC32KCTRL_STATUS_CLKSW);
 }
 
 /**
  * @}
  */
+
 
 /**
  * \name Internal 32KHz Oscillator Management
@@ -853,23 +816,21 @@ system_clock_xosc32k_is_switched(void)
  *
  * \param[out] config  Configuration structure to fill with default values
  */
-static inline void
-system_clock_source_osc32k_get_config_defaults(
-  struct system_clock_source_osc32k_config* const config)
+static inline void system_clock_source_osc32k_get_config_defaults(
+		struct system_clock_source_osc32k_config *const config)
 {
-    Assert(config);
+	Assert(config);
 
-    config->enable_1khz_output = true;
-    config->enable_32khz_output = true;
-    config->run_in_standby = false;
-    config->on_demand = true;
-    config->startup_time = SYSTEM_OSC32K_STARTUP_130;
-    config->write_once = false;
+	config->enable_1khz_output  = true;
+	config->enable_32khz_output = true;
+	config->run_in_standby      = false;
+	config->on_demand           = true;
+	config->startup_time        = SYSTEM_OSC32K_STARTUP_130;
+	config->write_once          = false;
 }
 
-void
-system_clock_source_osc32k_set_config(
-  struct system_clock_source_osc32k_config* const config);
+void system_clock_source_osc32k_set_config(
+		struct system_clock_source_osc32k_config *const config);
 
 /**
  * @}
@@ -890,22 +851,21 @@ system_clock_source_osc32k_set_config(
  *
  * \param[out] config  Configuration structure to fill with default values
  */
-static inline void
-system_clock_source_osculp32k_get_config_defaults(
-  struct system_clock_source_osculp32k_config* const config)
+static inline void system_clock_source_osculp32k_get_config_defaults(
+		struct system_clock_source_osculp32k_config *const config)
 {
-    Assert(config);
+	Assert(config);
 
-    config->write_once = false;
+	config->write_once          = false;
 }
 
-void
-system_clock_source_osculp32k_set_config(
-  struct system_clock_source_osculp32k_config* const config);
+void system_clock_source_osculp32k_set_config(
+		struct system_clock_source_osculp32k_config *const config);
 
 /**
  * @}
  */
+
 
 /**
  * \name Internal 48MHz Oscillator Management
@@ -924,21 +884,19 @@ system_clock_source_osculp32k_set_config(
  *
  * \param[out] config  Configuration structure to fill with default values
  */
-static inline void
-system_clock_source_osc48m_get_config_defaults(
-  struct system_clock_source_osc48m_config* const config)
+static inline void system_clock_source_osc48m_get_config_defaults(
+		struct system_clock_source_osc48m_config *const config)
 {
-    Assert(config);
+	Assert(config);
 
-    config->div = SYSTEM_OSC48M_DIV_12;
-    config->run_in_standby = false;
-    config->on_demand = true;
-    config->startup_time = SYSTEM_OSC48M_STARTUP_8;
+	config->div = SYSTEM_OSC48M_DIV_12;
+	config->run_in_standby  = false;
+	config->on_demand       = true;
+	config->startup_time = SYSTEM_OSC48M_STARTUP_8;
 }
 
-void
-system_clock_source_osc48m_set_config(
-  struct system_clock_source_osc48m_config* const config);
+void system_clock_source_osc48m_set_config(
+		struct system_clock_source_osc48m_config *const config);
 
 /**
  * @}
@@ -948,23 +906,22 @@ system_clock_source_osc48m_set_config(
  * \name Clock Source Management
  * @{
  */
-enum status_code
-system_clock_source_write_calibration(
-  const enum system_clock_source system_clock_source,
-  const uint16_t calibration_value,
-  const uint8_t freq_range);
+enum status_code system_clock_source_write_calibration(
+		const enum system_clock_source system_clock_source,
+		const uint16_t calibration_value,
+		const uint8_t freq_range);
 
-enum status_code
-system_clock_source_enable(const enum system_clock_source system_clock_source);
+enum status_code system_clock_source_enable(
+		const enum system_clock_source system_clock_source);
 
-enum status_code
-system_clock_source_disable(const enum system_clock_source clk_source);
+enum status_code system_clock_source_disable(
+		const enum system_clock_source clk_source);
 
-bool
-system_clock_source_is_ready(const enum system_clock_source clk_source);
+bool system_clock_source_is_ready(
+		const enum system_clock_source clk_source);
 
-uint32_t
-system_clock_source_get_hz(const enum system_clock_source clk_source);
+uint32_t system_clock_source_get_hz(
+		const enum system_clock_source clk_source);
 
 /**
  * @}
@@ -982,10 +939,10 @@ system_clock_source_get_hz(const enum system_clock_source clk_source);
  *
  * \param[in] divider  CPU clock divider to set
  */
-static inline void
-system_cpu_clock_set_divider(const enum system_main_clock_div divider)
+static inline void system_cpu_clock_set_divider(
+		const enum system_main_clock_div divider)
 {
-    MCLK->CPUDIV.reg = MCLK_CPUDIV_CPUDIV(1 << divider);
+	MCLK->CPUDIV.reg = MCLK_CPUDIV_CPUDIV(1 << divider);
 }
 
 /**
@@ -996,10 +953,10 @@ system_cpu_clock_set_divider(const enum system_main_clock_div divider)
  *
  * \return Current CPU frequency in Hz.
  */
-static inline uint32_t
-system_cpu_clock_get_hz(void)
+static inline uint32_t system_cpu_clock_get_hz(void)
 {
-    return (system_gclk_gen_get_hz(GCLK_GENERATOR_0) / MCLK->CPUDIV.reg);
+	return (system_gclk_gen_get_hz(GCLK_GENERATOR_0) / MCLK->CPUDIV.reg);
+
 }
 
 /**
@@ -1020,10 +977,10 @@ system_cpu_clock_get_hz(void)
  *
  * \param[in] ahb_mask  AHB clock mask to enable
  */
-static inline void
-system_ahb_clock_set_mask(const uint32_t ahb_mask)
+static inline void system_ahb_clock_set_mask(
+		const uint32_t ahb_mask)
 {
-    MCLK->AHBMASK.reg |= ahb_mask;
+	MCLK->AHBMASK.reg |= ahb_mask;
 }
 
 /**
@@ -1035,10 +992,10 @@ system_ahb_clock_set_mask(const uint32_t ahb_mask)
  *
  * \param[in] ahb_mask  AHB clock mask to disable
  */
-static inline void
-system_ahb_clock_clear_mask(const uint32_t ahb_mask)
+static inline void system_ahb_clock_clear_mask(
+		const uint32_t ahb_mask)
 {
-    MCLK->AHBMASK.reg &= ~ahb_mask;
+	MCLK->AHBMASK.reg &= ~ahb_mask;
 }
 
 /**
@@ -1058,28 +1015,29 @@ system_ahb_clock_clear_mask(const uint32_t ahb_mask)
  * \retval STATUS_ERR_INVALID_ARG  Invalid bus given
  * \retval STATUS_OK               The clock mask was set successfully
  */
-static inline enum status_code
-system_apb_clock_set_mask(const enum system_clock_apb_bus bus,
-                          const uint32_t mask)
+static inline enum status_code system_apb_clock_set_mask(
+		const enum system_clock_apb_bus bus,
+		const uint32_t mask)
 {
-    switch (bus) {
-        case SYSTEM_CLOCK_APB_APBA:
-            MCLK->APBAMASK.reg |= mask;
-            break;
+	switch (bus) {
+		case SYSTEM_CLOCK_APB_APBA:
+			MCLK->APBAMASK.reg |= mask;
+			break;
 
-        case SYSTEM_CLOCK_APB_APBB:
-            MCLK->APBBMASK.reg |= mask;
-            break;
+		case SYSTEM_CLOCK_APB_APBB:
+			MCLK->APBBMASK.reg |= mask;
+			break;
 
-        case SYSTEM_CLOCK_APB_APBC:
-            MCLK->APBCMASK.reg |= mask;
-            break;
-        default:
-            Assert(false);
-            return STATUS_ERR_INVALID_ARG;
-    }
+		case SYSTEM_CLOCK_APB_APBC:
+			MCLK->APBCMASK.reg |= mask;
+			break;
+		default:
+			Assert(false);
+			return STATUS_ERR_INVALID_ARG;
 
-    return STATUS_OK;
+	}
+
+	return STATUS_OK;
 }
 
 /**
@@ -1098,28 +1056,28 @@ system_apb_clock_set_mask(const enum system_clock_apb_bus bus,
  * \retval STATUS_ERR_INVALID_ARG  Invalid bus ID was given
  * \retval STATUS_OK               The clock mask was changed successfully
  */
-static inline enum status_code
-system_apb_clock_clear_mask(const enum system_clock_apb_bus bus,
-                            const uint32_t mask)
+static inline enum status_code system_apb_clock_clear_mask(
+		const enum system_clock_apb_bus bus,
+		const uint32_t mask)
 {
-    switch (bus) {
-        case SYSTEM_CLOCK_APB_APBA:
-            MCLK->APBAMASK.reg &= ~mask;
-            break;
+	switch (bus) {
+		case SYSTEM_CLOCK_APB_APBA:
+			MCLK->APBAMASK.reg &= ~mask;
+			break;
 
-        case SYSTEM_CLOCK_APB_APBB:
-            MCLK->APBBMASK.reg &= ~mask;
-            break;
+		case SYSTEM_CLOCK_APB_APBB:
+			MCLK->APBBMASK.reg &= ~mask;
+			break;
 
-        case SYSTEM_CLOCK_APB_APBC:
-            MCLK->APBCMASK.reg &= ~mask;
-            break;
-        default:
-            Assert(false);
-            return STATUS_ERR_INVALID_ARG;
-    }
+		case SYSTEM_CLOCK_APB_APBC:
+			MCLK->APBCMASK.reg &= ~mask;
+			break;
+		default:
+			Assert(false);
+			return STATUS_ERR_INVALID_ARG;
+	}
 
-    return STATUS_OK;
+	return STATUS_OK;
 }
 
 /**
@@ -1129,59 +1087,55 @@ system_apb_clock_clear_mask(const enum system_clock_apb_bus bus,
 /**
  * \brief Reference clock source of the DPLL module.
  */
-enum system_clock_source_dpll_reference_clock
-{
-    /** Select XOSC32K as clock reference */
-    SYSTEM_CLOCK_SOURCE_DPLL_REFERENCE_CLOCK_XOSC32K,
-    /** Select XOSC as clock reference */
-    SYSTEM_CLOCK_SOURCE_DPLL_REFERENCE_CLOCK_XOSC,
-    /** Select GCLK as clock reference */
-    SYSTEM_CLOCK_SOURCE_DPLL_REFERENCE_CLOCK_GCLK,
+enum system_clock_source_dpll_reference_clock {
+	/** Select XOSC32K as clock reference */
+	SYSTEM_CLOCK_SOURCE_DPLL_REFERENCE_CLOCK_XOSC32K,
+	/** Select XOSC as clock reference */
+	SYSTEM_CLOCK_SOURCE_DPLL_REFERENCE_CLOCK_XOSC,
+	/** Select GCLK as clock reference */
+	SYSTEM_CLOCK_SOURCE_DPLL_REFERENCE_CLOCK_GCLK,
 };
 
 /**
  * \brief Lock time-out value of the DPLL module.
  */
-enum system_clock_source_dpll_lock_time
-{
-    /** Set no time-out as default */
-    SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_DEFAULT,
-    /** Set time-out if no lock within 8ms */
-    SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_8MS = 0x04,
-    /** Set time-out if no lock within 9ms */
-    SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_9MS,
-    /** Set time-out if no lock within 10ms */
-    SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_10MS,
-    /** Set time-out if no lock within 11ms */
-    SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_11MS,
+enum system_clock_source_dpll_lock_time {
+	/** Set no time-out as default */
+	SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_DEFAULT,
+	/** Set time-out if no lock within 8ms */
+	SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_8MS = 0x04,
+	/** Set time-out if no lock within 9ms */
+	SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_9MS,
+	/** Set time-out if no lock within 10ms */
+	SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_10MS,
+	/** Set time-out if no lock within 11ms */
+	SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_11MS,
 };
 
 /**
  * \brief Filter type of the DPLL module.
  */
-enum system_clock_source_dpll_filter
-{
-    /** Default filter mode */
-    SYSTEM_CLOCK_SOURCE_DPLL_FILTER_DEFAULT,
-    /** Low bandwidth filter */
-    SYSTEM_CLOCK_SOURCE_DPLL_FILTER_LOW_BANDWIDTH_FILTER,
-    /** High bandwidth filter */
-    SYSTEM_CLOCK_SOURCE_DPLL_FILTER_HIGH_BANDWIDTH_FILTER,
-    /** High damping filter */
-    SYSTEM_CLOCK_SOURCE_DPLL_FILTER_HIGH_DAMPING_FILTER,
+enum system_clock_source_dpll_filter {
+	/** Default filter mode */
+	SYSTEM_CLOCK_SOURCE_DPLL_FILTER_DEFAULT,
+	/** Low bandwidth filter */
+	SYSTEM_CLOCK_SOURCE_DPLL_FILTER_LOW_BANDWIDTH_FILTER,
+	/** High bandwidth filter */
+	SYSTEM_CLOCK_SOURCE_DPLL_FILTER_HIGH_BANDWIDTH_FILTER,
+	/** High damping filter */
+	SYSTEM_CLOCK_SOURCE_DPLL_FILTER_HIGH_DAMPING_FILTER,
 };
 
 /**
  * \brief DPLL Output Clock Prescaler.
  */
-enum system_clock_source_dpll_prescaler
-{
-    /** DPLL output is divided by 1 */
-    SYSTEM_CLOCK_SOURCE_DPLL_DIV_1,
-    /** DPLL output is divided by 2 */
-    SYSTEM_CLOCK_SOURCE_DPLL_DIV_2,
-    /** DPLL output is divided by 4 */
-    SYSTEM_CLOCK_SOURCE_DPLL_DIV_4,
+enum system_clock_source_dpll_prescaler {
+	/** DPLL output is divided by 1 */
+	SYSTEM_CLOCK_SOURCE_DPLL_DIV_1,
+	/** DPLL output is divided by 2 */
+	SYSTEM_CLOCK_SOURCE_DPLL_DIV_2,
+	/** DPLL output is divided by 4 */
+	SYSTEM_CLOCK_SOURCE_DPLL_DIV_4,
 };
 
 /**
@@ -1189,36 +1143,35 @@ enum system_clock_source_dpll_prescaler
  *
  * DPLL oscillator configuration structure.
  */
-struct system_clock_source_dpll_config
-{
-    /** Run On Demand. If this is set the DPLL won't run
-     * until requested by a peripheral */
-    bool on_demand;
-    /** Keep the DPLL enabled in standby sleep mode */
-    bool run_in_standby;
-    /** Bypass lock signal */
-    bool lock_bypass;
-    /** Wake up fast. If this is set DPLL output clock is enabled after
-     * the startup time */
-    bool wake_up_fast;
-    /** Enable low power mode  */
-    bool low_power_enable;
+struct system_clock_source_dpll_config {
+	/** Run On Demand. If this is set the DPLL won't run
+	 * until requested by a peripheral */
+	bool on_demand;
+	/** Keep the DPLL enabled in standby sleep mode */
+	bool run_in_standby;
+	/** Bypass lock signal */
+	bool lock_bypass;
+	/** Wake up fast. If this is set DPLL output clock is enabled after
+	 * the startup time */
+	bool wake_up_fast;
+	/** Enable low power mode  */
+	bool low_power_enable;
 
-    /** Output frequency of the clock */
-    uint32_t output_frequency;
-    /** Reference frequency of the clock */
-    uint32_t reference_frequency;
-    /** Devider of reference clock */
-    uint16_t reference_divider;
+	/** Output frequency of the clock */
+	uint32_t output_frequency;
+	/** Reference frequency of the clock */
+	uint32_t reference_frequency;
+	/** Devider of reference clock */
+	uint16_t reference_divider;
 
-    /** Filter type of the DPLL module */
-    enum system_clock_source_dpll_filter filter;
-    /** Lock time-out value of the DPLL module */
-    enum system_clock_source_dpll_lock_time lock_time;
-    /** Reference clock source of the DPLL module */
-    enum system_clock_source_dpll_reference_clock reference_clock;
-    /** DPLL prescaler*/
-    enum system_clock_source_dpll_prescaler prescaler;
+	/** Filter type of the DPLL module */
+	enum system_clock_source_dpll_filter          filter;
+	/** Lock time-out value of the DPLL module */
+	enum system_clock_source_dpll_lock_time       lock_time;
+	/** Reference clock source of the DPLL module */
+	enum system_clock_source_dpll_reference_clock reference_clock;
+	/** DPLL prescaler*/
+	enum system_clock_source_dpll_prescaler  prescaler;
 };
 
 /**
@@ -1245,29 +1198,27 @@ struct system_clock_source_dpll_config
  *
  * \param[out] config  Configuration structure to fill with default values
  */
-static inline void
-system_clock_source_dpll_get_config_defaults(
-  struct system_clock_source_dpll_config* const config)
+static inline void system_clock_source_dpll_get_config_defaults(
+		struct system_clock_source_dpll_config *const config)
 {
-    config->on_demand = true;
-    config->run_in_standby = false;
-    config->lock_bypass = false;
-    config->wake_up_fast = false;
-    config->low_power_enable = false;
+	config->on_demand           = true;
+	config->run_in_standby      = false;
+	config->lock_bypass         = false;
+	config->wake_up_fast        = false;
+	config->low_power_enable    = false;
 
-    config->output_frequency = 48000000;
-    config->reference_frequency = 32768;
-    config->reference_divider = 1;
-    config->reference_clock = SYSTEM_CLOCK_SOURCE_DPLL_REFERENCE_CLOCK_GCLK;
-    config->prescaler = SYSTEM_CLOCK_SOURCE_DPLL_DIV_1;
+	config->output_frequency    = 48000000;
+	config->reference_frequency = 32768;
+	config->reference_divider   = 1;
+	config->reference_clock     = SYSTEM_CLOCK_SOURCE_DPLL_REFERENCE_CLOCK_GCLK;
+	config->prescaler           = SYSTEM_CLOCK_SOURCE_DPLL_DIV_1;
 
-    config->lock_time = SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_DEFAULT;
-    config->filter = SYSTEM_CLOCK_SOURCE_DPLL_FILTER_DEFAULT;
+	config->lock_time           = SYSTEM_CLOCK_SOURCE_DPLL_LOCK_TIME_DEFAULT;
+	config->filter              = SYSTEM_CLOCK_SOURCE_DPLL_FILTER_DEFAULT;
 };
 
-void
-system_clock_source_dpll_set_config(
-  struct system_clock_source_dpll_config* const config);
+void system_clock_source_dpll_set_config(
+		struct system_clock_source_dpll_config *const config);
 
 /* @} */
 
@@ -1276,8 +1227,7 @@ system_clock_source_dpll_set_config(
  * @{
  */
 
-void
-system_clock_init(void);
+void system_clock_init(void);
 
 /**
  * @}
@@ -1298,13 +1248,12 @@ system_clock_init(void);
  *
  * \param[in] wait_states Number of wait states to use for internal flash
  */
-static inline void
-system_flash_set_waitstates(uint8_t wait_states)
+static inline void system_flash_set_waitstates(uint8_t wait_states)
 {
-    Assert(NVMCTRL_CTRLB_RWS((uint32_t)wait_states) ==
-           ((uint32_t)wait_states << NVMCTRL_CTRLB_RWS_Pos));
+	Assert(NVMCTRL_CTRLB_RWS((uint32_t)wait_states) ==
+			((uint32_t)wait_states << NVMCTRL_CTRLB_RWS_Pos));
 
-    NVMCTRL->CTRLB.bit.RWS = wait_states;
+	NVMCTRL->CTRLB.bit.RWS = wait_states;
 }
 /**
  * @}
@@ -1315,66 +1264,65 @@ system_flash_set_waitstates(uint8_t wait_states)
  */
 
 /**
- * \page asfdoc_sam0_system_clock_extra Extra Information for SYSTEM CLOCK
- * Driver
+ * \page asfdoc_sam0_system_clock_extra Extra Information for SYSTEM CLOCK Driver
  *
  * \section asfdoc_sam0_system_clock_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
  * intended meanings.
  *
  * <table>
- *  <tr>
- *      <th>Acronym</th>
- *      <th>Description</th>
- *  </tr>
- *  <tr>
- *      <td>DFLL</td>
- *      <td>Digital Frequency Locked Loop</td>
- *  </tr>
- *  <tr>
- *      <td>MUX</td>
- *      <td>Multiplexer</td>
- *  </tr>
- *  <tr>
- *      <td>MCLK</td>
- *      <td>Main Clock</td>
- *  </tr>
- *  <tr>
- *      <td>OSC32K</td>
- *      <td>Internal 32KHz Oscillator</td>
- *  </tr>
- *  <tr>
- *      <td>OSC48M</td>
- *      <td>Internal 48MHz Oscillator</td>
- *  </tr>
- *  <tr>
- *      <td>PLL</td>
- *      <td>Phase Locked Loop</td>
- *  </tr>
- *  <tr>
- *      <td>OSC</td>
- *      <td>Oscillator</td>
- *  </tr>
- *  <tr>
- *      <td>XOSC</td>
- *      <td>External Oscillator</td>
- *  </tr>
- *  <tr>
- *      <td>XOSC32K</td>
- *      <td>External 32KHz Oscillator</td>
- *  </tr>
- *  <tr>
- *      <td>AHB</td>
- *      <td>Advanced High-performance Bus</td>
- *  </tr>
- *  <tr>
- *      <td>APB</td>
- *      <td>Advanced Peripheral Bus</td>
- *  </tr>
- *  <tr>
- *      <td>DPLL</td>
- *      <td>Digital Phase Locked Loop</td>
- *  </tr>
+ *	<tr>
+ *		<th>Acronym</th>
+ *		<th>Description</th>
+ *	</tr>
+ *	<tr>
+ *		<td>DFLL</td>
+ *		<td>Digital Frequency Locked Loop</td>
+ *	</tr>
+ *	<tr>
+ *		<td>MUX</td>
+ *		<td>Multiplexer</td>
+ *	</tr>
+ *	<tr>
+ *		<td>MCLK</td>
+ *		<td>Main Clock</td>
+ *	</tr>
+ *	<tr>
+ *		<td>OSC32K</td>
+ *		<td>Internal 32KHz Oscillator</td>
+ *	</tr>
+ *	<tr>
+ *		<td>OSC48M</td>
+ *		<td>Internal 48MHz Oscillator</td>
+ *	</tr>
+ *	<tr>
+ *		<td>PLL</td>
+ *		<td>Phase Locked Loop</td>
+ *	</tr>
+ *	<tr>
+ *		<td>OSC</td>
+ *		<td>Oscillator</td>
+ *	</tr>
+ *	<tr>
+ *		<td>XOSC</td>
+ *		<td>External Oscillator</td>
+ *	</tr>
+ *	<tr>
+ *		<td>XOSC32K</td>
+ *		<td>External 32KHz Oscillator</td>
+ *	</tr>
+ *	<tr>
+ *		<td>AHB</td>
+ *		<td>Advanced High-performance Bus</td>
+ *	</tr>
+ *	<tr>
+ *		<td>APB</td>
+ *		<td>Advanced Peripheral Bus</td>
+ *	</tr>
+ *	<tr>
+ *		<td>DPLL</td>
+ *		<td>Digital Phase Locked Loop</td>
+ *	</tr>
  * </table>
  *
  *
@@ -1395,12 +1343,12 @@ system_flash_set_waitstates(uint8_t wait_states)
  * the table.
  *
  * <table>
- *  <tr>
- *      <th>Changelog</th>
- *  </tr>
- *  <tr>
- *      <td>Initial Release</td>
- *  </tr>
+ *	<tr>
+ *		<th>Changelog</th>
+ *	</tr>
+ *	<tr>
+ *		<td>Initial Release</td>
+ *	</tr>
  * </table>
  */
 
@@ -1416,20 +1364,19 @@ system_flash_set_waitstates(uint8_t wait_states)
  *  - \subpage asfdoc_sam0_system_clock_basic_use_case
  *  - \subpage asfdoc_sam0_system_gclk_basic_use_case
  *
- * \page asfdoc_sam0_system_clock_document_revision_history Document Revision
- * History
+ * \page asfdoc_sam0_system_clock_document_revision_history Document Revision History
  *
  * <table>
- *  <tr>
- *      <th>Doc. Rev.</td>
- *      <th>Date</td>
- *      <th>Comments</td>
- *  </tr>
- *  <tr>
- *      <td>42647A</td>
- *      <td>01/2016</td>
- *      <td>Initial document release</td>
- *  </tr>
+ *	<tr>
+ *		<th>Doc. Rev.</td>
+ *		<th>Date</td>
+ *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42647A</td>
+ *		<td>01/2016</td>
+ *		<td>Initial document release</td>
+ *	</tr>
  * </table>
  */
 

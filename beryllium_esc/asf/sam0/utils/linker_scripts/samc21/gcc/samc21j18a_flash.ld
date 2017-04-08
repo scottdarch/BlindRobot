@@ -127,7 +127,6 @@ SECTIONS
         *(.data .data.*);
         . = ALIGN(4);
         _erelocate = .;
-        . = ALIGN(8);
     } > ram
 
     /* .bss section which is used for uninitialized data */

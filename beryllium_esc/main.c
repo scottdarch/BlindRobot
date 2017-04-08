@@ -27,8 +27,6 @@
  */
 #include <compiler.h>
 #include <status_codes.h>
-#include <dma.h>
-#include <dma_crc.h>
 #include <board.h>
 #include <interrupt.h>
 #include <port.h>

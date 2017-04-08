@@ -96,16 +96,13 @@ INCLUDE_PATHS   += . \
                    asf/$(BOARD_FAMILY)/drivers/system/interrupt \
                    asf/$(BOARD_FAMILY)/drivers/system/interrupt/system_interrupt_samc20_c21/ \
                    asf/$(BOARD_FAMILY)/drivers/system/pinmux \
-                   asf/$(BOARD_FAMILY)/drivers/wdt \
                    asf/$(BOARD_FAMILY)/drivers/sercom \
                    asf/$(BOARD_FAMILY)/drivers/sercom/i2c \
-                   asf/$(BOARD_FAMILY)/drivers/dma \
                    
 SOURCE          += asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/gcc/startup_$(BOARD_CPU).c \
                    asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/system_$(BOARD_CPU).c \
                    asf/$(BOARD_FAMILY)/boards/$(BOARD)/board_init.c \
                    asf/$(BOARD_FAMILY)/drivers/port/port.c \
-                   asf/$(BOARD_FAMILY)/drivers/wdt/wdt.c \
                    asf/$(BOARD_FAMILY)/drivers/system/system.c \
                    asf/$(BOARD_FAMILY)/drivers/system/interrupt/system_interrupt.c \
                    asf/$(BOARD_FAMILY)/drivers/system/pinmux/pinmux.c \
@@ -114,8 +111,6 @@ SOURCE          += asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/gcc/start
                    asf/common/utils/interrupt/interrupt_sam_nvic.c \
                    asf/$(BOARD_FAMILY)/drivers/sercom/i2c/i2c_$(BOARD_FAMILY)/i2c_master.c \
                    asf/$(BOARD_FAMILY)/drivers/sercom/sercom.c \
-                   asf/$(BOARD_FAMILY)/drivers/sercom/usart/usart.c \
-                   asf/$(BOARD_FAMILY)/drivers/dma/dma.c \
                    asf/$(BOARD_FAMILY)/utils/syscalls/gcc/syscalls.c \
 
 SOURCE          += $(wildcard *.c)
