@@ -44,7 +44,10 @@
 #include <power.h>
 #include <reset.h>
 
-static volatile bool systick_gate = false;
+#define DATA_LENGTH 10
+static uint8_t write_buffer[DATA_LENGTH] = {
+    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
+};
 
 /** Handler for the device SysTick module, called when the SysTick counter
  *  reaches the set period.
@@ -57,7 +60,6 @@ void
 SysTick_Handler(void)
 {
     port_pin_toggle_output_level(LED_0_PIN);
-    systick_gate = !systick_gate;
 }
 
 /** Configure LED0, turn it off*/
@@ -86,8 +88,10 @@ configure_i2c_master(void)
 
     /* Change buffer timeout to something longer. */
     config_i2c_master.buffer_timeout = 10000;
-    config_i2c_master.pinmux_pad0 = EXT1_PIN_I2C_SDA;
-    config_i2c_master.pinmux_pad1 = EXT1_PIN_I2C_SCL;
+    //    config_i2c_master.pinmux_pad0 = EXT1_PIN_I2C_SDA;
+    //    config_i2c_master.pinmux_pad1 = EXT1_PIN_I2C_SCL;
+    //    config_i2c_master.baud_rate = I2C_MASTER_BAUD_RATE_100KHZ;
+    //    config_i2c_master.generator_source = GCLK_GENERATOR_0;
 
     /* Initialize and enable device with config. */
     i2c_master_init(
@@ -110,16 +114,17 @@ main(void)
 
     configure_i2c_master();
 
-    static uint8_t data = 0xAA;
-
     static struct i2c_master_packet packet = {.address = PERIPHERAL_ADDR,
-                                              .data_length = 1,
-                                              .data = &data,
+                                              .data_length = DATA_LENGTH,
+                                              .data = write_buffer,
                                               .ten_bit_address = false,
                                               .high_speed = false,
                                               .hs_master_code = 0 };
+
+    while ((last_status = i2c_master_write_packet_wait(&i2c_master_instance,
+                                                       &packet)) != STATUS_OK) {
+    }
+
     while (true) {
-        last_status =
-          i2c_master_write_packet_wait(&i2c_master_instance, &packet);
     }
 }

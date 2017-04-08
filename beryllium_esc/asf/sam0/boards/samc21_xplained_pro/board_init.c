@@ -47,15 +47,6 @@
 #include <port.h>
 #include <pinmux.h>
 
-#if defined(__GNUC__)
-void
-board_init(void) WEAK __attribute__((alias("system_board_init")));
-#elif defined(__ICCARM__)
-void
-board_init(void);
-#pragma weak board_init = system_board_init
-#endif
-
 void
 system_board_init(void)
 {
@@ -72,12 +63,17 @@ system_board_init(void)
     pin_conf.input_pull = PORT_PIN_PULL_UP;
     port_pin_set_config(BUTTON_0_PIN, &pin_conf);
 
-    struct system_pinmux_config pinmux_config;
-
-    system_pinmux_get_config_defaults(&pinmux_config);
-
-    pinmux_config.mux_position = 0x07; // H
-    pinmux_config.input_pull = SYSTEM_PINMUX_PIN_PULL_NONE;
-    system_pinmux_pin_set_config(EXT1_PIN_I2C_SDA, &pinmux_config);
-    system_pinmux_pin_set_config(EXT1_PIN_I2C_SCL, &pinmux_config);
+    //    struct system_pinmux_config pinmux_config;
+    //
+    //    system_pinmux_get_config_defaults(&pinmux_config);
+    //
+    //    pinmux_config.mux_position = 0x02; // C
+    //    pinmux_config.input_pull = SYSTEM_PINMUX_PIN_PULL_NONE;
+    //    system_pinmux_pin_set_config(EXT1_PIN_I2C_SDA, &pinmux_config);
+    //    system_pinmux_pin_set_config(EXT1_PIN_I2C_SCL, &pinmux_config);
+    //
+    //    pinmux_config.mux_position = 0x07; // H
+    //    pinmux_config.direction = SYSTEM_PINMUX_PIN_DIR_OUTPUT;
+    //    system_pinmux_pin_set_config(PIN_PB15, &pinmux_config);
+    //    system_pinmux_pin_set_config(PIN_PB14, &pinmux_config);
 }

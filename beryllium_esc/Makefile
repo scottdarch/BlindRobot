@@ -67,12 +67,12 @@ BOARD_FAMILY             := sam0
 BOARD_CPU                := samc21
 BOARD_CPU_PART           := j18a
 BOARD_ARM_CPU            := cortex-m0plus
-BOARD_PROGRAMMER         := dragon_isp
 CFLAGS                   += -D__SAMC21J18A__ \
                             -DBOARD=SAMC21_XPLAINED_PRO \
                             -DWDT_CALLBACK_MODE=false \
                             -DI2C_MASTER_CALLBACK_MODE=false \
                             -DUSART_CALLBACK_MODE=false \
+                            -DDARM_MATH_CM0PLUS=true \
 
 # +----------------------------------------------------------------------------+
 # | INPUTS
@@ -101,9 +101,9 @@ INCLUDE_PATHS   += . \
                    asf/$(BOARD_FAMILY)/drivers/sercom/i2c \
                    asf/$(BOARD_FAMILY)/drivers/dma \
                    
-SOURCE          += asf/$(BOARD_FAMILY)/boards/$(BOARD)/board_init.c \
+SOURCE          += asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/gcc/startup_$(BOARD_CPU).c \
                    asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/system_$(BOARD_CPU).c \
-                   asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/gcc/startup_$(BOARD_CPU).c \
+                   asf/$(BOARD_FAMILY)/boards/$(BOARD)/board_init.c \
                    asf/$(BOARD_FAMILY)/drivers/port/port.c \
                    asf/$(BOARD_FAMILY)/drivers/wdt/wdt.c \
                    asf/$(BOARD_FAMILY)/drivers/system/system.c \
@@ -116,6 +116,7 @@ SOURCE          += asf/$(BOARD_FAMILY)/boards/$(BOARD)/board_init.c \
                    asf/$(BOARD_FAMILY)/drivers/sercom/sercom.c \
                    asf/$(BOARD_FAMILY)/drivers/sercom/usart/usart.c \
                    asf/$(BOARD_FAMILY)/drivers/dma/dma.c \
+                   asf/$(BOARD_FAMILY)/utils/syscalls/gcc/syscalls.c \
 
 SOURCE          += $(wildcard *.c)
 
@@ -137,6 +138,7 @@ OBJS            := $(addprefix $(BUILD_FOLDER)/, $(SOURCE:.c=.o)) \
                    $(addprefix $(BUILD_FOLDER)/, $(ASSMBLY:.S=.o)) \
 
 HEX             := $(BUILD_FOLDER)/$(PROJECT_NAME).hex
+EEPROM          := $(BUILD_FOLDER)/$(PROJECT_NAME).eep
 ELF             := $(BUILD_FOLDER)/$(PROJECT_NAME).elf
 INFO_OUTPUTS    := $(BIN) $(HEX)
 MAP_FILE        := $(BUILD_FOLDER)/$(PROJECT_NAME).map
@@ -154,8 +156,9 @@ DEPFLAGS         = -MT $@ -MMD -MP -MF "$(patsubst %.o,%.Td,$@)"
 POSTCOMPILE      = mv -f $(patsubst %.o,%.Td,$@) $(patsubst %.o,%.d,$@)
 
 CFLAGS          +=  \
-                    -std=c99 \
+                    -std=gnu99 \
                     -mthumb \
+                    -mlong-calls\
                     --specs=nano.specs \
                     -Wall \
                     -Werror \
@@ -222,14 +225,18 @@ LDFLAGS         := $(foreach LIB,$(LIBS),-l$(LIB))
 LDFLAGS         += $(foreach _LIB_PATH,$(LIB_PATH),-L$(_LIB_PATH))
 LDFLAGS         += -pipe \
                    -L. \
+                   -L"asf/thirdparty/CMSIS/Lib/GCC" \
+                   -Wl,--start-group \
+                       -larm_cortexM0l_math \
+                       -lm  \
+                   -Wl,--end-group \
                    -Wl,--gc-sections \
                    -Wl,--unresolved-symbols=report-all \
                    -Wl,--warn-common \
                    -Wl,--warn-section-align \
-                   -Wl,-M=$(MAP_FILE),--cref\
+                   -Wl,--entry=Reset_Handler \
+                   -Wl,-Map=$(MAP_FILE),--cref\
                    -Wl,-T$(LINKER_SCRIPT) \
-
-BINFLAGS         = -j .text -j .data -O ihex
 
 GCCPREFIX       := $(strip $(shell $(BOARD_GCC_PREFIX)gcc -v 2>&1 | awk '{FS="--|="; if ( $$2 ~ /prefix/ ) print $$3 }'))
 GCCHEADERS      := $(GCCPREFIX)/$(BOARD_CPU_ARCH)/include
@@ -239,11 +246,18 @@ GCCHEADERS      := $(GCCPREFIX)/$(BOARD_CPU_ARCH)/include
 # +----------------------------------------------------------------------------+
 $(HEX) : $(ELF)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
-	$(BOARD_GCC_PREFIX)objcopy $(BINFLAGS) $< $@
+	$(BOARD_GCC_PREFIX)objcopy -O ihex -R .eeprom -R .fuse -R .lock -R .signature $< $@
 
-$(ELF) : $(OBJS)
+$(EEPROM) : $(ELF)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
-	$(BOARD_GCC_PREFIX)gcc $(CFLAGS) $(LDFLAGS) -o $@ $^
+	$(BOARD_GCC_PREFIX)objcopy -j .eeprom --set-section-flags=.eeprom=alloc,load \
+        --change-section-lma .eeprom=0 \
+        --no-change-warnings \
+        -O binary  $< $@
+
+$(ELF) : $(OBJS) $(LINKER_SCRIPT)
+	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
+	$(BOARD_GCC_PREFIX)gcc -o $@ $(filter %.o,$^) $(CFLAGS) $(LDFLAGS)
 
 $(BUILD_FOLDER)/%.o : %.S $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
@@ -258,7 +272,7 @@ $(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
 $(MAP_FILE) : $(ELF)
 
 $(LISTING_FILE) : $(ELF)
-	$(BOARD_GCC_PREFIX)objdump -h -S -D $< > $@
+	$(BOARD_GCC_PREFIX)objdump -l -h -S -D $< > $@
 
 .DELETE_ON_ERROR: ;
 
@@ -268,14 +282,14 @@ $(LISTING_FILE) : $(ELF)
 GLOBAL_PHONIES := all clean size flash info map dump
 
 .PHONY: $(GLOBAL_PHONEIS)
-all: $(HEX)
+all: $(HEX) $(EEPROM) $(LISTING_FILE)
 	# Build all the things!
 
 clean:
 	$(RMDIR) $(BUILD_ROOT)
 
-size: $(HEX)
-	$(BOARD_GCC_PREFIX)size --mcu=$(BOARD_CPU) --target=binary $<
+size: $(ELF)
+	$(BOARD_GCC_PREFIX)size $<
 
 flash: $(ELF)
 	openocd -f board/$(BOARD_OCD).cfg -c "program $< verify reset exit"

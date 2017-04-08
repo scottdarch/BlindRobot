@@ -49,6 +49,6 @@
 #define CONF_BOARD_H_INCLUDED
 
 /* master sercom pinmux setting */
-#define CONF_I2C_MASTER_MODULE SERCOM2
+#define CONF_I2C_MASTER_MODULE EXT1_I2C_MODULE
 
 #endif /* CONF_BOARD_H_INCLUDED */
