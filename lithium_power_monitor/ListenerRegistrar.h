@@ -25,55 +25,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-// clang-format off
-#include <avr/io.h>
-// clang-format on
-#include <avr/fuse.h>
-#include <avr/wdt.h>
-#include <util/delay.h>
-#include "SMBusPeripheral.h"
-#include "PowerMonitor.h"
-#include "TemperatureMonitor.h"
+#pragma once
 
-#define SMBUS_PERIPHERAL_ADDR 0x96
+#include "Iterable.h"
 
-//                           +----------------------+
-//                        +5 | 1 VCC         GND 14 | 0
-//                           | 2 PB0         PA0 13 | ADC0 -> VBAT
-//                           | 3 PB1         PA1 12 | ADC1 -> +6
-//                    !RESET | 4 PB3         PA2 11 | ADC2 -> +5
-//                           | 5 PB2         PA3 10 |
-//(xplained board only) LED0 | 6 PA7         PA4  9 | SCL
-//                  MOSI/SDA | 7 PA6         PA5  8 | MISO
-//                           +----------------------+
-//
+typedef enum {
+    LRR_OKAY = 0,
+    LRR_REGISTRAR_IS_FULL = 1,
+    LRR_NOT_FOUND = 2,
+} ListenerRegistrarResult;
 
-static SMBusPeripheral _peripheral;
+struct _ListenerRegistrarType;
 
-int
-main()
+typedef struct _Listener
 {
-    init_smb_peripheral(&_peripheral, SMBUS_PERIPHERAL_ADDR);
-    wdt_disable();
+    void (*callback)(struct _Listener* self, void* target);
+} Listener;
 
-    PORTA |= (1 << PA7);
-    DDRA |= (1 << DDA7);
+typedef struct _ListenerRegistrarType
+{
+    ListenerRegistrarResult (*add_listener)(struct _ListenerRegistrarType* self,
+                                            Listener* listener);
 
-    PORTB |= (1 << PB2);
-    DDRB |= (1 << DDB2);
+    ITERABLE_STRUCT(Listener);
 
-    __asm__("nop");
-
-    while (1) {
-        PORTA ^= (1 << PA7);
-        PORTB ^= (1 << PB2);
-        _delay_ms(1000);
-    }
-    return 0;
-}
-
-FUSES = {
-    .low = AVR_FUSE_L,
-    .high = AVR_FUSE_H,
-    .extended = AVR_FUSE_E,
-};
+} ListenerRegistrar;

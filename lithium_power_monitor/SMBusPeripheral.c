@@ -25,55 +25,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-// clang-format off
-#include <avr/io.h>
-// clang-format on
-#include <avr/fuse.h>
-#include <avr/wdt.h>
-#include <util/delay.h>
 #include "SMBusPeripheral.h"
-#include "PowerMonitor.h"
-#include "TemperatureMonitor.h"
+#include <avr/io.h>
 
-#define SMBUS_PERIPHERAL_ADDR 0x96
-
-//                           +----------------------+
-//                        +5 | 1 VCC         GND 14 | 0
-//                           | 2 PB0         PA0 13 | ADC0 -> VBAT
-//                           | 3 PB1         PA1 12 | ADC1 -> +6
-//                    !RESET | 4 PB3         PA2 11 | ADC2 -> +5
-//                           | 5 PB2         PA3 10 |
-//(xplained board only) LED0 | 6 PA7         PA4  9 | SCL
-//                  MOSI/SDA | 7 PA6         PA5  8 | MISO
-//                           +----------------------+
+// TODO: respond to address
+//       accept write register
+//       return value if read requested.
 //
-
-static SMBusPeripheral _peripheral;
-
-int
-main()
+SMBusPeripheral*
+init_smb_peripheral(SMBusPeripheral* self, uint8_t peripheral_addr)
 {
-    init_smb_peripheral(&_peripheral, SMBUS_PERIPHERAL_ADDR);
-    wdt_disable();
-
-    PORTA |= (1 << PA7);
-    DDRA |= (1 << DDA7);
-
-    PORTB |= (1 << PB2);
-    DDRB |= (1 << DDB2);
-
-    __asm__("nop");
-
-    while (1) {
-        PORTA ^= (1 << PA7);
-        PORTB ^= (1 << PB2);
-        _delay_ms(1000);
+    if (self) {
+        // Two-wire mode for USI.
+        USICR |= (1 << USIWM1) | (1 << USIWM0);
     }
-    return 0;
+    return self;
 }
-
-FUSES = {
-    .low = AVR_FUSE_L,
-    .high = AVR_FUSE_H,
-    .extended = AVR_FUSE_E,
-};

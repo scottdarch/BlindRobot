@@ -67,6 +67,7 @@ BOARD_PROGRAMMER         := dragon_isp
 CFLAGS                   += -D__AVR_ATtiny84__
 
 BOARD_AVR_FUSE_H         := 0xDF
+BOARD_AVR_FUSE_H_DW      := 0x9F
 BOARD_AVR_FUSE_L         := 0x62
 BOARD_AVR_FUSE_E         := 0xFF
 
@@ -126,7 +127,6 @@ CFLAGS          +=  \
                     -funsigned-char \
                     -funsigned-bitfields \
                     -fno-strict-aliasing \
-                    -fpack-struct \
                     -fshort-enums \
                     -Dprintf=iprintf \
                     -Dscanf=iscanf \
@@ -190,7 +190,7 @@ $(LISTING_FILE) : $(ELF)
 # +----------------------------------------------------------------------------+
 # | TARGETS
 # +----------------------------------------------------------------------------+
-GLOBAL_PHONIES := all clean size flash info map dump signature hfuse lfuse efuse fuses
+GLOBAL_PHONIES := all clean size flash info map dump signature fuses
 
 .PHONY: $(GLOBAL_PHONEIS)
 all: $(HEX)
@@ -205,19 +205,19 @@ size: $(HEX)
 flash: $(HEX)
 	$(LOCAL_ENV_PROGRAM) -U $@:w:$<:i
 
-hfuse:
-	$(LOCAL_ENV_PROGRAM) -U $@:w:$(BOARD_AVR_FUSE_H):m
+fuses:
+	$(LOCAL_ENV_PROGRAM) -U lfuse:w:$(BOARD_AVR_FUSE_L):m \
+                         -U hfuse:w:$(BOARD_AVR_FUSE_H):m \
+                         -U efuse:w:$(BOARD_AVR_FUSE_E):m
 
-lfuse:
-	$(LOCAL_ENV_PROGRAM) -U $@:w:$(BOARD_AVR_FUSE_L):m
+enable-dw:
+	$(LOCAL_ENV_PROGRAM) -U hfuse:w:$(BOARD_AVR_FUSE_H_DW):m
 
-efuse:
-	$(LOCAL_ENV_PROGRAM) -U $@:w:$(BOARD_AVR_FUSE_E):m
-
-fuses: hfuse lfuse efuse ;
-	
 signature:
 	$(LOCAL_ENV_PROGRAM) -v -v
+
+debug-server:
+	avarice --dragon --debugwire --part $(BOARD_CPU) -j usb :4343
 
 info:
 	@echo SOURCE: $(addprefix "\n\t", $(SOURCE))
