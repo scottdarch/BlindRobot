@@ -29,8 +29,16 @@
 
 #include <stdint.h>
 
+#include "gen/Smbus_peripheral.h"
+
 typedef struct _SMBusPeripheralType
 {
+    void (*start)(struct _SMBusPeripheralType* self);
+
+    // +-----------------------------------------------------------------------+
+    // | PRIVATE
+    // +-----------------------------------------------------------------------+
+    Smbus_peripheral _state;
 } SMBusPeripheral;
 
 SMBusPeripheral*

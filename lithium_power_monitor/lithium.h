@@ -25,19 +25,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#include "SMBusPeripheral.h"
-#include <avr/io.h>
+#pragma once
 
-// TODO: respond to address
-//       accept write register
-//       return value if read requested.
+// +---------------------------------------------------------------------------+
+// | SMBus
+// +---------------------------------------------------------------------------+
+#define LI_SMBUS_PERIPHERAL_ADDR 0x96
+
+// +---------------------------------------------------------------------------+
+// | GPIO
+// +---------------------------------------------------------------------------+
+
+//                           +----------------------+
+//                        +5 | 1 VCC         GND 14 | 0
+//                           | 2 PB0         PA0 13 | ADC0 -> VBAT
+//                           | 3 PB1         PA1 12 | ADC1 -> +6
+//                    !RESET | 4 PB3         PA2 11 | ADC2 -> +5
+//                           | 5 PB2         PA3 10 |
+//(xplained board only) LED0 | 6 PA7         PA4  9 | SCL
+//                  MOSI/SDA | 7 PA6         PA5  8 | MISO
+//                           +----------------------+
 //
-SMBusPeripheral*
-init_smb_peripheral(SMBusPeripheral* self, uint8_t peripheral_addr)
-{
-    if (self) {
-        // Two-wire mode for USI.
-        USICR |= (1 << USIWM1) | (1 << USIWM0);
-    }
-    return self;
-}
+
+#define LI_LED0 PA7
+#define LI_LED0_PORT PORTA
+#define LI_LED0_DDR DDRA
+
+#define LI_USI0_PORT PORTA
+#define LI_USI0_DDR DDRA
+
+#define LI_SDA0 PA6
+
+#define LI_SCL0 PA4

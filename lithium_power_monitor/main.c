@@ -30,43 +30,29 @@
 // clang-format on
 #include <avr/fuse.h>
 #include <avr/wdt.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
+
+#include "lithium.h"
 #include "SMBusPeripheral.h"
 #include "PowerMonitor.h"
 #include "TemperatureMonitor.h"
-
-#define SMBUS_PERIPHERAL_ADDR 0x96
-
-//                           +----------------------+
-//                        +5 | 1 VCC         GND 14 | 0
-//                           | 2 PB0         PA0 13 | ADC0 -> VBAT
-//                           | 3 PB1         PA1 12 | ADC1 -> +6
-//                    !RESET | 4 PB3         PA2 11 | ADC2 -> +5
-//                           | 5 PB2         PA3 10 |
-//(xplained board only) LED0 | 6 PA7         PA4  9 | SCL
-//                  MOSI/SDA | 7 PA6         PA5  8 | MISO
-//                           +----------------------+
-//
 
 static SMBusPeripheral _peripheral;
 
 int
 main()
 {
-    init_smb_peripheral(&_peripheral, SMBUS_PERIPHERAL_ADDR);
+    init_smb_peripheral(&_peripheral, LI_SMBUS_PERIPHERAL_ADDR)
+      ->start(&_peripheral);
     wdt_disable();
+    sei();
 
-    PORTA |= (1 << PA7);
-    DDRA |= (1 << DDA7);
-
-    PORTB |= (1 << PB2);
-    DDRB |= (1 << DDB2);
+    LI_LED0_DDR |= (1 << LI_LED0);
 
     __asm__("nop");
 
     while (1) {
-        PORTA ^= (1 << PA7);
-        PORTB ^= (1 << PB2);
         _delay_ms(1000);
     }
     return 0;
