@@ -95,20 +95,6 @@ BUILD_FOLDER    := $(BUILD_ROOT)/Release
 endif
 
 # +----------------------------------------------------------------------------+
-# | GENERATED
-# +----------------------------------------------------------------------------+
-YAKINDU_GEN_OUTPUT := $(BUILD_FOLDER)/smbus_peripheral_state
-
-YAKINDU_GEN_SOURCE := $(YAKINDU_GEN_OUTPUT)/gen/Smbus_peripheral.c \
-
-YAKINDU_GEN_HEADERS := $(YAKINDU_GEN_OUTPUT)/gen/Smbus_peripheral.h \
-                       $(YAKINDU_GEN_OUTPUT)/sc_types.h \
-
-INCLUDE_PATHS   += $(YAKINDU_GEN_OUTPUT) \
-
-SOURCE          += $(YAKINDU_GEN_SOURCE) \
-
-# +----------------------------------------------------------------------------+
 # | OUTPUTS
 # +----------------------------------------------------------------------------+
 OBJS            := $(addprefix $(BUILD_FOLDER)/, $(SOURCE:.c=.o)) \
@@ -192,7 +178,7 @@ $(BUILD_FOLDER)/%.o : %.s $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
 	$(BOARD_GCC_PREFIX)as $(DEPFLAGS) $(CFLAGS) $(ASFLAGS) -D__ASSEMBLY__ -c $< -o $@
 	$(POSTCOMPILE)
 
-$(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST) $(YAKINDU_GEN_HEADERS)
+$(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(BOARD_GCC_PREFIX)gcc $(DEPFLAGS) $(CFLAGS) -c $< -o $@
 	$(POSTCOMPILE)
@@ -201,12 +187,6 @@ $(MAP_FILE) : $(ELF)
 
 $(LISTING_FILE) : $(ELF)
 	$(BOARD_GCC_PREFIX)objdump -h -S -D $< > $@
-
-# +----------------------------------------------------------------------------+
-# | YAKINDU
-# +----------------------------------------------------------------------------+
-$(YAKINDU_GEN_OUTPUT)/%.h : smbus_peripheral.sct smbus_peripheral.sgen
-	scc
 
 .DELETE_ON_ERROR: ;
 

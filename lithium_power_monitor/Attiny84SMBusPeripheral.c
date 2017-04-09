@@ -50,7 +50,6 @@ ISR(USI_OVF_vect)
 static void
 _attiny84_smb_peripheral_start(SMBusPeripheral* self)
 {
-    smbus_peripheral_enter(&self->_state);
 }
 
 // TODO: respond to address
@@ -77,7 +76,6 @@ init_smb_peripheral(SMBusPeripheral* self, uint8_t peripheral_addr)
            << USICLK) | // Shift Register Clock Source = External, positive edge
           (0 << USITC);
         USISR = 0xF0; // Clear all flags and reset overflow counter
-        smbus_peripheral_init(&self->_state);
         self->start = _attiny84_smb_peripheral_start;
     }
     return self;
