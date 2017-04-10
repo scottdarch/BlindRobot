@@ -43,8 +43,10 @@ static SMBusPeripheral _peripheral;
 int
 main()
 {
-    init_smb_peripheral(&_peripheral, LI_SMBUS_PERIPHERAL_ADDR)
-      ->start(&_peripheral);
+    MCUCR |= (1 << PUD);
+    SMBusPeripheral* const periph = init_smb_peripheral(&_peripheral);
+    periph->start(periph, LI_SMBUS_PERIPHERAL_ADDR);
+
     wdt_disable();
     sei();
 
@@ -53,7 +55,10 @@ main()
     __asm__("nop");
 
     while (1) {
-        _delay_ms(1000);
+        cli();
+        periph->run(periph);
+        sei();
+        _delay_us(10);
     }
     return 0;
 }

@@ -52,6 +52,7 @@
 #define LI_LED0_DDR DDRA
 
 #define LI_USI0_PORT PORTA
+#define LI_USI0_PIN PINA
 #define LI_USI0_DDR DDRA
 
 #define LI_SDA0 PA6

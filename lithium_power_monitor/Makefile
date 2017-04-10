@@ -79,8 +79,11 @@ CFLAGS += -DAVR_FUSE_H=$(BOARD_AVR_FUSE_H) \
 # | INPUTS
 # +----------------------------------------------------------------------------+
 INCLUDE_PATHS   += src \
+                   usi_twi_peripheral \
 
 SOURCE          += $(wildcard *.c) \
+
+YAKINDU_SOURCE  := $(wildcard usi_twi_peripheral/*.c) \
 
 ASSMBLY         += $(wildcard *.S)
 
@@ -97,12 +100,13 @@ endif
 # +----------------------------------------------------------------------------+
 # | OUTPUTS
 # +----------------------------------------------------------------------------+
-OBJS            := $(addprefix $(BUILD_FOLDER)/, $(SOURCE:.c=.o)) \
-                   $(addprefix $(BUILD_FOLDER)/, $(ASSMBLY:.S=.o)) \
+C_OBJS          := $(addprefix $(BUILD_FOLDER)/, $(SOURCE:.c=.o))
+S_OBJS          := $(addprefix $(BUILD_FOLDER)/, $(ASSMBLY:.S=.o))
+Y_OBJS          := $(addprefix $(BUILD_FOLDER)/, $(YAKINDU_SOURCE:.c=.o))
 
 HEX             := $(BUILD_FOLDER)/$(PROJECT_NAME).hex
 ELF             := $(BUILD_FOLDER)/$(PROJECT_NAME).elf
-INFO_OUTPUTS    := $(BIN) $(HEX)
+INFO_OUTPUTS    := $(ELF) $(HEX)
 MAP_FILE        := $(BUILD_FOLDER)/$(PROJECT_NAME).map
 LISTING_FILE    := $(BUILD_FOLDER)/$(PROJECT_NAME).lss
 
@@ -119,10 +123,9 @@ DEPFLAGS         = -MT $@ -MMD -MP -MF "$(patsubst %.o,%.Td,$@)"
 
 POSTCOMPILE      = mv -f $(patsubst %.o,%.Td,$@) $(patsubst %.o,%.d,$@)
 
-CFLAGS          +=  \
-                    -std=c99 \
-                    -Wall \
+CFLAGS          +=  -Wall \
                     -Werror \
+                    -std=c99 \
                     -DF_CPU=$(BOARD_CLOCK) \
                     -mmcu=$(BOARD_CPU) \
                     -ffunction-sections \
@@ -134,6 +137,9 @@ CFLAGS          +=  \
                     -Dprintf=iprintf \
                     -Dscanf=iscanf \
                     -mrelax \
+
+CFLAGS_YAK      := -Wno-implicit-function-declaration \
+                   -Wno-unused-function \
 
 ifdef DEBUG
 CFLAGS          += -ggdb \
@@ -157,7 +163,7 @@ LDFLAGS         += -pipe \
                    -Wl,--warn-section-align \
                    -Wl,-M=$(MAP_FILE) \
 
-BINFLAGS         = -j .text -j .data -O ihex
+BINFLAGS        := -j .text -j .data
 
 GCCPREFIX       := $(strip $(shell $(BOARD_GCC_PREFIX)gcc -v 2>&1 | awk '{FS="--|="; if ( $$2 ~ /prefix/ ) print $$3 }'))
 GCCHEADERS      := $(GCCPREFIX)/$(BOARD_CPU_ARCH)/include
@@ -167,20 +173,25 @@ GCCHEADERS      := $(GCCPREFIX)/$(BOARD_CPU_ARCH)/include
 # +----------------------------------------------------------------------------+
 $(HEX) : $(ELF)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
-	$(BOARD_GCC_PREFIX)objcopy $(BINFLAGS) $< $@
+	$(BOARD_GCC_PREFIX)objcopy $(BINFLAGS) -O ihex $< $@
 
-$(ELF) : $(OBJS)
+$(ELF) : $(C_OBJS) $(S_OBJS) $(Y_OBJS)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(BOARD_GCC_PREFIX)gcc $(CFLAGS) $(LDFLAGS) -o $@ $^
 
-$(BUILD_FOLDER)/%.o : %.s $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
+$(S_OBJS) : $(BUILD_FOLDER)/%.o : %.s $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(BOARD_GCC_PREFIX)as $(DEPFLAGS) $(CFLAGS) $(ASFLAGS) -D__ASSEMBLY__ -c $< -o $@
 	$(POSTCOMPILE)
 
-$(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
+$(C_OBJS) : $(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
 	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
 	$(BOARD_GCC_PREFIX)gcc $(DEPFLAGS) $(CFLAGS) -c $< -o $@
+	$(POSTCOMPILE)
+
+$(Y_OBJS) : $(BUILD_FOLDER)/%.o : %.c $(BUILD_FOLDER)/%.d $(MAKEFILE_LIST)
+	@[ -d $(dir $@) ] || $(MKDIRS) $(dir $@)
+	$(BOARD_GCC_PREFIX)gcc $(DEPFLAGS) $(CFLAGS) $(CFLAGS_YAK) -c $< -o $@
 	$(POSTCOMPILE)
 
 $(MAP_FILE) : $(ELF)
@@ -193,17 +204,17 @@ $(LISTING_FILE) : $(ELF)
 # +----------------------------------------------------------------------------+
 # | TARGETS
 # +----------------------------------------------------------------------------+
-GLOBAL_PHONIES := all clean size flash info map dump signature fuses
+GLOBAL_PHONIES := all clean size flash info map dump signature fuses debug-server enable-dw
 
 .PHONY: $(GLOBAL_PHONEIS)
-all: $(HEX)
+all: $(HEX) size
 	# Build all the things!
 
 clean:
 	$(RMDIR) $(BUILD_ROOT)
 
-size: $(HEX)
-	$(BOARD_GCC_PREFIX)size --mcu=$(BOARD_CPU) --format=avr --target=binary $<
+size: $(ELF)
+	$(BOARD_GCC_PREFIX)size --mcu=$(BOARD_CPU) --format=avr --target=elf32-avr $<
 
 flash: $(HEX)
 	$(LOCAL_ENV_PROGRAM) -U $@:w:$<:i
@@ -226,11 +237,38 @@ debug-server:
 	avarice --dragon --debugwire --part $(BOARD_CPU) -j usb :4343
 
 info:
-	@echo SOURCE: $(addprefix "\n\t", $(SOURCE))
-	@echo OBJS: $(addprefix "\n\t", $(OBJS))
-	@echo INCLUDES: $(addprefix "\n\t", $(INCLUDE_PATHS))
+	@echo "             ``"
+	@echo "      <X X>  /"
+	@echo " \`\`---  |  -"
+	@echo "     [     ]   A BlindRobot Project (by 32bits.io)"
+	@echo " _____U___U____________________________________________________________________"
+	@echo
+	@echo ENVIRONMENT:
+	@echo "  OSX 10.12"
+	@echo "  CrossPack-AVR gcc version 4.8.1"
+	@echo "  sed"
+	@echo "  awk"
+	@echo "  Yakindu (to modify state machines)"
+	@echo
+	@echo OBJS: $(addprefix "\n\t", $(C_OBJS)) $(addprefix "\n\t", $(S_OBJS)) $(addprefix "\n\t", $(Y_OBJS))
+	@echo
+	@echo INCLUDE DIRS: $(addprefix "\n\t", $(INCLUDE_PATHS))
+	@echo
 	@echo OUTPUTS: $(addprefix "\n\t", $(INFO_OUTPUTS))
-	@echo TARGETS: $(addprefix "\n\t", $(GLOBAL_PHONIES))
+	@echo
+	@echo TARGETS:
+	@echo "  all          - build everything."
+	@echo "  clean        - remove build directory ($(BUILD_ROOT))"
+	@echo "  size         - print the memory usage for the current binary."
+	@echo "  flash        - program an attached device using defaults."
+	@echo "  map          - $(PAGER) the memory map produced by the linker."
+	@echo "  dump         - $(PAGER) dissassembled binary."
+	@echo "  signature    - print the signature of an attached device using defaults."
+	@echo "  fuses        - program the normal fuses for an attached device."
+	@echo "  enable-dw    - set the DWEN (debug-wire enable) fuse of an attached device."
+	@echo "  debug-server - start a gdb server for an attached device. Requires" 
+	@echo "                 the DWEN fuse to be set."
+	@echo
 	@echo GCCPREFIX: $(GCCPREFIX)
 
 map: $(MAP_FILE)
@@ -245,4 +283,6 @@ dump: $(LISTING_FILE)
 %.d : ;
 .PRECIOUS: %.d
 
--include $(OBJS:.o=.d)
+-include $(C_OBJS:.o=.d)
+-include $(S_OBJS:.o=.d)
+-include $(Y_OBJS:.o=.d)

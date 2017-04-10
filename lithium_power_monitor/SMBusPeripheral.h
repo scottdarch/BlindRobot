@@ -29,14 +29,18 @@
 
 #include <stdint.h>
 
+#include "Usi_twi_peripheral.h"
+
 typedef struct _SMBusPeripheralType
 {
-    void (*start)(struct _SMBusPeripheralType* self);
+    void (*start)(struct _SMBusPeripheralType* self, uint8_t peripheral_addr);
+    void (*run)(struct _SMBusPeripheralType* self);
 
     // +-----------------------------------------------------------------------+
     // | PRIVATE
     // +-----------------------------------------------------------------------+
+    Usi_twi_peripheral _state;
 } SMBusPeripheral;
 
 SMBusPeripheral*
-init_smb_peripheral(SMBusPeripheral* self, uint8_t peripheral_addr);
+init_smb_peripheral(SMBusPeripheral* self);

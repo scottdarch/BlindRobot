@@ -1,0 +1,11 @@
+GeneratorModel for yakindu::c {
+
+    statechart usi_twi_peripheral {
+
+        feature Outlet {
+            targetProject = "lithium_power_monitor"
+            targetFolder = "usi_twi_peripheral"
+            libraryTargetFolder = "."
+        }
+    }
+}
