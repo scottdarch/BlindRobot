@@ -173,6 +173,7 @@ usi_twi_peripheralIfaceDriver_sleep(const Usi_twi_peripheral* handle)
 static void
 _attiny84_smb_peripheral_start(SMBusPeripheral* self, uint8_t peripheral_addr)
 {
+    LI_LED0_PORT |= (1 << LI_LED0);
     usi_twi_peripheral_enter(&self->_state);
     usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(
       &self->_state, peripheral_addr);

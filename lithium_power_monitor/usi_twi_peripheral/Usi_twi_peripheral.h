@@ -15,20 +15,25 @@ extern "C" {
 typedef enum
 {
 	Usi_twi_peripheral_main_region_uninitialized,
-	Usi_twi_peripheral_main_region_initalized,
-	Usi_twi_peripheral_main_region_initalized_r1_idle,
-	Usi_twi_peripheral_main_region_initalized_r1_active,
-	Usi_twi_peripheral_main_region_initalized_r1_active_usi_overflow_has_address,
-	Usi_twi_peripheral_main_region_initalized_r1_active_usi_overflow_waiting_for_address,
-	Usi_twi_peripheral_main_region_initalized_r1_setting_start_condition,
+	Usi_twi_peripheral_main_region_initialized,
+	Usi_twi_peripheral_main_region_initialized_inner_region_idle,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_reading_from_master,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_reading_from_master_r1_waiting_for_data,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_reading_from_master_r1_reading_data,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_writing_to_master,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_writing_to_master_r1_sending_data,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_writing_to_master_r1_reading_ack,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_waiting_for_address,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_sending_ack,
 	Usi_twi_peripheral_last_state
 } Usi_twi_peripheralStates;
 
 /*! Type definition of the data structure for the Usi_twi_peripheralIfacePeripheral interface scope. */
 typedef struct
 {
-	sc_boolean on_read_address_raised;
-	sc_integer on_read_address_value;
+	sc_boolean on_usi_overflow_raised;
+	sc_integer on_usi_overflow_value;
 	sc_boolean on_start_raised;
 } Usi_twi_peripheralIfacePeripheral;
 
@@ -37,12 +42,15 @@ typedef struct
 {
 	sc_boolean on_peripheral_address_set_raised;
 	sc_integer on_peripheral_address_set_value;
+	sc_boolean on_reset_raised;
+	sc_boolean on_byte_read_raised;
+	sc_integer on_byte_read_value;
 } Usi_twi_peripheralIfaceDriver;
 
 /*! Type definition of the data structure for the Usi_twi_peripheralInternal interface scope. */
 typedef struct
 {
-	sc_integer reg_address;
+	sc_integer last_read;
 	sc_integer peripheral_address;
 } Usi_twi_peripheralInternal;
 
@@ -77,14 +85,23 @@ extern void usi_twi_peripheral_exit(Usi_twi_peripheral* handle);
 extern void usi_twi_peripheral_runCycle(Usi_twi_peripheral* handle);
 
 
-/*! Raises the in event 'on_read_address' that is defined in the interface scope 'peripheral'. */ 
-extern void usi_twi_peripheralIfacePeripheral_raise_on_read_address(Usi_twi_peripheral* handle, sc_integer value);
+/*! Raises the in event 'on_usi_overflow' that is defined in the interface scope 'peripheral'. */ 
+extern void usi_twi_peripheralIfacePeripheral_raise_on_usi_overflow(Usi_twi_peripheral* handle, sc_integer value);
 
 /*! Raises the in event 'on_start' that is defined in the interface scope 'peripheral'. */ 
 extern void usi_twi_peripheralIfacePeripheral_raise_on_start(Usi_twi_peripheral* handle);
 
 /*! Raises the in event 'on_peripheral_address_set' that is defined in the interface scope 'driver'. */ 
 extern void usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(Usi_twi_peripheral* handle, sc_integer value);
+
+/*! Raises the in event 'on_reset' that is defined in the interface scope 'driver'. */ 
+extern void usi_twi_peripheralIfaceDriver_raise_on_reset(Usi_twi_peripheral* handle);
+
+/*! Checks if the out event 'on_byte_read' that is defined in the interface scope 'driver' has been raised. */ 
+extern sc_boolean usi_twi_peripheralIfaceDriver_israised_on_byte_read(const Usi_twi_peripheral* handle);
+
+/*! Gets the value of the out event 'on_byte_read' that is defined in the interface scope 'driver'. */ 
+extern sc_integer usi_twi_peripheralIfaceDriver_get_on_byte_read_value(const Usi_twi_peripheral* handle);
 
 
 /*!

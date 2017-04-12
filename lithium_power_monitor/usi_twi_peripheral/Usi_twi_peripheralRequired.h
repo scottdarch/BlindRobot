@@ -15,6 +15,10 @@ extern "C"
 This state machine makes use of operations declared in the state machines interface or internal scopes. Thus the function prototypes:
 	- usi_twi_peripheralIfaceDriver_reset
 	- usi_twi_peripheralIfaceDriver_sleep
+	- usi_twi_peripheralIfaceDriver_send_next_byte
+	- usi_twi_peripheralIfaceDriver_request_next_byte
+	- usi_twi_peripheralIfaceDriver_send_ack
+	- usi_twi_peripheralIfaceDriver_read_ack
 are defined.
 
 These functions will be called during a 'run to completion step' (runCycle) of the statechart. 
@@ -26,6 +30,10 @@ There are some constraints that have to be considered for the implementation of 
 
 extern void usi_twi_peripheralIfaceDriver_reset(const Usi_twi_peripheral* handle);
 extern void usi_twi_peripheralIfaceDriver_sleep(const Usi_twi_peripheral* handle);
+extern void usi_twi_peripheralIfaceDriver_send_next_byte(const Usi_twi_peripheral* handle);
+extern void usi_twi_peripheralIfaceDriver_request_next_byte(const Usi_twi_peripheral* handle);
+extern void usi_twi_peripheralIfaceDriver_send_ack(const Usi_twi_peripheral* handle);
+extern void usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle);
 
 
 
