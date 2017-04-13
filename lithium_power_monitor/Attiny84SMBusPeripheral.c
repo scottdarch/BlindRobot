@@ -34,57 +34,6 @@
 #include "Usi_twi_peripheralRequired.h"
 #include "lithium.h"
 
-#define SET_USI_TO_SEND_ACK()                                                  \
-    {                                                                          \
-        USIDR = 0; /* Prepare ACK                         */                   \
-        DDR_USI |= (1 << PORT_USI_SDA); /* Set SDA as output */                \
-        USISR = (0 << USI_START_COND_INT) | (1 << USIOIF) | (1 << USIPF) |     \
-                (1 << USIDC) |     /* Clear all flags, except Start Cond  */   \
-                (0x0E << USICNT0); /* set USI counter to shift 1 bit. */       \
-    }
-
-#define SET_USI_TO_READ_ACK()                                                  \
-    {                                                                          \
-        DDR_USI &= ~(1 << PORT_USI_SDA); /* Set SDA as intput */               \
-        USIDR = 0;                       /* Prepare ACK        */              \
-        USISR = (0 << USI_START_COND_INT) | (1 << USIOIF) | (1 << USIPF) |     \
-                (1 << USIDC) |     /* Clear all flags, except Start Cond  */   \
-                (0x0E << USICNT0); /* set USI counter to shift 1 bit. */       \
-    }
-
-#define SET_USI_TO_TWI_START_CONDITION_MODE()                                  \
-    {                                                                          \
-        USICR = (1 << USISIE) |                                                \
-                (0 << USIOIE) | /* Enable Start Condition Interrupt. Disable   \
-                                   Overflow Interrupt.*/                       \
-                (1 << USIWM1) |                                                \
-                (0 << USIWM0) | /* Set USI in Two-wire mode. No USI Counter    \
-                                   overflow hold.      */                      \
-                (1 << USICS1) | (0 << USICS0) |                                \
-                (0 << USICLK) | /* Shift Register Clock Source = External,     \
-                                   positive edge        */                     \
-                (0 << USITC);                                                  \
-        USISR = (0 << USI_START_COND_INT) | (1 << USIOIF) | (1 << USIPF) |     \
-                (1 << USIDC) | /* Clear all flags, except Start Cond */        \
-                (0x0 << USICNT0);                                              \
-    }
-
-#define SET_USI_TO_SEND_DATA()                                                 \
-    {                                                                          \
-        DDR_USI |= (1 << PORT_USI_SDA); /* Set SDA as output */                \
-        USISR = (0 << USI_START_COND_INT) | (1 << USIOIF) | (1 << USIPF) |     \
-                (1 << USIDC) |    /* Clear all flags, except Start Cond */     \
-                (0x0 << USICNT0); /* set USI to shift out 8 bits        */     \
-    }
-
-#define SET_USI_TO_READ_DATA()                                                 \
-    {                                                                          \
-        DDR_USI &= ~(1 << PORT_USI_SDA); /* Set SDA as input */                \
-        USISR = (0 << USI_START_COND_INT) | (1 << USIOIF) | (1 << USIPF) |     \
-                (1 << USIDC) |    /* Clear all flags, except Start Cond */     \
-                (0x0 << USICNT0); /* set USI to shift out 8 bits        */     \
-    }
-
 // +---------------------------------------------------------------------------+
 // | ISR
 // +---------------------------------------------------------------------------+
@@ -99,38 +48,39 @@ ISR(USI_START_vect)
     SMBusPeripheral* const periph = _active_peripheral;
     if (periph) {
         usi_twi_peripheralIfacePeripheral_raise_on_start(&periph->_state);
+        LI_USI0_DDR &= ~(1 << LI_SDA0); // Set SDA as input
+        while ((LI_USI0_PIN & (1 << LI_SCL0)) & !(tmpUSISR & (1 << USIPF)))
+            ; // Wait for SCL to go low to ensure the "Start Condition" has
+              // completed.
+              // If a Stop condition arises then leave the interrupt to prevent
+              // waiting forever.
+        USICR =
+          (1 << USISIE) |
+          (1 << USIOIE) | // Enable Overflow and Start Condition
+                          // Interrupt. (Keep StartCondInt to detect
+                          // RESTART)
+          (1 << USIWM1) | (1 << USIWM0) | // Set USI in Two-wire mode.
+          (1 << USICS1) | (0 << USICS0) |
+          (0
+           << USICLK) | // Shift Register Clock Source = External, positive edge
+          (0 << USITC);
+        USISR =
+          (1 << USISIF) | (1 << USIOIF) | (1 << USIPF) |
+          (1 << USIDC) |    // Clear flags
+          (0x0 << USICNT0); // Set USI to sample 8 bits i.e. count 16 external
+                            // pin toggles.
+        usi_twi_peripheral_runCycle(&periph->_state);
     }
-    LI_USI0_DDR &= ~(1 << LI_SDA0); // Set SDA as input
-    while ((LI_USI0_PIN & (1 << LI_SCL0)) & !(tmpUSISR & (1 << USIPF)))
-        ; // Wait for SCL to go low to ensure the "Start Condition" has
-          // completed.
-          // If a Stop condition arises then leave the interrupt to prevent
-          // waiting forever.
-    USICR =
-      (1 << USISIE) | (1 << USIOIE) | // Enable Overflow and Start Condition
-                                      // Interrupt. (Keep StartCondInt to detect
-                                      // RESTART)
-      (1 << USIWM1) | (1 << USIWM0) | // Set USI in Two-wire mode.
-      (1 << USICS1) | (0 << USICS0) |
-      (0 << USICLK) | // Shift Register Clock Source = External, positive edge
-      (0 << USITC);
-    USISR = (1 << USISIF) | (1 << USIOIF) | (1 << USIPF) |
-            (1 << USIDC) |    // Clear flags
-            (0x0 << USICNT0); // Set USI to sample 8 bits i.e. count 16 external
-                              // pin toggles.
 }
 
 ISR(USI_OVF_vect)
 {
     SMBusPeripheral* const periph = _active_peripheral;
     if (periph) {
-        usi_twi_peripheralIfacePeripheral_raise_on_read_address(
-          &periph->_state, (uint8_t)(USIDR >> 1));
+        usi_twi_peripheralIfacePeripheral_raise_on_usi_overflow(&periph->_state,
+                                                                (uint8_t)USIDR);
+        usi_twi_peripheral_runCycle(&periph->_state);
     }
-    //        if (USIDR & 0x01)
-    //            USI_TWI_Overflow_State = USI_SLAVE_SEND_DATA;
-    //        else
-    //            USI_TWI_Overflow_State = USI_SLAVE_REQUEST_DATA;
 }
 
 // +---------------------------------------------------------------------------+
@@ -167,6 +117,47 @@ usi_twi_peripheralIfaceDriver_sleep(const Usi_twi_peripheral* handle)
     LI_LED0_PORT |= (1 << LI_LED0);
 }
 
+void
+usi_twi_peripheralIfaceDriver_send_next_byte(const Usi_twi_peripheral* handle)
+{
+    USIDR = 0xaa;
+
+    LI_USI0_DDR |= (1 << LI_SDA0); /* Set SDA as output */
+    USISR = (0 << USISIE) | (1 << USIOIF) | (1 << USIPF) |
+            (1 << USIDC) |    /* Clear all flags, except Start Cond */
+            (0x0 << USICNT0); /* set USI to shift out 8 bits        */
+}
+
+void
+usi_twi_peripheralIfaceDriver_request_next_byte(
+  const Usi_twi_peripheral* handle)
+{
+    LI_USI0_DDR &= ~(1 << LI_SDA0); /* Set SDA as input */
+    USISR = (0 << USISIE) | (1 << USIOIF) | (1 << USIPF) |
+            (1 << USIDC) |    /* Clear all flags, except Start Cond */
+            (0x0 << USICNT0); /* set USI to shift out 8 bits        */
+}
+
+void
+usi_twi_peripheralIfaceDriver_send_ack(const Usi_twi_peripheral* handle)
+{
+    USIDR = 0;                     /* Prepare ACK */
+    LI_USI0_DDR |= (1 << LI_SDA0); /* Set SDA as output */
+    USISR = (0 << USISIE) | (1 << USIOIF) | (1 << USIPF) |
+            (1 << USIDC) |     /* Clear all flags, except Start Cond  */
+            (0x0E << USICNT0); /* set USI counter to shift 1 bit. */
+}
+
+void
+usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle)
+{
+    LI_USI0_DDR &= ~(1 << LI_SDA0); /* Set SDA as input */
+    USIDR = 0;                      /* Prepare ACK        */
+    USISR = (0 << USISIE) | (1 << USIOIF) | (1 << USIPF) |
+            (1 << USIDC) |     /* Clear all flags, except Start Cond  */
+            (0x0E << USICNT0); /* set USI counter to shift 1 bit. */
+}
+
 // +---------------------------------------------------------------------------+
 // | SMBusPeripheral
 // +---------------------------------------------------------------------------+
@@ -177,12 +168,13 @@ _attiny84_smb_peripheral_start(SMBusPeripheral* self, uint8_t peripheral_addr)
     usi_twi_peripheral_enter(&self->_state);
     usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(
       &self->_state, peripheral_addr);
+    usi_twi_peripheral_runCycle(&self->_state);
 }
 
 static void
 _attiny84_smb_peripheral_run(SMBusPeripheral* self)
 {
-    usi_twi_peripheral_runCycle(&self->_state);
+    // usi_twi_peripheral_runCycle(&self->_state);
 }
 
 SMBusPeripheral*

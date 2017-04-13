@@ -234,7 +234,7 @@ signature:
 debug-server:
 	# for Eclipse Hardware debugging don't forget to uncheck "load image" but
 	# leave "load symbols" checked.
-	avarice --dragon --debugwire --part $(BOARD_CPU) -j usb :4343
+	avarice --dragon --debugwire --part $(BOARD_CPU) -I -j usb :4343
 
 info:
 	@echo "             ``"
