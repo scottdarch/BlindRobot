@@ -20,7 +20,7 @@ typedef enum
 	Usi_twi_peripheral_main_region_initialized_inner_region_active,
 	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_reading_from_master,
 	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_reading_from_master_r1_waiting_for_data,
-	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_reading_from_master_r1_reading_data,
+	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_reading_from_master_r1_sending_ack,
 	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_writing_to_master,
 	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_writing_to_master_r1_sending_data,
 	Usi_twi_peripheral_main_region_initialized_inner_region_active_inner_region_writing_to_master_r1_reading_ack,
@@ -43,8 +43,6 @@ typedef struct
 	sc_boolean on_peripheral_address_set_raised;
 	sc_integer on_peripheral_address_set_value;
 	sc_boolean on_reset_raised;
-	sc_boolean on_byte_read_raised;
-	sc_integer on_byte_read_value;
 } Usi_twi_peripheralIfaceDriver;
 
 /*! Type definition of the data structure for the Usi_twi_peripheralInternal interface scope. */
@@ -96,12 +94,6 @@ extern void usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(Usi_tw
 
 /*! Raises the in event 'on_reset' that is defined in the interface scope 'driver'. */ 
 extern void usi_twi_peripheralIfaceDriver_raise_on_reset(Usi_twi_peripheral* handle);
-
-/*! Checks if the out event 'on_byte_read' that is defined in the interface scope 'driver' has been raised. */ 
-extern sc_boolean usi_twi_peripheralIfaceDriver_israised_on_byte_read(const Usi_twi_peripheral* handle);
-
-/*! Gets the value of the out event 'on_byte_read' that is defined in the interface scope 'driver'. */ 
-extern sc_integer usi_twi_peripheralIfaceDriver_get_on_byte_read_value(const Usi_twi_peripheral* handle);
 
 
 /*!

@@ -31,6 +31,8 @@
 #include <avr/fuse.h>
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
+#include <avr/sleep.h>
+
 #include <util/delay.h>
 
 #include "lithium.h"
@@ -44,19 +46,29 @@ int
 main()
 {
     MCUCR |= (1 << PUD);
-    SMBusPeripheral* const periph = init_smb_peripheral(&_peripheral);
-    periph->start(periph, LI_SMBUS_PERIPHERAL_ADDR);
-
     wdt_disable();
-    sei();
-
     LI_LED0_DDR |= (1 << LI_LED0);
 
-    __asm__("nop");
+    SMBusPeripheral* const periph =
+      init_smb_peripheral(&_peripheral, LI_SMBUS_PERIPHERAL_ADDR);
+    periph->start(periph);
+
+    sei();
 
     while (1) {
         cli();
-        periph->run(periph);
+        if (periph->run(periph)) {
+            set_sleep_mode(SLEEP_MODE_PWR_SAVE);
+            sei();
+            {
+                LI_LED0_PORT &= ~(1 << LI_LED0);
+                sleep_enable();
+                sleep_cpu();
+                sleep_disable();
+                LI_LED0_PORT |= (1 << LI_LED0);
+            }
+            cli();
+        }
         sei();
         _delay_us(10);
     }

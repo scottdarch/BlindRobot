@@ -27,8 +27,6 @@
  */
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include <avr/sleep.h>
-#include <util/atomic.h>
 
 #include "SMBusPeripheral.h"
 #include "Usi_twi_peripheralRequired.h"
@@ -47,7 +45,6 @@ ISR(USI_START_vect)
                       // Set default starting conditions for new TWI package
     SMBusPeripheral* const periph = _active_peripheral;
     if (periph) {
-        usi_twi_peripheralIfacePeripheral_raise_on_start(&periph->_state);
         LI_USI0_DDR &= ~(1 << LI_SDA0); // Set SDA as input
         while ((LI_USI0_PIN & (1 << LI_SCL0)) & !(tmpUSISR & (1 << USIPF)))
             ; // Wait for SCL to go low to ensure the "Start Condition" has
@@ -69,6 +66,7 @@ ISR(USI_START_vect)
           (1 << USIDC) |    // Clear flags
           (0x0 << USICNT0); // Set USI to sample 8 bits i.e. count 16 external
                             // pin toggles.
+        usi_twi_peripheralIfacePeripheral_raise_on_start(&periph->_state);
         usi_twi_peripheral_runCycle(&periph->_state);
     }
 }
@@ -106,24 +104,6 @@ usi_twi_peripheralIfaceDriver_reset(const Usi_twi_peripheral* handle)
     USISR = (0 << USISIF) | (1 << USIOIF) | (1 << USIPF) |
             (1 << USIDC) | /* Clear all flags, except Start Cond */
             (0x0 << USICNT0);
-}
-
-void
-usi_twi_peripheralIfaceDriver_sleep(const Usi_twi_peripheral* handle)
-{
-    SMBusPeripheral* const periph = _active_peripheral;
-    if (periph) {
-        periph->_sleep = true;
-    }
-}
-
-void
-usi_twi_peripheralIfaceDriver_wake(const Usi_twi_peripheral* handle)
-{
-    SMBusPeripheral* const periph = _active_peripheral;
-    if (periph) {
-        periph->_sleep = false;
-    }
 }
 
 void
@@ -171,43 +151,31 @@ usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle)
 // | SMBusPeripheral
 // +---------------------------------------------------------------------------+
 static void
-_attiny84_smb_peripheral_start(SMBusPeripheral* self, uint8_t peripheral_addr)
+_attiny84_smb_peripheral_start(SMBusPeripheral* self)
 {
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-    {
-        LI_LED0_PORT |= (1 << LI_LED0);
-        USISR = 0xF0; // Clear all flags and reset overflow counter
-        usi_twi_peripheral_enter(&self->_state);
-        usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(
-          &self->_state, peripheral_addr);
-        usi_twi_peripheral_runCycle(&self->_state);
-    }
+    USISR = 0xF0; // Clear all flags and reset overflow counter
+    usi_twi_peripheral_enter(&self->_state);
+    usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(
+      &self->_state, self->_peripheral_addr);
+    usi_twi_peripheral_runCycle(&self->_state);
 }
 
-static void
+static bool
 _attiny84_smb_peripheral_run(SMBusPeripheral* self)
 {
-    if (self->_sleep) {
-        LI_LED0_PORT &= ~(1 << LI_LED0);
-        set_sleep_mode(SLEEP_MODE_PWR_SAVE);
-        NONATOMIC_BLOCK(NONATOMIC_RESTORESTATE)
-        {
-            sleep_enable();
-            sleep_cpu();
-            sleep_disable();
-        }
-        LI_LED0_PORT |= (1 << LI_LED0);
-    }
+    return usi_twi_peripheral_isStateActive(
+      &self->_state,
+      Usi_twi_peripheral_main_region_initialized_inner_region_idle);
 }
 
 SMBusPeripheral*
-init_smb_peripheral(SMBusPeripheral* self)
+init_smb_peripheral(SMBusPeripheral* self, uint8_t peripheral_addr)
 {
     if (self && !_active_peripheral) {
         self->start = _attiny84_smb_peripheral_start;
         self->run = _attiny84_smb_peripheral_run;
         usi_twi_peripheral_init(&self->_state);
-        self->_sleep = false;
+        self->_peripheral_addr = peripheral_addr;
         _active_peripheral = self;
     }
     return self;
