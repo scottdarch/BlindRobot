@@ -383,7 +383,7 @@ static sc_boolean usi_twi_peripheral_check_main_region_initialized_inner_region_
 
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_inner_region_active_inner_region__choice_0_tr2_tr2(const Usi_twi_peripheral* handle)
 {
-	return ((handle->internal.last_read >> 1) != handle->internal.peripheral_address) ? bool_true : bool_false;
+	return ((handle->internal.last_read) != handle->internal.peripheral_address) ? bool_true : bool_false;
 }
 
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_inner_region_active_inner_region__choice_0_tr1(const Usi_twi_peripheral* handle)

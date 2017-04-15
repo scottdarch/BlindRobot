@@ -34,7 +34,6 @@
 typedef struct _SMBusPeripheralType
 {
     void (*start)(struct _SMBusPeripheralType* self, uint8_t peripheral_addr);
-    void (*run)(struct _SMBusPeripheralType* self);
 
     // +-----------------------------------------------------------------------+
     // | PRIVATE

@@ -62,13 +62,13 @@ LOCAL_ENV_BOARD          := lithium
 BOARD_CPU_ARCH           := avr
 BOARD_GCC_PREFIX         := $(BOARD_CPU_ARCH)-
 BOARD_CPU                := attiny84
-BOARD_CLOCK              := 1000000
+BOARD_CLOCK              := 8000000
 BOARD_PROGRAMMER         := dragon_isp
 CFLAGS                   += -D__AVR_ATtiny84__
 
 BOARD_AVR_FUSE_H         := 0xDF
 BOARD_AVR_FUSE_H_DW      := 0x9F
-BOARD_AVR_FUSE_L         := 0x62
+BOARD_AVR_FUSE_L         := 0xE2
 BOARD_AVR_FUSE_E         := 0xFF
 
 CFLAGS += -DAVR_FUSE_H=$(BOARD_AVR_FUSE_H) \

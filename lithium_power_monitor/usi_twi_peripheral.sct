@@ -56,7 +56,7 @@
               <vertices xsi:type="sgraph:Choice" xmi:id="_hw_V_R8xEeeQk4Mt-mF4eQ" incomingTransitions="_8izcgB86EeerSLoqkK-mdQ">
                 <outgoingTransitions xmi:id="_QzSpQB8yEeeQk4Mt-mF4eQ" specification="[(last_read&amp;0x1)==0x1]" target="_254bQB8xEeeQk4Mt-mF4eQ"/>
                 <outgoingTransitions xmi:id="_yKGngB8zEeeQk4Mt-mF4eQ" target="_99u4gB8xEeeQk4Mt-mF4eQ"/>
-                <outgoingTransitions xmi:id="_Scnd4B86EeeQk4Mt-mF4eQ" specification="[(last_read >> 1) != peripheral_address]" target="_hxDAUB8xEeeQk4Mt-mF4eQ"/>
+                <outgoingTransitions xmi:id="_Scnd4B86EeeQk4Mt-mF4eQ" specification="[(last_read) != peripheral_address]" target="_hxDAUB8xEeeQk4Mt-mF4eQ"/>
               </vertices>
               <vertices xsi:type="sgraph:Entry" xmi:id="_DzqQcB86EeeQk4Mt-mF4eQ">
                 <outgoingTransitions xmi:id="_EgvY4B86EeeQk4Mt-mF4eQ" specification="" target="_hw_WCh8xEeeQk4Mt-mF4eQ"/>

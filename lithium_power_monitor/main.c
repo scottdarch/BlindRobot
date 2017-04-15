@@ -45,7 +45,6 @@ main()
 {
     MCUCR |= (1 << PUD);
     SMBusPeripheral* const periph = init_smb_peripheral(&_peripheral);
-    periph->start(periph, LI_SMBUS_PERIPHERAL_ADDR);
 
     wdt_disable();
     sei();
@@ -54,11 +53,9 @@ main()
 
     __asm__("nop");
 
+    periph->start(periph, LI_SMBUS_PERIPHERAL_ADDR);
+
     while (1) {
-        cli();
-        periph->run(periph);
-        sei();
-        _delay_us(10);
     }
     return 0;
 }

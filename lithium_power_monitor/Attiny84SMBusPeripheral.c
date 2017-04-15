@@ -89,6 +89,10 @@ ISR(USI_OVF_vect)
 void
 usi_twi_peripheralIfaceDriver_reset(const Usi_twi_peripheral* handle)
 {
+    // From Atmel App Note AVR312:
+    LI_USI0_PORT |= (1 << LI_SCL0) | (1 << LI_SDA0);
+    LI_USI0_DDR |= (1 << LI_SCL0);  // Set SCL as output
+    LI_USI0_DDR &= ~(1 << LI_SDA0); // Set SDA as input
     USICR = (1 << USISIE) |
             (0 << USIOIE) | /* Enable Start Condition Interrupt. Disable
                                Overflow Interrupt.*/
@@ -107,13 +111,14 @@ usi_twi_peripheralIfaceDriver_reset(const Usi_twi_peripheral* handle)
 void
 usi_twi_peripheralIfaceDriver_sleep(const Usi_twi_peripheral* handle)
 {
-    LI_LED0_PORT ^= ~(1 << LI_LED0);
-    NONATOMIC_BLOCK(NONATOMIC_RESTORESTATE)
-    {
-        sleep_enable();
-        sleep_cpu();
-        sleep_disable();
-    }
+    LI_LED0_PORT &= ~(1 << LI_LED0);
+    //    set_sleep_mode(SLEEP_MODE_IDLE);
+    //    NONATOMIC_BLOCK(NONATOMIC_RESTORESTATE)
+    //    {
+    //        sleep_enable();
+    //        sleep_cpu();
+    //        sleep_disable();
+    //    }
     LI_LED0_PORT |= (1 << LI_LED0);
 }
 
@@ -164,42 +169,22 @@ usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle)
 static void
 _attiny84_smb_peripheral_start(SMBusPeripheral* self, uint8_t peripheral_addr)
 {
-    LI_LED0_PORT |= (1 << LI_LED0);
-    usi_twi_peripheral_enter(&self->_state);
-    usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(
-      &self->_state, peripheral_addr);
-    usi_twi_peripheral_runCycle(&self->_state);
-}
-
-static void
-_attiny84_smb_peripheral_run(SMBusPeripheral* self)
-{
-    // usi_twi_peripheral_runCycle(&self->_state);
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+    {
+        LI_LED0_PORT |= (1 << LI_LED0);
+        USISR = 0xF0; // Clear all flags and reset overflow counter
+        usi_twi_peripheral_enter(&self->_state);
+        usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(
+          &self->_state, peripheral_addr);
+        usi_twi_peripheral_runCycle(&self->_state);
+    }
 }
 
 SMBusPeripheral*
 init_smb_peripheral(SMBusPeripheral* self)
 {
     if (self && !_active_peripheral) {
-        // From Atmel App Note AVR312:
-        LI_USI0_PORT |=
-          ((1 << LI_SDA0) | (1 << LI_SCL0)); // Set SCL and SDA high
-        // LI_USI0_DDR |= (1 << LI_SCL0);       // Set SCL as output
-        LI_USI0_DDR &= ~(1 << LI_SDA0); // Set SDA as input
-
-        USICR =
-          (1 << USISIE) | (0 << USIOIE) | // Enable Start Condition Interrupt.
-                                          // Disable Overflow Interrupt.
-          (1 << USIWM1) | (0 << USIWM0) | // Set USI in Two-wire mode. No USI
-                                          // Counter overflow prior to first
-                                          // Start Condition (potential failure)
-          (1 << USICS1) | (0 << USICS0) |
-          (0
-           << USICLK) | // Shift Register Clock Source = External, positive edge
-          (0 << USITC);
-        USISR = 0xF0; // Clear all flags and reset overflow counter
         self->start = _attiny84_smb_peripheral_start;
-        self->run = _attiny84_smb_peripheral_run;
         usi_twi_peripheral_init(&self->_state);
         _active_peripheral = self;
     }
