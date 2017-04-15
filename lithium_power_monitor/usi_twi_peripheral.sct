@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_coIlsB2EEeeNZJ80tTwq8w" specification="interface peripheral:&#xA;&#xA;&#x9;in event on_usi_overflow : integer&#xA;&#x9;in event on_start&#xA;interface driver:&#xA;&#xA;&#x9;in event on_peripheral_address_set : integer&#xA;&#x9;in event on_reset&#xA;&#x9;out event on_byte_read : integer&#xA;&#x9;operation reset() : void&#xA;&#x9;operation sleep() : void&#xA;&#x9;operation send_next_byte()&#xA;&#x9;operation request_next_byte()&#xA;&#x9;operation send_ack()&#xA;&#x9;operation read_ack()&#xA;&#x9;&#xA;internal:&#xA;&#xA;&#x9;var last_read : integer&#xA;&#x9;var peripheral_address : integer = 0&#xA;" name="usi_twi_peripheral">
+  <sgraph:Statechart xmi:id="_coIlsB2EEeeNZJ80tTwq8w" specification="interface peripheral:&#xA;&#xA;&#x9;in event on_usi_overflow : integer&#xA;&#x9;in event on_start&#xA;interface driver:&#xA;&#xA;&#x9;in event on_peripheral_address_set : integer&#xA;&#x9;in event on_reset&#xA;&#x9;out event on_byte_read : integer&#xA;&#x9;operation reset() : void&#xA;&#x9;operation sleep() : void&#xA;&#x9;operation wake() : void&#xA;&#x9;operation send_next_byte()&#xA;&#x9;operation request_next_byte()&#xA;&#x9;operation send_ack()&#xA;&#x9;operation read_ack()&#xA;&#x9;&#xA;internal:&#xA;&#xA;&#x9;var last_read : integer&#xA;&#x9;var peripheral_address : integer = 0&#xA;" name="usi_twi_peripheral">
     <regions xmi:id="_cokDgB2EEeeNZJ80tTwq8w" name="main region">
       <vertices xsi:type="sgraph:Entry" xmi:id="_cpa_IB2EEeeNZJ80tTwq8w">
         <outgoingTransitions xmi:id="_cpkwIB2EEeeNZJ80tTwq8w" target="_YrT8EB2KEeeNZJ80tTwq8w"/>
@@ -11,7 +11,7 @@
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_5b9uwB83EeeQk4Mt-mF4eQ" name="initialized" incomingTransitions="_hxBLKB8xEeeQk4Mt-mF4eQ">
         <regions xmi:id="_5b-V0h83EeeQk4Mt-mF4eQ" name="inner region">
-          <vertices xsi:type="sgraph:State" xmi:id="_hxDAUB8xEeeQk4Mt-mF4eQ" specification="entry/driver.reset()&#xA;entry/driver.sleep()" name="idle" incomingTransitions="__nSTcB81EeeQk4Mt-mF4eQ _B28-EB84EeeQk4Mt-mF4eQ _Scnd4B86EeeQk4Mt-mF4eQ _FAY6gCAEEeeEjrT7QmjToA">
+          <vertices xsi:type="sgraph:State" xmi:id="_hxDAUB8xEeeQk4Mt-mF4eQ" specification="entry/driver.reset()&#xA;entry/driver.sleep()&#xA;exit/driver.wake()" name="idle" incomingTransitions="__nSTcB81EeeQk4Mt-mF4eQ _B28-EB84EeeQk4Mt-mF4eQ _Scnd4B86EeeQk4Mt-mF4eQ _FAY6gCAEEeeEjrT7QmjToA">
             <outgoingTransitions xmi:id="_hxDnZB8xEeeQk4Mt-mF4eQ" specification="peripheral.on_start" target="_23D3IB85EeeQk4Mt-mF4eQ"/>
           </vertices>
           <vertices xsi:type="sgraph:Entry" xmi:id="_BMz04B84EeeQk4Mt-mF4eQ">
@@ -137,7 +137,7 @@
                   <styles xsi:type="notation:ShapeStyle" xmi:id="_hxCZUh8xEeeQk4Mt-mF4eQ" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
                   <styles xsi:type="notation:FontStyle" xmi:id="_hxCZUx8xEeeQk4Mt-mF4eQ"/>
                   <styles xsi:type="notation:BooleanValueStyle" xmi:id="_hxCZVB8xEeeQk4Mt-mF4eQ" name="isHorizontal" booleanValue="true"/>
-                  <layoutConstraint xsi:type="notation:Bounds" xmi:id="_5b_j_h83EeeQk4Mt-mF4eQ" x="48" y="102" width="113" height="53"/>
+                  <layoutConstraint xsi:type="notation:Bounds" xmi:id="_5b_j_h83EeeQk4Mt-mF4eQ" x="48" y="102" width="113" height="73"/>
                 </children>
                 <children xmi:id="_BM0b8B84EeeQk4Mt-mF4eQ" type="Entry" element="_BMz04B84EeeQk4Mt-mF4eQ">
                   <children xmi:id="_BM1DAB84EeeQk4Mt-mF4eQ" type="BorderItemLabelContainer">

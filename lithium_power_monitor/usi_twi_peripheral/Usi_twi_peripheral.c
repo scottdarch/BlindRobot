@@ -44,6 +44,7 @@ static void usi_twi_peripheral_enact_main_region_initialized_inner_region_active
 static void usi_twi_peripheral_enact_main_region_initialized_inner_region_active_inner_region_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enact_main_region_initialized_inner_region_active_inner_region_writing_to_master_r1_reading_ack(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enact_main_region_initialized_inner_region_active_inner_region_sending_ack(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_exact_main_region_initialized_inner_region_idle(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_uninitialized_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_inner_region_idle_default(Usi_twi_peripheral* handle);
@@ -527,6 +528,13 @@ static void usi_twi_peripheral_enact_main_region_initialized_inner_region_active
 	usi_twi_peripheralIfaceDriver_send_ack(handle);
 }
 
+/* Exit action for state 'idle'. */
+static void usi_twi_peripheral_exact_main_region_initialized_inner_region_idle(Usi_twi_peripheral* handle)
+{
+	/* Exit action for state 'idle'. */
+	usi_twi_peripheralIfaceDriver_wake(handle);
+}
+
 /* 'default' enter sequence for state uninitialized */
 static void usi_twi_peripheral_enseq_main_region_uninitialized_default(Usi_twi_peripheral* handle)
 {
@@ -674,6 +682,7 @@ static void usi_twi_peripheral_exseq_main_region_initialized_inner_region_idle(U
 	/* Default exit sequence for state idle */
 	handle->stateConfVector[0] = Usi_twi_peripheral_last_state;
 	handle->stateConfVectorPosition = 0;
+	usi_twi_peripheral_exact_main_region_initialized_inner_region_idle(handle);
 }
 
 /* Default exit sequence for state active */

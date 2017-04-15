@@ -111,15 +111,19 @@ usi_twi_peripheralIfaceDriver_reset(const Usi_twi_peripheral* handle)
 void
 usi_twi_peripheralIfaceDriver_sleep(const Usi_twi_peripheral* handle)
 {
-    LI_LED0_PORT &= ~(1 << LI_LED0);
-    //    set_sleep_mode(SLEEP_MODE_IDLE);
-    //    NONATOMIC_BLOCK(NONATOMIC_RESTORESTATE)
-    //    {
-    //        sleep_enable();
-    //        sleep_cpu();
-    //        sleep_disable();
-    //    }
-    LI_LED0_PORT |= (1 << LI_LED0);
+    SMBusPeripheral* const periph = _active_peripheral;
+    if (periph) {
+        periph->_sleep = true;
+    }
+}
+
+void
+usi_twi_peripheralIfaceDriver_wake(const Usi_twi_peripheral* handle)
+{
+    SMBusPeripheral* const periph = _active_peripheral;
+    if (periph) {
+        periph->_sleep = false;
+    }
 }
 
 void
@@ -180,12 +184,30 @@ _attiny84_smb_peripheral_start(SMBusPeripheral* self, uint8_t peripheral_addr)
     }
 }
 
+static void
+_attiny84_smb_peripheral_run(SMBusPeripheral* self)
+{
+    if (self->_sleep) {
+        LI_LED0_PORT &= ~(1 << LI_LED0);
+        set_sleep_mode(SLEEP_MODE_PWR_SAVE);
+        NONATOMIC_BLOCK(NONATOMIC_RESTORESTATE)
+        {
+            sleep_enable();
+            sleep_cpu();
+            sleep_disable();
+        }
+        LI_LED0_PORT |= (1 << LI_LED0);
+    }
+}
+
 SMBusPeripheral*
 init_smb_peripheral(SMBusPeripheral* self)
 {
     if (self && !_active_peripheral) {
         self->start = _attiny84_smb_peripheral_start;
+        self->run = _attiny84_smb_peripheral_run;
         usi_twi_peripheral_init(&self->_state);
+        self->_sleep = false;
         _active_peripheral = self;
     }
     return self;
