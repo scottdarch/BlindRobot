@@ -18,6 +18,7 @@ This state machine makes use of operations declared in the state machines interf
 	- usi_twi_peripheralIfaceDriver_request_next_byte
 	- usi_twi_peripheralIfaceDriver_send_ack
 	- usi_twi_peripheralIfaceDriver_read_ack
+	- usi_twi_peripheralIfaceDriver_on_decode_command
 are defined.
 
 These functions will be called during a 'run to completion step' (runCycle) of the statechart. 
@@ -32,6 +33,7 @@ extern void usi_twi_peripheralIfaceDriver_send_next_byte(const Usi_twi_periphera
 extern void usi_twi_peripheralIfaceDriver_request_next_byte(const Usi_twi_peripheral* handle);
 extern void usi_twi_peripheralIfaceDriver_send_ack(const Usi_twi_peripheral* handle);
 extern void usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle);
+extern sc_boolean usi_twi_peripheralIfaceDriver_on_decode_command(const Usi_twi_peripheral* handle, const sc_integer data);
 
 
 

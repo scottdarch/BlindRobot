@@ -34,6 +34,15 @@
 
 typedef struct _SMBusPeripheralType
 {
+    // +-----------------------------------------------------------------------+
+    // | PRIVATE
+    // +-----------------------------------------------------------------------+
+    Usi_twi_peripheral _state;
+    uint8_t _peripheral_addr;
+
+    // +-----------------------------------------------------------------------+
+    // | PUBLIC
+    // +-----------------------------------------------------------------------+
     void (*start)(struct _SMBusPeripheralType* self);
     /**
      * @return <code>true</code> if the peripheral is now idle else
@@ -41,11 +50,6 @@ typedef struct _SMBusPeripheralType
      */
     bool (*run)(struct _SMBusPeripheralType* self);
 
-    // +-----------------------------------------------------------------------+
-    // | PRIVATE
-    // +-----------------------------------------------------------------------+
-    Usi_twi_peripheral _state;
-    uint8_t _peripheral_addr;
 } SMBusPeripheral;
 
 SMBusPeripheral*

@@ -147,6 +147,19 @@ usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle)
             (0x0E << USICNT0); /* set USI counter to shift 1 bit. */
 }
 
+sc_boolean
+usi_twi_peripheralIfaceDriver_on_decode_command(
+  const Usi_twi_peripheral* handle,
+  const sc_integer data)
+{
+    switch (data) {
+        case LI_SMBUS_COMMAND_READ_TEMP:
+            return true;
+        default:
+            return false;
+    }
+}
+
 // +---------------------------------------------------------------------------+
 // | SMBusPeripheral
 // +---------------------------------------------------------------------------+
@@ -164,8 +177,7 @@ static bool
 _attiny84_smb_peripheral_run(SMBusPeripheral* self)
 {
     return usi_twi_peripheral_isStateActive(
-      &self->_state,
-      Usi_twi_peripheral_main_region_initialized_inner_region_idle);
+      &self->_state, Usi_twi_peripheral_main_region_initialized_r0_idle);
 }
 
 SMBusPeripheral*

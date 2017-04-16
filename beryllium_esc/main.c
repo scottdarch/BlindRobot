@@ -43,7 +43,7 @@
 #include <reset.h>
 
 #define DO_PRAGMA(x) _Pragma(#x)
-#define TODO(x) DO_PRAGMA(message("TODO - " #x))
+#define TODO(x) DO_PRAGMA(message("TODO: " #x))
 
 #define TIMEOUT 1000
 
@@ -72,7 +72,7 @@ config_led(void)
     port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
 }
 
-#define PERIPHERAL_ADDR 0x12
+#define PERIPHERAL_ADDR 0x49
 
 /* Init software module. */
 struct i2c_master_module i2c_master_instance;
