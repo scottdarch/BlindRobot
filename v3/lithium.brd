@@ -1910,7 +1910,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="TOLERANCE" value="±0.1 %" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="0.125 W" x="44.45" y="11.4427" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="R7" library="Vishay_By_element14_Batch_1" package="RESC1005X40N" value="22 Ohms" x="84.1375" y="31.5595" smashed="yes" rot="R90">
+<element name="R7" library="Vishay_By_element14_Batch_1" package="RESC1005X40N" value="400 Ohms" x="84.1375" y="31.5595" smashed="yes" rot="R90">
 <attribute name="MPN" value="CRCW040222R0JNED" x="84.1375" y="31.5595" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="NAME" x="84.8995" y="31.1531" size="0.254" layer="48" ratio="10" rot="SR90"/>
 <attribute name="OC_FARNELL" value="1514685" x="84.1375" y="31.5595" size="1.778" layer="27" rot="R90" display="off"/>

@@ -5340,7 +5340,7 @@ at 30/07/2012 15:23:17</description>
 <part name="R4" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB101V" device="" value="100 Ohm"/>
 <part name="R5" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB151V" device="" value="150 Ohm"/>
 <part name="R6" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB101V" device="" value="100 Ohm"/>
-<part name="R7" library="Vishay_By_element14_Batch_1" deviceset="CRCW040222R0JNED" device="" value="22 Ohms"/>
+<part name="R7" library="Vishay_By_element14_Batch_1" deviceset="CRCW040222R0JNED" device="" value="400 Ohms"/>
 <part name="J1" library="SparkFun-Connectors" deviceset="CONN_02" device="-JST-2MM-SMT" value="batt"/>
 <part name="R8" library="Vishay_By_element14_Batch_1" deviceset="CRCW08050000Z0EB" device="" value="0Ohm"/>
 <part name="R9" library="32bits" deviceset="NTHS1206N02N1002JE" device="" value="10k"/>
@@ -5361,6 +5361,13 @@ at 30/07/2012 15:23:17</description>
 <sheets>
 <sheet>
 <plain>
+<text x="101.6" y="83.82" size="1.778" layer="91">Punch List:
+1. attiny backpowering 5V through vbatt.
+2. use low-side reverse voltage protection
+3. USB indicator is broken. Remove pull up on stat line?
+4. switch causes lipo charger to 'splode
+5. U4 to use 5V if present
+6. Glitch filters on SDA/SCK</text>
 </plain>
 <instances>
 <instance part="GND1" gate="1" x="99.06" y="-2.54"/>
@@ -6393,4 +6400,10 @@ at 30/07/2012 15:23:17</description>
 </errors>
 </schematic>
 </drawing>
+<compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
+</compatibility>
 </eagle>
