@@ -5136,6 +5136,9 @@ at 30/07/2012 15:23:17</description>
 <part name="R4" library="Vishay_By_element14_Batch_1" deviceset="CRCW06031M00JNEA" device="" value="1M Ohm"/>
 <part name="J11" library="SparkFun-Connectors" deviceset="CONN_04" device="" value="drv"/>
 <part name="J16" library="SparkFun-Connectors" deviceset="CONN_04" device="" value="5V"/>
+<part name="NOTIFY" library="Dialight_By_element14_Batch_1" deviceset="597-3311-407F" device="" value="QTLP650C-4"/>
+<part name="GND11" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
+<part name="R6" library="Panasonic_By_element14_Batch_1" deviceset="ERA-6AEB151V" device="" value="150 Ohm"/>
 </parts>
 <sheets>
 <sheet>
@@ -5235,7 +5238,10 @@ at 30/07/2012 15:23:17</description>
 <attribute name="VALUE" x="-82.804" y="-33.02" size="1.778" layer="96" font="vector" rot="R270" align="top-center"/>
 </instance>
 <instance part="GND8" gate="1" x="294.64" y="73.66"/>
-<instance part="U2_L1" gate="G$1" x="127" y="-60.96"/>
+<instance part="U2_L1" gate="G$1" x="127" y="-60.96" smashed="yes">
+<attribute name="NAME" x="127" y="-59.436" size="1.778" layer="95" font="vector" align="bottom-center"/>
+<attribute name="VALUE" x="135.128" y="-62.23" size="1.778" layer="96" font="vector" align="top-center"/>
+</instance>
 <instance part="U2_L2" gate="G$1" x="-66.04" y="-48.26" smashed="yes">
 <attribute name="NAME" x="-66.04" y="-43.18" size="1.778" layer="95" font="vector" align="bottom-center"/>
 <attribute name="VALUE" x="-65.532" y="-44.196" size="1.778" layer="96" font="vector" align="top-center"/>
@@ -5288,6 +5294,15 @@ at 30/07/2012 15:23:17</description>
 </instance>
 <instance part="J11" gate="G$1" x="-27.94" y="129.54"/>
 <instance part="J16" gate="G$1" x="-27.94" y="152.4"/>
+<instance part="NOTIFY" gate="A" x="119.38" y="-10.16" smashed="yes" rot="R270">
+<attribute name="VALUE" x="125.5268" y="-6.7818" size="1.27" layer="96" ratio="10" rot="SR270"/>
+<attribute name="NAME" x="122.428" y="-3.4544" size="2.0828" layer="95" ratio="10" rot="SR270"/>
+</instance>
+<instance part="GND11" gate="1" x="119.38" y="-25.4"/>
+<instance part="R6" gate="A" x="119.38" y="7.62" smashed="yes" rot="R270">
+<attribute name="VALUE" x="124.6124" y="6.6802" size="1.27" layer="96" ratio="10" rot="SR270"/>
+<attribute name="NAME" x="122.1486" y="6.6294" size="2.0828" layer="95" ratio="10" rot="SR270"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -5444,6 +5459,11 @@ at 30/07/2012 15:23:17</description>
 <pinref part="U3" gate="A" pin="21"/>
 <wire x1="109.22" y1="-48.26" x2="127" y2="-48.26" width="0.1524" layer="91"/>
 <label x="120.904" y="-48.006" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="NOTIFY" gate="A" pin="1"/>
+<wire x1="119.38" y1="-20.32" x2="119.38" y2="-22.86" width="0.1524" layer="91"/>
+<pinref part="GND11" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="VBAT" class="0">
@@ -5963,6 +5983,25 @@ at 30/07/2012 15:23:17</description>
 <wire x1="-22.86" y1="132.08" x2="-22.86" y2="129.54" width="0.1524" layer="91"/>
 <junction x="-22.86" y="129.54"/>
 <label x="-20.574" y="130.048" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LA_1" class="0">
+<segment>
+<pinref part="NOTIFY" gate="A" pin="2"/>
+<wire x1="119.38" y1="-10.16" x2="119.38" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="R6" gate="A" pin="R1"/>
+</segment>
+</net>
+<net name="1ROU" class="0">
+<segment>
+<pinref part="U3" gate="A" pin="PA7_(PCINT7/ICP/OC0B/ADC7)"/>
+<wire x1="109.22" y1="-63.5" x2="121.92" y2="-63.5" width="0.1524" layer="91"/>
+<label x="113.03" y="-63.246" size="1.778" layer="95"/>
+</segment>
+<segment>
+<wire x1="119.38" y1="7.62" x2="119.38" y2="15.24" width="0.1524" layer="91"/>
+<label x="120.396" y="13.462" size="1.778" layer="95"/>
+<pinref part="R6" gate="A" pin="R2"/>
 </segment>
 </net>
 </nets>
