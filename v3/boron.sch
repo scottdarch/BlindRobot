@@ -5188,7 +5188,7 @@ at 30/07/2012 15:23:17</description>
 <part name="U9" library="32bits" deviceset="BQ24168RGET" device=""/>
 <part name="J10" library="SparkFun-Connectors" deviceset="USB_MINI-B" device="_SMT"/>
 <part name="J4" library="SparkFun-Connectors" deviceset="CONN_03X2" device="FEMALE" value="ISP"/>
-<part name="5" library="32bits" deviceset="PERIODIC_SYMBOL" device="" value="rev.1">
+<part name="5" library="32bits" deviceset="PERIODIC_SYMBOL" device="" value="rev.2">
 <attribute name="ELEMENT" value="B"/>
 </part>
 <part name="J12" library="SparkFun-Connectors" deviceset="CONN_02" device="2.54MM_SCREWTERM" value="out"/>
