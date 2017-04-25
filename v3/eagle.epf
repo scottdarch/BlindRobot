@@ -52,7 +52,7 @@ UsedLibrary="lbr/Yageo_By_element14_Batch_1.lbr"
 
 [Win_1]
 Type="Schematic Editor"
-Loc="0 -22 1199 577"
+Loc="0 22 1199 621"
 State=0
 Number=2
 File="boron.sch"
@@ -95,6 +95,7 @@ ArcDirection=0
 AddLevel=2
 PadsSameType=0
 Layer=91
+Views=" 1: -151.384 -87.9771 306.494 167.818"
 Sheet="1"
 
 [Win_2]
@@ -105,11 +106,11 @@ Number=0
 
 [Win_3]
 Type="Board Editor"
-Loc="0 -22 1199 577"
+Loc="0 22 1199 621"
 State=1
 Number=1
 File="boron.brd"
-View="-2.73753 -11.026 85.6603 73.1601"
+View="-18.912 0.754931 55.1619 71.2996"
 WireWidths=" 0 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0.508 0.254"
 PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
 PadDrills=" 0.5 0.6 0.7 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 2 2.2 2.8 3.2 0.8"

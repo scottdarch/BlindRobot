@@ -3073,7 +3073,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="VALUE" x="18.415" y="14.5155" size="0.762" layer="21" font="vector" ratio="20" rot="R90"/>
 <attribute name="VALUE" value="FEMALE 2x3" x="22.86" y="10.4775" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="5" library="32bits" package="PERIODIC_SYMBOL_BACK" value="rev.2" x="49.9624" y="4.6228" rot="MR0">
+<element name="5" library="32bits" package="PERIODIC_SYMBOL_BACK" value="rev.3" x="49.9624" y="4.6228" rot="MR0">
 <attribute name="ELEMENT" value="B" x="47.4224" y="7.1628" size="0.762" layer="25" ratio="20" align="bottom-center" display="off"/>
 </element>
 <element name="J12" library="SparkFun-Connectors" package="1X02_2.54_SCREWTERM" value="out" x="16.8275" y="57.15" smashed="yes">
@@ -3655,6 +3655,15 @@ Please make sure your boards conform to these design rules.</description>
 <via x="39.6875" y="11.43" extent="1-16" drill="0.254"/>
 <via x="14.2875" y="22.86" extent="1-16" drill="0.254"/>
 <via x="16.8275" y="25.4" extent="1-16" drill="0.254"/>
+<via x="9.2075" y="9.2075" extent="1-16" drill="0.254"/>
+<via x="6.985" y="8.5725" extent="1-16" drill="0.254"/>
+<via x="6.6675" y="6.985" extent="1-16" drill="0.254"/>
+<via x="4.445" y="10.795" extent="1-16" drill="0.254"/>
+<via x="3.175" y="12.3825" extent="1-16" drill="0.254"/>
+<via x="10.795" y="17.78" extent="1-16" drill="0.254"/>
+<via x="6.985" y="17.78" extent="1-16" drill="0.254"/>
+<via x="5.08" y="16.1925" extent="1-16" drill="0.254"/>
+<via x="10.16" y="15.875" extent="1-16" drill="0.254"/>
 </signal>
 <signal name="VBAT">
 <contactref element="U9" pad="12"/>
@@ -4020,6 +4029,13 @@ Please make sure your boards conform to these design rules.</description>
 <vertex x="26.9875" y="31.75"/>
 <vertex x="26.9875" y="32.0675"/>
 <vertex x="24.4475" y="34.6075"/>
+</polygon>
+<polygon width="0.254" layer="1" thermals="no">
+<vertex x="16.8275" y="34.6075"/>
+<vertex x="19.3675" y="34.6075"/>
+<vertex x="19.3675" y="31.4325"/>
+<vertex x="16.8275" y="31.4325"/>
+<vertex x="16.8275" y="31.75"/>
 </polygon>
 </signal>
 <signal name="U9_INT">
