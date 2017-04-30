@@ -117,8 +117,11 @@ main(void)
 
     TODO(Break this out into a SMBBus service);
 
-    while (i2c_master_write_packet_wait(&i2c_master_instance, &packet) !=
-           STATUS_OK) {
+    uint8_t address = 1;
+    packet.data = &address;
+    packet.data_length = 1;
+    while (i2c_master_write_packet_wait_no_stop(&i2c_master_instance,
+                                                &packet) != STATUS_OK) {
         /* Increment timeout counter and check if timed out. */
         if (timeout++ == TIMEOUT) {
             break;
@@ -126,6 +129,7 @@ main(void)
     }
 
     packet.data = read_buffer;
+    packet.data_length = DATA_LENGTH;
     while (i2c_master_read_packet_wait(&i2c_master_instance, &packet) !=
            STATUS_OK) {
         /* Increment timeout counter and check if timed out. */

@@ -42,15 +42,17 @@
 
 static SMBusPeripheral _peripheral;
 
+static uint8_t _data[8] = { 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0x10, 0x11 };
+
 int
 main()
 {
     MCUCR |= (1 << PUD);
-    wdt_disable();
+    wdt_enable(WDTO_500MS);
     LI_LED0_DDR |= (1 << LI_LED0);
 
     SMBusPeripheral* const periph =
-      init_smb_peripheral(&_peripheral, LI_SMBUS_PERIPHERAL_ADDR);
+      init_smb_peripheral(&_peripheral, LI_SMBUS_PERIPHERAL_ADDR, _data, 8);
     periph->start(periph);
 
     sei();
@@ -70,6 +72,7 @@ main()
             cli();
         }
         sei();
+        wdt_reset();
         _delay_us(10);
     }
     return 0;

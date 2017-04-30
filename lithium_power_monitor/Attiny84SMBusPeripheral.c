@@ -107,9 +107,20 @@ usi_twi_peripheralIfaceDriver_reset(const Usi_twi_peripheral* handle)
 }
 
 void
-usi_twi_peripheralIfaceDriver_send_next_byte(const Usi_twi_peripheral* handle)
+usi_twi_peripheralIfaceDriver_on_byte_read(const Usi_twi_peripheral* handle,
+                                           const sc_integer register_addr,
+                                           const sc_integer data)
 {
-    USIDR = 0xaa;
+    SMBusPeripheral* self = (SMBusPeripheral*)handle;
+    self->_memory[register_addr % self->_memory_length] = data;
+}
+
+void
+usi_twi_peripheralIfaceDriver_send_next_byte(const Usi_twi_peripheral* handle,
+                                             const sc_integer register_addr)
+{
+    SMBusPeripheral* self = (SMBusPeripheral*)handle;
+    USIDR = self->_memory[register_addr % self->_memory_length];
 
     LI_USI0_DDR |= (1 << LI_SDA0); /* Set SDA as output */
     USISR = (0 << USISIE) | (1 << USIOIF) | (1 << USIPF) |
@@ -147,19 +158,6 @@ usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle)
             (0x0E << USICNT0); /* set USI counter to shift 1 bit. */
 }
 
-sc_boolean
-usi_twi_peripheralIfaceDriver_on_decode_command(
-  const Usi_twi_peripheral* handle,
-  const sc_integer data)
-{
-    switch (data) {
-        case LI_SMBUS_COMMAND_READ_TEMP:
-            return true;
-        default:
-            return false;
-    }
-}
-
 // +---------------------------------------------------------------------------+
 // | SMBusPeripheral
 // +---------------------------------------------------------------------------+
@@ -181,11 +179,16 @@ _attiny84_smb_peripheral_run(SMBusPeripheral* self)
 }
 
 SMBusPeripheral*
-init_smb_peripheral(SMBusPeripheral* self, uint8_t peripheral_addr)
+init_smb_peripheral(SMBusPeripheral* self,
+                    uint8_t peripheral_addr,
+                    uint8_t* memory,
+                    uint8_t memory_length)
 {
     if (self && !_active_peripheral) {
         self->start = _attiny84_smb_peripheral_start;
         self->run = _attiny84_smb_peripheral_run;
+        self->_memory = memory;
+        self->_memory_length = memory_length;
         usi_twi_peripheral_init(&self->_state);
         self->_peripheral_addr = peripheral_addr;
         _active_peripheral = self;

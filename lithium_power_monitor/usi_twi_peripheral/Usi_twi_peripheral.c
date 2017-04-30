@@ -15,7 +15,9 @@ static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_tr0
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_tr1_tr1(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0_tr0(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0_tr0(const Usi_twi_peripheral* handle);
-static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_tr0_tr0(const Usi_twi_peripheral* handle);
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_tr0_tr0(const Usi_twi_peripheral* handle);
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_tr0_tr0(const Usi_twi_peripheral* handle);
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_tr0_tr0(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_tr0_tr0(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack_tr0_tr0(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_waiting_for_address_tr0_tr0(const Usi_twi_peripheral* handle);
@@ -33,7 +35,9 @@ static void usi_twi_peripheral_effect_main_region_initialized_r0_active_tr0(Usi_
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_tr0(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_tr0(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_tr0(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack_tr0(Usi_twi_peripheral* handle);
@@ -46,6 +50,9 @@ static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choi
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choice_1_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choice_1_tr1(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enact_main_region_initialized_r0_idle(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_exact_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_uninitialized_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_idle_default(Usi_twi_peripheral* handle);
@@ -53,8 +60,9 @@ static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_default(U
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_default(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_default(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted_default(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_default(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_default(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_writing_to_master_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack_default(Usi_twi_peripheral* handle);
@@ -64,15 +72,16 @@ static void usi_twi_peripheral_enseq_main_region_default(Usi_twi_peripheral* han
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_link_default(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_default(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_writing_to_master_r1_default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_uninitialized(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_idle(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_waiting_for_address(Usi_twi_peripheral* handle);
@@ -81,14 +90,15 @@ static void usi_twi_peripheral_exseq_main_region(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_link(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_writing_to_master_r1(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_uninitialized(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_idle(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_waiting_for_address(Usi_twi_peripheral* handle);
@@ -99,7 +109,7 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0__choic
 static void usi_twi_peripheral_react_main_region__entry_Default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0__entry_Default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_link__entry_Default(Usi_twi_peripheral* handle);
-static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network__entry_Default(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state__entry_Default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_writing_to_master_r1__entry_Default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0__entry_Default(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_writing_to_master_r1_writing_complete(Usi_twi_peripheral* handle);
@@ -126,6 +136,7 @@ void usi_twi_peripheral_init(Usi_twi_peripheral* handle)
 	handle->internal.last_read = 0;
 	handle->internal.command = 0;
 	handle->internal.peripheral_address = 0;
+	handle->internal.register_addr = 0;
 
 }
 
@@ -207,14 +218,19 @@ void usi_twi_peripheral_runCycle(Usi_twi_peripheral* handle)
 			usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack(handle);
 			break;
 		}
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_no_command :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address :
 		{
-			usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(handle);
+			usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(handle);
 			break;
 		}
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data :
 		{
-			usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(handle);
+			usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(handle);
+			break;
+		}
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack :
+		{
+			usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(handle);
 			break;
 		}
 		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data :
@@ -269,7 +285,7 @@ sc_boolean usi_twi_peripheral_isStateActive(const Usi_twi_peripheral* handle, Us
 			break;
 		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master :
 			result = (sc_boolean) (handle->stateConfVector[0] >= Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master
-				&& handle->stateConfVector[0] <= Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted);
+				&& handle->stateConfVector[0] <= Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack);
 			break;
 		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data :
 			result = (sc_boolean) (handle->stateConfVector[0] == Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data
@@ -279,12 +295,16 @@ sc_boolean usi_twi_peripheral_isStateActive(const Usi_twi_peripheral* handle, Us
 			result = (sc_boolean) (handle->stateConfVector[0] == Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack
 			);
 			break;
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_no_command :
-			result = (sc_boolean) (handle->stateConfVector[1] == Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_no_command
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address :
+			result = (sc_boolean) (handle->stateConfVector[1] == Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address
 			);
 			break;
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted :
-			result = (sc_boolean) (handle->stateConfVector[1] == Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data :
+			result = (sc_boolean) (handle->stateConfVector[1] == Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data
+			);
+			break;
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack :
+			result = (sc_boolean) (handle->stateConfVector[1] == Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack
 			);
 			break;
 		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_writing_to_master :
@@ -374,9 +394,19 @@ static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_
 	return handle->ifacePeripheral.on_usi_overflow_raised;
 }
 
-static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_tr0_tr0(const Usi_twi_peripheral* handle)
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_tr0_tr0(const Usi_twi_peripheral* handle)
 {
-	return usi_twi_peripheralIfaceDriver_on_decode_command(handle, handle->ifacePeripheral.on_usi_overflow_value);
+	return handle->ifacePeripheral.on_usi_overflow_raised;
+}
+
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_tr0_tr0(const Usi_twi_peripheral* handle)
+{
+	return handle->ifacePeripheral.on_usi_overflow_raised;
+}
+
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_tr0_tr0(const Usi_twi_peripheral* handle)
+{
+	return handle->ifacePeripheral.on_usi_overflow_raised;
 }
 
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_tr0_tr0(const Usi_twi_peripheral* handle)
@@ -471,15 +501,28 @@ static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_readi
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0(Usi_twi_peripheral* handle)
 {
 	usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack(handle);
-	usi_twi_peripheralIfaceDriver_request_next_byte(handle);
 	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_default(handle);
 }
 
-static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_tr0(Usi_twi_peripheral* handle)
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_tr0(Usi_twi_peripheral* handle)
 {
-	usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(handle);
-	handle->internal.command = handle->ifacePeripheral.on_usi_overflow_value;
-	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted_default(handle);
+	usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(handle);
+	handle->internal.register_addr = handle->ifacePeripheral.on_usi_overflow_value;
+	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_default(handle);
+}
+
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_tr0(Usi_twi_peripheral* handle)
+{
+	usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(handle);
+	usi_twi_peripheralIfaceDriver_on_byte_read(handle, handle->internal.register_addr, handle->ifacePeripheral.on_usi_overflow_value);
+	handle->internal.register_addr += 1;
+	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_default(handle);
+}
+
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_tr0(Usi_twi_peripheral* handle)
+{
+	usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(handle);
+	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_default(handle);
 }
 
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_tr0(Usi_twi_peripheral* handle)
@@ -517,7 +560,6 @@ static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_sendi
 
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_r1__choice_0_tr0(Usi_twi_peripheral* handle)
 {
-	usi_twi_peripheralIfaceDriver_send_next_byte(handle);
 	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_default(handle);
 }
 
@@ -540,13 +582,11 @@ static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choi
 
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choice_1_tr0(Usi_twi_peripheral* handle)
 {
-	usi_twi_peripheralIfaceDriver_send_next_byte(handle);
 	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_writing_to_master_default(handle);
 }
 
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choice_1_tr1(Usi_twi_peripheral* handle)
 {
-	usi_twi_peripheralIfaceDriver_request_next_byte(handle);
 	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_default(handle);
 }
 
@@ -555,6 +595,27 @@ static void usi_twi_peripheral_enact_main_region_initialized_r0_idle(Usi_twi_per
 {
 	/* Entry action for state 'idle'. */
 	usi_twi_peripheralIfaceDriver_reset(handle);
+}
+
+/* Entry action for state 'waiting_for_data'. */
+static void usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data(Usi_twi_peripheral* handle)
+{
+	/* Entry action for state 'waiting_for_data'. */
+	usi_twi_peripheralIfaceDriver_request_next_byte(handle);
+}
+
+/* Entry action for state 'sending_data'. */
+static void usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle)
+{
+	/* Entry action for state 'sending_data'. */
+	usi_twi_peripheralIfaceDriver_send_next_byte(handle, handle->internal.register_addr);
+}
+
+/* Exit action for state 'sending_data'. */
+static void usi_twi_peripheral_exact_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle)
+{
+	/* Exit action for state 'sending_data'. */
+	handle->internal.register_addr += 1;
 }
 
 /* 'default' enter sequence for state uninitialized */
@@ -593,13 +654,14 @@ static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_readin
 {
 	/* 'default' enter sequence for state reading_from_master */
 	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_link_default(handle);
-	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_default(handle);
+	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_default(handle);
 }
 
 /* 'default' enter sequence for state waiting_for_data */
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_default(Usi_twi_peripheral* handle)
 {
 	/* 'default' enter sequence for state waiting_for_data */
+	usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data(handle);
 	handle->stateConfVector[0] = Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data;
 	handle->stateConfVectorPosition = 0;
 }
@@ -612,19 +674,27 @@ static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_readin
 	handle->stateConfVectorPosition = 0;
 }
 
-/* 'default' enter sequence for state no command */
-static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_default(Usi_twi_peripheral* handle)
+/* 'default' enter sequence for state waiting_for_register_address */
+static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_default(Usi_twi_peripheral* handle)
 {
-	/* 'default' enter sequence for state no command */
-	handle->stateConfVector[1] = Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_no_command;
+	/* 'default' enter sequence for state waiting_for_register_address */
+	handle->stateConfVector[1] = Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address;
 	handle->stateConfVectorPosition = 1;
 }
 
-/* 'default' enter sequence for state command accepted */
-static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted_default(Usi_twi_peripheral* handle)
+/* 'default' enter sequence for state waiting_for_data */
+static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_default(Usi_twi_peripheral* handle)
 {
-	/* 'default' enter sequence for state command accepted */
-	handle->stateConfVector[1] = Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted;
+	/* 'default' enter sequence for state waiting_for_data */
+	handle->stateConfVector[1] = Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data;
+	handle->stateConfVectorPosition = 1;
+}
+
+/* 'default' enter sequence for state sending_ack */
+static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_default(Usi_twi_peripheral* handle)
+{
+	/* 'default' enter sequence for state sending_ack */
+	handle->stateConfVector[1] = Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack;
 	handle->stateConfVectorPosition = 1;
 }
 
@@ -639,6 +709,7 @@ static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_writin
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_default(Usi_twi_peripheral* handle)
 {
 	/* 'default' enter sequence for state sending_data */
+	usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(handle);
 	handle->stateConfVector[0] = Usi_twi_peripheral_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data;
 	handle->stateConfVectorPosition = 0;
 }
@@ -695,11 +766,11 @@ static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_readin
 	usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_link__entry_Default(handle);
 }
 
-/* 'default' enter sequence for region network */
-static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_default(Usi_twi_peripheral* handle)
+/* 'default' enter sequence for region write_state */
+static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_default(Usi_twi_peripheral* handle)
 {
-	/* 'default' enter sequence for region network */
-	usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network__entry_Default(handle);
+	/* 'default' enter sequence for region write_state */
+	usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state__entry_Default(handle);
 }
 
 /* 'default' enter sequence for region r1 */
@@ -748,18 +819,26 @@ static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_readin
 	handle->stateConfVectorPosition = 0;
 }
 
-/* Default exit sequence for state no command */
-static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(Usi_twi_peripheral* handle)
+/* Default exit sequence for state waiting_for_register_address */
+static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(Usi_twi_peripheral* handle)
 {
-	/* Default exit sequence for state no command */
+	/* Default exit sequence for state waiting_for_register_address */
 	handle->stateConfVector[1] = Usi_twi_peripheral_last_state;
 	handle->stateConfVectorPosition = 1;
 }
 
-/* Default exit sequence for state command accepted */
-static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(Usi_twi_peripheral* handle)
+/* Default exit sequence for state waiting_for_data */
+static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(Usi_twi_peripheral* handle)
 {
-	/* Default exit sequence for state command accepted */
+	/* Default exit sequence for state waiting_for_data */
+	handle->stateConfVector[1] = Usi_twi_peripheral_last_state;
+	handle->stateConfVectorPosition = 1;
+}
+
+/* Default exit sequence for state sending_ack */
+static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(Usi_twi_peripheral* handle)
+{
+	/* Default exit sequence for state sending_ack */
 	handle->stateConfVector[1] = Usi_twi_peripheral_last_state;
 	handle->stateConfVectorPosition = 1;
 }
@@ -770,6 +849,7 @@ static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_writin
 	/* Default exit sequence for state sending_data */
 	handle->stateConfVector[0] = Usi_twi_peripheral_last_state;
 	handle->stateConfVectorPosition = 0;
+	usi_twi_peripheral_exact_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(handle);
 }
 
 /* Default exit sequence for state reading_ack */
@@ -848,14 +928,19 @@ static void usi_twi_peripheral_exseq_main_region(Usi_twi_peripheral* handle)
 	/* Handle exit of all possible states (of usi_twi_peripheral.main_region) at position 1... */
 	switch(handle->stateConfVector[ 1 ])
 	{
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_no_command :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address :
 		{
-			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(handle);
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(handle);
 			break;
 		}
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data :
 		{
-			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(handle);
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(handle);
+			break;
+		}
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack :
+		{
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(handle);
 			break;
 		}
 		default: break;
@@ -909,14 +994,19 @@ static void usi_twi_peripheral_exseq_main_region_initialized_r0(Usi_twi_peripher
 	/* Handle exit of all possible states (of usi_twi_peripheral.main_region.initialized.r0) at position 1... */
 	switch(handle->stateConfVector[ 1 ])
 	{
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_no_command :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address :
 		{
-			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(handle);
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(handle);
 			break;
 		}
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data :
 		{
-			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(handle);
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(handle);
+			break;
+		}
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack :
+		{
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(handle);
 			break;
 		}
 		default: break;
@@ -965,14 +1055,19 @@ static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0(Usi_tw
 	/* Handle exit of all possible states (of usi_twi_peripheral.main_region.initialized.r0.active.r0) at position 1... */
 	switch(handle->stateConfVector[ 1 ])
 	{
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_no_command :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address :
 		{
-			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(handle);
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(handle);
 			break;
 		}
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data :
 		{
-			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(handle);
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(handle);
+			break;
+		}
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack :
+		{
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(handle);
 			break;
 		}
 		default: break;
@@ -1000,21 +1095,26 @@ static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_readin
 	}
 }
 
-/* Default exit sequence for region network */
-static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network(Usi_twi_peripheral* handle)
+/* Default exit sequence for region write_state */
+static void usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state(Usi_twi_peripheral* handle)
 {
-	/* Default exit sequence for region network */
-	/* Handle exit of all possible states (of usi_twi_peripheral.main_region.initialized.r0.active.r0.reading_from_master.network) at position 1... */
+	/* Default exit sequence for region write_state */
+	/* Handle exit of all possible states (of usi_twi_peripheral.main_region.initialized.r0.active.r0.reading_from_master.write_state) at position 1... */
 	switch(handle->stateConfVector[ 1 ])
 	{
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_no_command :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address :
 		{
-			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(handle);
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(handle);
 			break;
 		}
-		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted :
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data :
 		{
-			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(handle);
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(handle);
+			break;
+		}
+		case Usi_twi_peripheral_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack :
+		{
+			usi_twi_peripheral_exseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(handle);
 			break;
 		}
 		default: break;
@@ -1112,19 +1212,34 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_readin
 	}
 }
 
-/* The reactions of state no command. */
-static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network_no_command(Usi_twi_peripheral* handle)
+/* The reactions of state waiting_for_register_address. */
+static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address(Usi_twi_peripheral* handle)
 {
-	/* The reactions of state no command. */
-	if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_tr0_tr0(handle) == bool_true)
+	/* The reactions of state waiting_for_register_address. */
+	if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_tr0_tr0(handle) == bool_true)
 	{ 
-		usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_tr0(handle);
+		usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_tr0(handle);
 	} 
 }
 
-/* The reactions of state command accepted. */
-static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network_command_accepted(Usi_twi_peripheral* handle)
+/* The reactions of state waiting_for_data. */
+static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data(Usi_twi_peripheral* handle)
 {
+	/* The reactions of state waiting_for_data. */
+	if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_tr0_tr0(handle) == bool_true)
+	{ 
+		usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_data_tr0(handle);
+	} 
+}
+
+/* The reactions of state sending_ack. */
+static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack(Usi_twi_peripheral* handle)
+{
+	/* The reactions of state sending_ack. */
+	if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_tr0_tr0(handle) == bool_true)
+	{ 
+		usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_sending_ack_tr0(handle);
+	} 
 }
 
 /* The reactions of state sending_data. */
@@ -1276,10 +1391,10 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_readin
 }
 
 /* Default react sequence for initial entry  */
-static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_network__entry_Default(Usi_twi_peripheral* handle)
+static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_reading_from_master_write_state__entry_Default(Usi_twi_peripheral* handle)
 {
 	/* Default react sequence for initial entry  */
-	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_network_no_command_default(handle);
+	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_default(handle);
 }
 
 /* Default react sequence for initial entry  */
