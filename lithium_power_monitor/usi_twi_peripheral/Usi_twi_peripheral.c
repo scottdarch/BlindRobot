@@ -13,6 +13,9 @@ static sc_boolean usi_twi_peripheral_check_main_region_uninitialized_tr1_tr1(con
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_idle_tr0_tr0(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_tr0_tr0(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_tr1_tr1(const Usi_twi_peripheral* handle);
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_tr2_tr2(const Usi_twi_peripheral* handle);
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_lr1_lr1(const Usi_twi_peripheral* handle);
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_lr2_lr2(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0_tr0(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0_tr0(const Usi_twi_peripheral* handle);
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_tr0_tr0(const Usi_twi_peripheral* handle);
@@ -33,6 +36,9 @@ static void usi_twi_peripheral_effect_main_region_uninitialized_tr1(Usi_twi_peri
 static void usi_twi_peripheral_effect_main_region_initialized_r0_idle_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_tr2(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_lr1_lr1(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_lr2_lr2(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_write_state_waiting_for_register_address_tr0(Usi_twi_peripheral* handle);
@@ -50,6 +56,7 @@ static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choi
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choice_1_tr0(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0__choice_1_tr1(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enact_main_region_initialized_r0_idle(Usi_twi_peripheral* handle);
+static void usi_twi_peripheral_enact_main_region_initialized_r0_active(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_exact_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data(Usi_twi_peripheral* handle);
@@ -116,6 +123,7 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_writin
 static void usi_twi_peripheral_clearInEvents(Usi_twi_peripheral* handle);
 static void usi_twi_peripheral_clearOutEvents(Usi_twi_peripheral* handle);
 
+const sc_integer USI_TWI_PERIPHERAL_USI_TWI_PERIPHERALINTERNAL_IDLE_CYCLES_LIMIT = 24;
 
 void usi_twi_peripheral_init(Usi_twi_peripheral* handle)
 {
@@ -137,6 +145,7 @@ void usi_twi_peripheral_init(Usi_twi_peripheral* handle)
 	handle->internal.command = 0;
 	handle->internal.peripheral_address = 0;
 	handle->internal.register_addr = 0;
+	handle->internal.active_cycles = 0;
 
 }
 
@@ -384,6 +393,21 @@ static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_tr1
 	return handle->ifacePeripheral.on_start_raised;
 }
 
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_tr2_tr2(const Usi_twi_peripheral* handle)
+{
+	return (handle->internal.active_cycles > USI_TWI_PERIPHERAL_USI_TWI_PERIPHERALINTERNAL_IDLE_CYCLES_LIMIT) ? bool_true : bool_false;
+}
+
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_lr1_lr1(const Usi_twi_peripheral* handle)
+{
+	return bool_true;
+}
+
+static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_lr2_lr2(const Usi_twi_peripheral* handle)
+{
+	return handle->ifacePeripheral.on_usi_overflow_raised;
+}
+
 static sc_boolean usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0_tr0(const Usi_twi_peripheral* handle)
 {
 	return handle->ifacePeripheral.on_usi_overflow_raised;
@@ -488,6 +512,22 @@ static void usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(Usi_
 {
 	usi_twi_peripheral_exseq_main_region_initialized_r0_active(handle);
 	usi_twi_peripheral_enseq_main_region_initialized_r0_active_default(handle);
+}
+
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_tr2(Usi_twi_peripheral* handle)
+{
+	usi_twi_peripheral_exseq_main_region_initialized_r0_active(handle);
+	usi_twi_peripheral_enseq_main_region_initialized_r0_idle_default(handle);
+}
+
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_lr1_lr1(Usi_twi_peripheral* handle)
+{
+	handle->internal.active_cycles += 1;
+}
+
+static void usi_twi_peripheral_effect_main_region_initialized_r0_active_lr2_lr2(Usi_twi_peripheral* handle)
+{
+	handle->internal.active_cycles = 0;
 }
 
 static void usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0(Usi_twi_peripheral* handle)
@@ -597,6 +637,13 @@ static void usi_twi_peripheral_enact_main_region_initialized_r0_idle(Usi_twi_per
 	usi_twi_peripheralIfaceDriver_reset(handle);
 }
 
+/* Entry action for state 'active'. */
+static void usi_twi_peripheral_enact_main_region_initialized_r0_active(Usi_twi_peripheral* handle)
+{
+	/* Entry action for state 'active'. */
+	handle->internal.active_cycles = 0;
+}
+
 /* Entry action for state 'waiting_for_data'. */
 static void usi_twi_peripheral_enact_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data(Usi_twi_peripheral* handle)
 {
@@ -646,6 +693,7 @@ static void usi_twi_peripheral_enseq_main_region_initialized_r0_idle_default(Usi
 static void usi_twi_peripheral_enseq_main_region_initialized_r0_active_default(Usi_twi_peripheral* handle)
 {
 	/* 'default' enter sequence for state active */
+	usi_twi_peripheral_enact_main_region_initialized_r0_active(handle);
 	usi_twi_peripheral_enseq_main_region_initialized_r0_active_r0_default(handle);
 }
 
@@ -1182,10 +1230,21 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_readin
 			usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(handle);
 		}  else
 		{
-			if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0_tr0(handle) == bool_true)
+			if (usi_twi_peripheral_check_main_region_initialized_r0_active_tr2_tr2(handle) == bool_true)
 			{ 
-				usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0(handle);
-			} 
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_tr2(handle);
+			}  else
+			{
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_lr1_lr1(handle);
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_lr2_lr2(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_lr2_lr2(handle);
+				} 
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0_tr0(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_waiting_for_data_tr0(handle);
+				} 
+			}
 		}
 	}
 }
@@ -1204,10 +1263,21 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_readin
 			usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(handle);
 		}  else
 		{
-			if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0_tr0(handle) == bool_true)
+			if (usi_twi_peripheral_check_main_region_initialized_r0_active_tr2_tr2(handle) == bool_true)
 			{ 
-				usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0(handle);
-			} 
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_tr2(handle);
+			}  else
+			{
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_lr1_lr1(handle);
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_lr2_lr2(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_lr2_lr2(handle);
+				} 
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0_tr0(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_reading_from_master_link_sending_ack_tr0(handle);
+				} 
+			}
 		}
 	}
 }
@@ -1256,10 +1326,21 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_writin
 			usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(handle);
 		}  else
 		{
-			if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_tr0_tr0(handle) == bool_true)
+			if (usi_twi_peripheral_check_main_region_initialized_r0_active_tr2_tr2(handle) == bool_true)
 			{ 
-				usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_tr0(handle);
-			} 
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_tr2(handle);
+			}  else
+			{
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_lr1_lr1(handle);
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_lr2_lr2(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_lr2_lr2(handle);
+				} 
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_tr0_tr0(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_r1_sending_data_tr0(handle);
+				} 
+			}
 		}
 	}
 }
@@ -1278,10 +1359,21 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_writin
 			usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(handle);
 		}  else
 		{
-			if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack_tr0_tr0(handle) == bool_true)
+			if (usi_twi_peripheral_check_main_region_initialized_r0_active_tr2_tr2(handle) == bool_true)
 			{ 
-				usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack_tr0(handle);
-			} 
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_tr2(handle);
+			}  else
+			{
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_lr1_lr1(handle);
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_lr2_lr2(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_lr2_lr2(handle);
+				} 
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack_tr0_tr0(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_writing_to_master_r1_reading_ack_tr0(handle);
+				} 
+			}
 		}
 	}
 }
@@ -1300,10 +1392,21 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_waitin
 			usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(handle);
 		}  else
 		{
-			if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_waiting_for_address_tr0_tr0(handle) == bool_true)
+			if (usi_twi_peripheral_check_main_region_initialized_r0_active_tr2_tr2(handle) == bool_true)
 			{ 
-				usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_waiting_for_address_tr0(handle);
-			} 
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_tr2(handle);
+			}  else
+			{
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_lr1_lr1(handle);
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_lr2_lr2(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_lr2_lr2(handle);
+				} 
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_waiting_for_address_tr0_tr0(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_waiting_for_address_tr0(handle);
+				} 
+			}
 		}
 	}
 }
@@ -1322,10 +1425,21 @@ static void usi_twi_peripheral_react_main_region_initialized_r0_active_r0_sendin
 			usi_twi_peripheral_effect_main_region_initialized_r0_active_tr1(handle);
 		}  else
 		{
-			if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_sending_ack_tr0_tr0(handle) == bool_true)
+			if (usi_twi_peripheral_check_main_region_initialized_r0_active_tr2_tr2(handle) == bool_true)
 			{ 
-				usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_sending_ack_tr0(handle);
-			} 
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_tr2(handle);
+			}  else
+			{
+				usi_twi_peripheral_effect_main_region_initialized_r0_active_lr1_lr1(handle);
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_lr2_lr2(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_lr2_lr2(handle);
+				} 
+				if (usi_twi_peripheral_check_main_region_initialized_r0_active_r0_sending_ack_tr0_tr0(handle) == bool_true)
+				{ 
+					usi_twi_peripheral_effect_main_region_initialized_r0_active_r0_sending_ack_tr0(handle);
+				} 
+			}
 		}
 	}
 }

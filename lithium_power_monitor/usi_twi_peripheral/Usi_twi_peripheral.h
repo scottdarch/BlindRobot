@@ -55,6 +55,7 @@ typedef struct
 	sc_integer command;
 	sc_integer peripheral_address;
 	sc_integer register_addr;
+	sc_integer active_cycles;
 } Usi_twi_peripheralInternal;
 
 

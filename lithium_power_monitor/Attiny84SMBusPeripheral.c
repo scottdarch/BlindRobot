@@ -112,7 +112,11 @@ usi_twi_peripheralIfaceDriver_on_byte_read(const Usi_twi_peripheral* handle,
                                            const sc_integer data)
 {
     SMBusPeripheral* self = (SMBusPeripheral*)handle;
-    self->_memory[register_addr % self->_memory_length] = data;
+    const uint8_t canonical_address = register_addr % self->_memory_length;
+    if (self->_memory_can_write[canonical_address / 8] &
+        (1 << (canonical_address % 8))) {
+        self->_memory[canonical_address] = data;
+    } // else bit is read-only
 }
 
 void
@@ -176,19 +180,22 @@ _attiny84_smb_peripheral_run(SMBusPeripheral* self)
 {
     return usi_twi_peripheral_isStateActive(
       &self->_state, Usi_twi_peripheral_main_region_initialized_r0_idle);
+    usi_twi_peripheral_runCycle(&self->_state);
 }
 
 SMBusPeripheral*
 init_smb_peripheral(SMBusPeripheral* self,
                     uint8_t peripheral_addr,
-                    uint8_t* memory,
-                    uint8_t memory_length)
+                    volatile uint8_t* memory,
+                    uint8_t memory_length,
+                    const uint8_t* memory_can_write)
 {
     if (self && !_active_peripheral) {
         self->start = _attiny84_smb_peripheral_start;
         self->run = _attiny84_smb_peripheral_run;
         self->_memory = memory;
         self->_memory_length = memory_length;
+        self->_memory_can_write = memory_can_write;
         usi_twi_peripheral_init(&self->_state);
         self->_peripheral_addr = peripheral_addr;
         _active_peripheral = self;

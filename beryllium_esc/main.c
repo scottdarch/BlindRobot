@@ -41,18 +41,12 @@
 #include <system_interrupt.h>
 #include <power.h>
 #include <reset.h>
+#include <wdt.h>
 
 #define DO_PRAGMA(x) _Pragma(#x)
 #define TODO(x) DO_PRAGMA(message("TODO: " #x))
 
 #define TIMEOUT 1000
-
-#define DATA_LENGTH 10
-static uint8_t write_buffer[DATA_LENGTH] = {
-    0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A,
-};
-
-static uint8_t read_buffer[DATA_LENGTH];
 
 void
 SysTick_Handler(void)
@@ -99,6 +93,12 @@ main(void)
 {
     system_init();
 
+    struct wdt_conf config_wdt;
+    wdt_get_config_defaults(&config_wdt);
+    config_wdt.always_on = false;
+    config_wdt.enable = false;
+    wdt_set_config(&config_wdt);
+
     /*Configure system tick to generate periodic interrupts */
     SysTick_Config(system_gclk_gen_get_hz(GCLK_GENERATOR_0));
 
@@ -109,17 +109,85 @@ main(void)
     uint16_t timeout = 0;
 
     static struct i2c_master_packet packet = {.address = PERIPHERAL_ADDR,
-                                              .data_length = DATA_LENGTH,
-                                              .data = write_buffer,
+                                              .data_length = 0,
+                                              .data = 0,
                                               .ten_bit_address = false,
                                               .high_speed = false,
                                               .hs_master_code = 0 };
 
     TODO(Break this out into a SMBBus service);
 
-    uint8_t address = 1;
-    packet.data = &address;
+    uint8_t read_address = 0;
+    packet.data = &read_address;
     packet.data_length = 1;
+    do {
+        while (i2c_master_write_packet_wait(&i2c_master_instance, &packet) !=
+               STATUS_OK) {
+            /* Increment timeout counter and check if timed out. */
+            if (timeout++ == TIMEOUT) {
+                break;
+            }
+        }
+
+        while (i2c_master_read_packet_wait(&i2c_master_instance, &packet) !=
+               STATUS_OK) {
+            /* Increment timeout counter and check if timed out. */
+            if (timeout++ == TIMEOUT) {
+                break;
+            }
+        }
+    } while (read_address != packet.address);
+
+    uint8_t start_conversion[2] = { 1, 1 };
+    packet.data = start_conversion;
+    packet.data_length = 2;
+    while (i2c_master_write_packet_wait(&i2c_master_instance, &packet) !=
+           STATUS_OK) {
+        /* Increment timeout counter and check if timed out. */
+        if (timeout++ == TIMEOUT) {
+            break;
+        }
+    }
+
+    uint8_t is_complete = 0;
+    do {
+        // Wait for a bit to let the darn thing measure. Don't wait too long
+        // or it will go back to sleep.
+        for (uint32_t i = 0xFF; i > 0; --i) {
+            __asm__("NOP");
+        }
+
+        uint8_t wait_for_compleation = 2;
+        packet.data = &wait_for_compleation;
+        packet.data_length = 1;
+
+        while (i2c_master_write_packet_wait_no_stop(&i2c_master_instance,
+                                                    &packet) != STATUS_OK) {
+            /* Increment timeout counter and check if timed out. */
+            if (timeout++ == TIMEOUT) {
+                break;
+            }
+        }
+
+        packet.data = &is_complete;
+        packet.data_length = 1;
+        while (i2c_master_read_packet_wait(&i2c_master_instance, &packet) !=
+               STATUS_OK) {
+            /* Increment timeout counter and check if timed out. */
+            if (timeout++ == TIMEOUT) {
+                break;
+            }
+        }
+    } while (!is_complete);
+
+    uint8_t result = 3;
+    packet.data = &result;
+    packet.data_length = 1;
+
+    uint8_t wait_for_compleation = 1;
+    packet.data = &wait_for_compleation;
+    packet.data_length = 1;
+
     while (i2c_master_write_packet_wait_no_stop(&i2c_master_instance,
                                                 &packet) != STATUS_OK) {
         /* Increment timeout counter and check if timed out. */
@@ -128,8 +196,9 @@ main(void)
         }
     }
 
-    packet.data = read_buffer;
-    packet.data_length = DATA_LENGTH;
+    uint8_t temperature[2];
+    packet.data = temperature;
+    packet.data_length = 2;
     while (i2c_master_read_packet_wait(&i2c_master_instance, &packet) !=
            STATUS_OK) {
         /* Increment timeout counter and check if timed out. */

@@ -72,6 +72,7 @@ CFLAGS                   += -D__SAMC21J18A__ \
                             -DBOARD=SAMC21_XPLAINED_PRO \
                             -DI2C_MASTER_CALLBACK_MODE=false \
                             -DDARM_MATH_CM0PLUS=true \
+                            -DWDT_CALLBACK_MODE=false \
 
 # +----------------------------------------------------------------------------+
 # | INPUTS
@@ -97,6 +98,7 @@ INCLUDE_PATHS   += . \
                    asf/$(BOARD_FAMILY)/drivers/system/pinmux \
                    asf/$(BOARD_FAMILY)/drivers/sercom \
                    asf/$(BOARD_FAMILY)/drivers/sercom/i2c \
+                   asf/$(BOARD_FAMILY)/drivers/wdt \
                    
 SOURCE          += asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/gcc/startup_$(BOARD_CPU).c \
                    asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/system_$(BOARD_CPU).c \
@@ -111,6 +113,7 @@ SOURCE          += asf/$(BOARD_FAMILY)/utils/cmsis/$(BOARD_CPU)/source/gcc/start
                    asf/$(BOARD_FAMILY)/drivers/sercom/i2c/i2c_$(BOARD_FAMILY)/i2c_master.c \
                    asf/$(BOARD_FAMILY)/drivers/sercom/sercom.c \
                    asf/$(BOARD_FAMILY)/utils/syscalls/gcc/syscalls.c \
+                   asf/$(BOARD_FAMILY)/drivers/wdt/wdt.c \
 
 SOURCE          += $(wildcard *.c)
 

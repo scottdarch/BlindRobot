@@ -40,26 +40,93 @@
 #include "PowerMonitor.h"
 #include "TemperatureMonitor.h"
 
+#define STAY_AWAKE_FOR_CYCLES 8
+
 static SMBusPeripheral _peripheral;
 
-static uint8_t _data[8] = { 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0x10, 0x11 };
+static volatile uint8_t _data[8] = {
+    LI_SMBUS_PERIPHERAL_ADDR, 0x0, 0x0, 0x0, 0x0, 0xF, 0x10, 0x11
+};
+
+static const uint8_t _data_writable_flags[1] = { 0x2 };
+
+void
+start_temperature_conversion()
+{
+    PRR &= ~(1 << PRADC);
+    ADMUX = 0b10100010;
+    // Sampling Rate: 500kHz = 8MHz/16
+    ADCSRA |= (1 << ADEN) | (0b100 << ADPS0) | (1 << ADATE);
+    ADCSRB |= (0b000 << ADTS0); // Enable free running mode
+    ADCSRA |= (1 << ADSC);      // start a single conversion
+}
+
+bool
+check_adc_conversion()
+{
+    return ((ADCSRA & (1 << ADIF)) == (1 << ADIF));
+}
+
+uint16_t
+finish_adc_conversion()
+{
+    const uint16_t result = ADC;
+    ADCSRA |= (1 << ADIF); // Clear ADC Conversion Interrupt Flag
+    PRR |= (1 << PRADC);
+    return result;
+}
+
+bool
+is_adc_running()
+{
+    return (PRR & (1 << PRADC));
+}
 
 int
 main()
 {
     MCUCR |= (1 << PUD);
-    wdt_enable(WDTO_500MS);
-    LI_LED0_DDR |= (1 << LI_LED0);
+    PRR |= (1 << PRTIM1) | (1 << PRTIM0) | (1 << PRADC);
 
-    SMBusPeripheral* const periph =
-      init_smb_peripheral(&_peripheral, LI_SMBUS_PERIPHERAL_ADDR, _data, 8);
+    // wdt_enable(WDTO_500MS);
+    LI_LED0_DDR |= (1 << LI_LED0);
+    LI_LED0_PORT |= (1 << LI_LED0);
+
+    SMBusPeripheral* const periph = init_smb_peripheral(
+      &_peripheral, LI_SMBUS_PERIPHERAL_ADDR, _data, 8, _data_writable_flags);
     periph->start(periph);
 
     sei();
 
+    uint8_t idle_count = 0;
+
     while (1) {
         cli();
+        wdt_reset();
+        if (_data[1]) {
+            start_temperature_conversion();
+            _data[1] = 0;
+            _data[2] = 0;
+        }
+        bool adc_is_running = is_adc_running();
+        if (adc_is_running && check_adc_conversion()) {
+            const uint16_t adc_result = finish_adc_conversion();
+            _data[3] = 0xFF | adc_result;
+            _data[4] = 0xFF | (adc_result << 8);
+            _data[2] = 1;
+            adc_is_running = false;
+        }
+
         if (periph->run(periph)) {
+            idle_count += 1;
+        } else {
+            idle_count = 0;
+        }
+
+        wdt_reset();
+
+        if (idle_count > STAY_AWAKE_FOR_CYCLES && !adc_is_running) {
+            idle_count = 0;
             set_sleep_mode(SLEEP_MODE_PWR_SAVE);
             sei();
             {
@@ -73,7 +140,7 @@ main()
         }
         sei();
         wdt_reset();
-        _delay_us(10);
+        _delay_us(80);
     }
     return 0;
 }

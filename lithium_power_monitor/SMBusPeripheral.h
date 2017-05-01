@@ -39,8 +39,9 @@ typedef struct _SMBusPeripheralType
     // +-----------------------------------------------------------------------+
     Usi_twi_peripheral _state;
     uint8_t _peripheral_addr;
-    uint8_t* _memory;
+    volatile uint8_t* _memory;
     uint8_t _memory_length;
+    const uint8_t* _memory_can_write;
 
     // +-----------------------------------------------------------------------+
     // | PUBLIC
@@ -58,5 +59,6 @@ typedef struct _SMBusPeripheralType
 SMBusPeripheral*
 init_smb_peripheral(SMBusPeripheral* self,
                     uint8_t peripheral_address,
-                    uint8_t* memory,
-                    uint8_t memory_length);
+                    volatile uint8_t* memory,
+                    uint8_t memory_length,
+                    const uint8_t* memory_can_write);
