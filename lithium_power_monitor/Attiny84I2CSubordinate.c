@@ -28,22 +28,23 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 
-#include "SMBusPeripheral.h"
-#include "Usi_twi_peripheralRequired.h"
+#include "Usi_twi_subordinateRequired.h"
+
+#include "I2CPeripheral.h"
 #include "lithium.h"
 
 // +---------------------------------------------------------------------------+
 // | ISR
 // +---------------------------------------------------------------------------+
 
-static SMBusPeripheral* volatile _active_peripheral = 0;
+static I2CSubordinate* volatile _active_peripheral = 0;
 
 ISR(USI_START_vect)
 {
     unsigned char tmpUSISR; // Temporary variable to store volatile
     tmpUSISR = USISR;       // Not necessary, but prevents warnings
                       // Set default starting conditions for new TWI package
-    SMBusPeripheral* const periph = _active_peripheral;
+    I2CSubordinate* const periph = _active_peripheral;
     if (periph) {
         LI_USI0_DDR &= ~(1 << LI_SDA0); // Set SDA as input
         while ((LI_USI0_PIN & (1 << LI_SCL0)) & !(tmpUSISR & (1 << USIPF)))
@@ -66,26 +67,26 @@ ISR(USI_START_vect)
           (1 << USIDC) |    // Clear flags
           (0x0 << USICNT0); // Set USI to sample 8 bits i.e. count 16 external
                             // pin toggles.
-        usi_twi_peripheralIfacePeripheral_raise_on_start(&periph->_state);
-        usi_twi_peripheral_runCycle(&periph->_state);
+        usi_twi_subordinateIfacePeripheral_raise_on_start(&periph->_state);
+        usi_twi_subordinate_runCycle(&periph->_state);
     }
 }
 
 ISR(USI_OVF_vect)
 {
-    SMBusPeripheral* const periph = _active_peripheral;
+    I2CSubordinate* const periph = _active_peripheral;
     if (periph) {
-        usi_twi_peripheralIfacePeripheral_raise_on_usi_overflow(&periph->_state,
-                                                                (uint8_t)USIDR);
-        usi_twi_peripheral_runCycle(&periph->_state);
+        usi_twi_subordinateIfacePeripheral_raise_on_usi_overflow(
+          &periph->_state, (uint8_t)USIDR);
+        usi_twi_subordinate_runCycle(&periph->_state);
     }
 }
 
 // +---------------------------------------------------------------------------+
-// | Usi_twi_peripheralRequired
+// | Usi_twi_subordinateRequired
 // +---------------------------------------------------------------------------+
 void
-usi_twi_peripheralIfaceDriver_reset(const Usi_twi_peripheral* handle)
+usi_twi_subordinateIfaceDriver_reset(const Usi_twi_subordinate* handle)
 {
     // From Atmel App Note AVR312:
     LI_USI0_PORT |= (1 << LI_SCL0) | (1 << LI_SDA0);
@@ -107,11 +108,11 @@ usi_twi_peripheralIfaceDriver_reset(const Usi_twi_peripheral* handle)
 }
 
 void
-usi_twi_peripheralIfaceDriver_on_byte_read(const Usi_twi_peripheral* handle,
-                                           const sc_integer register_addr,
-                                           const sc_integer data)
+usi_twi_subordinateIfaceDriver_on_byte_read(const Usi_twi_subordinate* handle,
+                                            const sc_integer register_addr,
+                                            const sc_integer data)
 {
-    SMBusPeripheral* self = (SMBusPeripheral*)handle;
+    I2CSubordinate* self = (I2CSubordinate*)handle;
     const uint8_t canonical_address = register_addr % self->_memory_length;
     if (self->_memory_can_write[canonical_address / 8] &
         (1 << (canonical_address % 8))) {
@@ -120,10 +121,10 @@ usi_twi_peripheralIfaceDriver_on_byte_read(const Usi_twi_peripheral* handle,
 }
 
 void
-usi_twi_peripheralIfaceDriver_send_next_byte(const Usi_twi_peripheral* handle,
-                                             const sc_integer register_addr)
+usi_twi_subordinateIfaceDriver_send_next_byte(const Usi_twi_subordinate* handle,
+                                              const sc_integer register_addr)
 {
-    SMBusPeripheral* self = (SMBusPeripheral*)handle;
+    I2CSubordinate* self = (I2CSubordinate*)handle;
     USIDR = self->_memory[register_addr % self->_memory_length];
 
     LI_USI0_DDR |= (1 << LI_SDA0); /* Set SDA as output */
@@ -133,8 +134,8 @@ usi_twi_peripheralIfaceDriver_send_next_byte(const Usi_twi_peripheral* handle,
 }
 
 void
-usi_twi_peripheralIfaceDriver_request_next_byte(
-  const Usi_twi_peripheral* handle)
+usi_twi_subordinateIfaceDriver_request_next_byte(
+  const Usi_twi_subordinate* handle)
 {
     LI_USI0_DDR &= ~(1 << LI_SDA0); /* Set SDA as input */
     USISR = (0 << USISIE) | (1 << USIOIF) | (1 << USIPF) |
@@ -143,7 +144,7 @@ usi_twi_peripheralIfaceDriver_request_next_byte(
 }
 
 void
-usi_twi_peripheralIfaceDriver_send_ack(const Usi_twi_peripheral* handle)
+usi_twi_subordinateIfaceDriver_send_ack(const Usi_twi_subordinate* handle)
 {
     USIDR = 0;                     /* Prepare ACK */
     LI_USI0_DDR |= (1 << LI_SDA0); /* Set SDA as output */
@@ -153,7 +154,7 @@ usi_twi_peripheralIfaceDriver_send_ack(const Usi_twi_peripheral* handle)
 }
 
 void
-usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle)
+usi_twi_subordinateIfaceDriver_read_ack(const Usi_twi_subordinate* handle)
 {
     LI_USI0_DDR &= ~(1 << LI_SDA0); /* Set SDA as input */
     USIDR = 0;                      /* Prepare ACK        */
@@ -163,40 +164,40 @@ usi_twi_peripheralIfaceDriver_read_ack(const Usi_twi_peripheral* handle)
 }
 
 // +---------------------------------------------------------------------------+
-// | SMBusPeripheral
+// | I2CPeripheral
 // +---------------------------------------------------------------------------+
 static void
-_attiny84_smb_peripheral_start(SMBusPeripheral* self)
+_attiny84_smb_drone_start(I2CSubordinate* self)
 {
     USISR = 0xF0; // Clear all flags and reset overflow counter
-    usi_twi_peripheral_enter(&self->_state);
-    usi_twi_peripheralIfaceDriver_raise_on_peripheral_address_set(
-      &self->_state, self->_peripheral_addr);
-    usi_twi_peripheral_runCycle(&self->_state);
+    usi_twi_subordinate_enter(&self->_state);
+    usi_twi_subordinateIfaceDriver_raise_on_address_set(&self->_state,
+                                                        self->_peripheral_addr);
+    usi_twi_subordinate_runCycle(&self->_state);
 }
 
 static bool
-_attiny84_smb_peripheral_run(SMBusPeripheral* self)
+_attiny84_smb_drone_run(I2CSubordinate* self)
 {
-    return usi_twi_peripheral_isStateActive(
-      &self->_state, Usi_twi_peripheral_main_region_initialized_r0_idle);
-    usi_twi_peripheral_runCycle(&self->_state);
+    return usi_twi_subordinate_isStateActive(
+      &self->_state, Usi_twi_subordinate_main_region_initialized_r0_idle);
+    usi_twi_subordinate_runCycle(&self->_state);
 }
 
-SMBusPeripheral*
-init_smb_peripheral(SMBusPeripheral* self,
-                    uint8_t peripheral_addr,
-                    volatile uint8_t* memory,
-                    uint8_t memory_length,
-                    const uint8_t* memory_can_write)
+I2CSubordinate*
+init_i2c_subordinate(I2CSubordinate* self,
+                     uint8_t peripheral_addr,
+                     volatile uint8_t* memory,
+                     uint8_t memory_length,
+                     const uint8_t* memory_can_write)
 {
     if (self && !_active_peripheral) {
-        self->start = _attiny84_smb_peripheral_start;
-        self->run = _attiny84_smb_peripheral_run;
+        self->start = _attiny84_smb_drone_start;
+        self->run = _attiny84_smb_drone_run;
         self->_memory = memory;
         self->_memory_length = memory_length;
         self->_memory_can_write = memory_can_write;
-        usi_twi_peripheral_init(&self->_state);
+        usi_twi_subordinate_init(&self->_state);
         self->_peripheral_addr = peripheral_addr;
         _active_peripheral = self;
     }

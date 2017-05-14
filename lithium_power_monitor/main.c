@@ -35,20 +35,20 @@
 
 #include <util/delay.h>
 
+#include "I2CPeripheral.h"
 #include "lithium.h"
-#include "SMBusPeripheral.h"
-#include "PowerMonitor.h"
-#include "TemperatureMonitor.h"
 
 #define STAY_AWAKE_FOR_CYCLES 8
 
-static SMBusPeripheral _peripheral;
+static I2CSubordinate _peripheral;
 
 static volatile uint8_t _data[8] = {
     LI_SMBUS_PERIPHERAL_ADDR, 0x0, 0x0, 0x0, 0x0, 0xF, 0x10, 0x11
 };
 
 static const uint8_t _data_writable_flags[1] = { 0x2 };
+
+static bool _hack_conversion = false;
 
 void
 start_temperature_conversion()
@@ -59,6 +59,7 @@ start_temperature_conversion()
     ADCSRA |= (1 << ADEN) | (0b100 << ADPS0) | (1 << ADATE);
     ADCSRB |= (0b000 << ADTS0); // Enable free running mode
     ADCSRA |= (1 << ADSC);      // start a single conversion
+    _hack_conversion = true;
 }
 
 bool
@@ -67,19 +68,21 @@ check_adc_conversion()
     return ((ADCSRA & (1 << ADIF)) == (1 << ADIF));
 }
 
-uint16_t
+void
 finish_adc_conversion()
 {
-    const uint16_t result = ADC;
+    _data[3] = ADCL;
+    _data[4] = ADCH;
     ADCSRA |= (1 << ADIF); // Clear ADC Conversion Interrupt Flag
     PRR |= (1 << PRADC);
-    return result;
+    _hack_conversion = false;
 }
 
 bool
 is_adc_running()
 {
-    return (PRR & (1 << PRADC));
+    // return (PRR & (1 << PRADC));
+    return _hack_conversion;
 }
 
 int
@@ -92,7 +95,7 @@ main()
     LI_LED0_DDR |= (1 << LI_LED0);
     LI_LED0_PORT |= (1 << LI_LED0);
 
-    SMBusPeripheral* const periph = init_smb_peripheral(
+    I2CSubordinate* const periph = init_i2c_subordinate(
       &_peripheral, LI_SMBUS_PERIPHERAL_ADDR, _data, 8, _data_writable_flags);
     periph->start(periph);
 
@@ -104,15 +107,24 @@ main()
         cli();
         wdt_reset();
         if (_data[1]) {
-            start_temperature_conversion();
             _data[1] = 0;
             _data[2] = 0;
+            // reduce noise while doing ADC conversion
+            set_sleep_mode(SLEEP_MODE_ADC);
+            LI_LED0_PORT &= ~(1 << LI_LED0);
+            start_temperature_conversion();
+            sei();
+            {
+                sleep_enable();
+                sleep_cpu();
+                sleep_disable();
+            }
+            cli();
+            LI_LED0_PORT |= (1 << LI_LED0);
         }
         bool adc_is_running = is_adc_running();
         if (adc_is_running && check_adc_conversion()) {
-            const uint16_t adc_result = finish_adc_conversion();
-            _data[3] = 0xFF | adc_result;
-            _data[4] = 0xFF | (adc_result << 8);
+            finish_adc_conversion();
             _data[2] = 1;
             adc_is_running = false;
         }

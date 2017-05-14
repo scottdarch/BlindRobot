@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_coIlsB2EEeeNZJ80tTwq8w" specification="interface peripheral:&#xA;&#xA;&#x9;in event on_usi_overflow : integer&#xA;&#x9;in event on_start&#xA;interface driver:&#xA;&#xA;&#x9;in event on_peripheral_address_set : integer&#xA;&#x9;in event on_reset&#xA;&#x9;operation reset() : void&#xA;&#x9;operation send_next_byte(address:integer)&#xA;&#x9;operation on_byte_read(address:integer, data:integer)&#xA;&#x9;operation request_next_byte()&#xA;&#x9;operation send_ack()&#xA;&#x9;operation read_ack()&#xA;&#x9;&#xA;internal:&#xA;&#xA;&#x9;var last_read : integer&#xA;&#x9;var command : integer = 0&#xA;&#x9;var peripheral_address : integer = 0&#xA;&#x9;var register_addr : integer = 0&#xA;&#x9;var active_cycles : integer = 0&#xA;&#x9;&#xA;&#x9;const idle_cycles_limit : integer = 24" name="usi_twi_peripheral">
+  <sgraph:Statechart xmi:id="_coIlsB2EEeeNZJ80tTwq8w" specification="interface peripheral:&#xA;&#x9;in event on_usi_overflow : integer&#xA;&#x9;in event on_start&#xA;&#x9;&#xA;interface driver:&#xA;&#x9;in event on_address_set : integer&#xA;&#x9;in event on_reset&#xA;&#x9;operation reset() : void&#xA;&#x9;operation send_next_byte(address:integer)&#xA;&#x9;operation on_byte_read(address:integer, data:integer)&#xA;&#x9;operation request_next_byte()&#xA;&#x9;operation send_ack()&#xA;&#x9;operation read_ack()&#xA;&#x9;&#xA;internal:&#xA;&#x9;var last_read : integer&#xA;&#x9;var command : integer = 0&#xA;&#x9;var address : integer = 0&#xA;&#x9;var register_addr : integer = 0&#xA;&#x9;var active_cycles : integer = 0&#xA;&#x9;&#xA;&#x9;const idle_cycles_limit : integer = 24&#xA;" name="usi_twi_subordinate">
     <regions xmi:id="_cokDgB2EEeeNZJ80tTwq8w" name="main region">
       <vertices xsi:type="sgraph:Entry" xmi:id="_cpa_IB2EEeeNZJ80tTwq8w">
         <outgoingTransitions xmi:id="_cpkwIB2EEeeNZJ80tTwq8w" target="_YrT8EB2KEeeNZJ80tTwq8w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_YrT8EB2KEeeNZJ80tTwq8w" name="uninitialized" incomingTransitions="_cpkwIB2EEeeNZJ80tTwq8w _sTL6kB2KEeeNZJ80tTwq8w">
-        <outgoingTransitions xmi:id="_sTL6kB2KEeeNZJ80tTwq8w" specification="driver.on_peripheral_address_set &#xA;&#x9;[valueof(driver.on_peripheral_address_set) == 0]" target="_YrT8EB2KEeeNZJ80tTwq8w"/>
-        <outgoingTransitions xmi:id="_hxBLKB8xEeeQk4Mt-mF4eQ" specification="driver.on_peripheral_address_set / &#xA;&#x9;peripheral_address = valueof(driver.on_peripheral_address_set)" target="_5b9uwB83EeeQk4Mt-mF4eQ"/>
+        <outgoingTransitions xmi:id="_sTL6kB2KEeeNZJ80tTwq8w" specification="driver.on_address_set &#xA;&#x9;[valueof(driver.on_address_set) == 0]" target="_YrT8EB2KEeeNZJ80tTwq8w"/>
+        <outgoingTransitions xmi:id="_hxBLKB8xEeeQk4Mt-mF4eQ" specification="driver.on_address_set / address = valueof(driver.on_address_set)" target="_5b9uwB83EeeQk4Mt-mF4eQ"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_5b9uwB83EeeQk4Mt-mF4eQ" name="initialized" incomingTransitions="_hxBLKB8xEeeQk4Mt-mF4eQ">
         <regions xmi:id="_5b-V0h83EeeQk4Mt-mF4eQ" name="r0">
@@ -78,7 +78,7 @@
                 <outgoingTransitions xmi:id="_8izcgB86EeerSLoqkK-mdQ" specification="peripheral.on_usi_overflow" target="_BDgtUCIJEeee4th-Xv94AQ"/>
               </vertices>
               <vertices xsi:type="sgraph:Choice" xmi:id="_K0sI8CIIEeee4th-Xv94AQ" incomingTransitions="_hw_9Cx8xEeeQk4Mt-mF4eQ">
-                <outgoingTransitions xmi:id="_Scnd4B86EeeQk4Mt-mF4eQ" specification="[(last_read >> 1) != peripheral_address]" target="_hxDAUB8xEeeQk4Mt-mF4eQ"/>
+                <outgoingTransitions xmi:id="_Scnd4B86EeeQk4Mt-mF4eQ" specification="[(last_read >> 1) != address]" target="_hxDAUB8xEeeQk4Mt-mF4eQ"/>
                 <outgoingTransitions xmi:id="_42XswCIIEeee4th-Xv94AQ" specification="/driver.send_ack()" target="_is1kEB86EeerSLoqkK-mdQ"/>
               </vertices>
               <vertices xsi:type="sgraph:Choice" xmi:id="_BDgtUCIJEeee4th-Xv94AQ" incomingTransitions="_8izcgB86EeerSLoqkK-mdQ">

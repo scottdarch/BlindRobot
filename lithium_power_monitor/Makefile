@@ -79,11 +79,11 @@ CFLAGS += -DAVR_FUSE_H=$(BOARD_AVR_FUSE_H) \
 # | INPUTS
 # +----------------------------------------------------------------------------+
 INCLUDE_PATHS   += src \
-                   usi_twi_peripheral \
+                   usi_twi_subordinate \
 
 SOURCE          += $(wildcard *.c) \
 
-YAKINDU_SOURCE  := $(wildcard usi_twi_peripheral/*.c) \
+YAKINDU_SOURCE  := $(wildcard usi_twi_subordinate/*.c) \
 
 ASSMBLY         += $(wildcard *.S)
 

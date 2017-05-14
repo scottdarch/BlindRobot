@@ -184,10 +184,6 @@ main(void)
     packet.data = &result;
     packet.data_length = 1;
 
-    uint8_t wait_for_compleation = 1;
-    packet.data = &wait_for_compleation;
-    packet.data_length = 1;
-
     while (i2c_master_write_packet_wait_no_stop(&i2c_master_instance,
                                                 &packet) != STATUS_OK) {
         /* Increment timeout counter and check if timed out. */
