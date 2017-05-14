@@ -78,11 +78,15 @@ CFLAGS += -DAVR_FUSE_H=$(BOARD_AVR_FUSE_H) \
 # +----------------------------------------------------------------------------+
 # | INPUTS
 # +----------------------------------------------------------------------------+
-INCLUDE_PATHS   += src \
+INCLUDE_PATHS   += . \
+                   applications \
                    usi_twi_subordinate \
                    usi_twi_master \
 
 SOURCE          += $(wildcard *.c) \
+                   applications/main_master.c \
+                   
+                   # applications/main_subordinate.c \
 
 YAKINDU_SOURCE  := $(wildcard usi_twi_subordinate/*.c) \
                    $(wildcard usi_twi_master/*.c) \

@@ -167,7 +167,7 @@ usi_twi_subordinateIfaceDriver_read_ack(const Usi_twi_subordinate* handle)
 // | I2CSubordinate
 // +---------------------------------------------------------------------------+
 static void
-_attiny84_smb_subordinate_start(I2CSubordinate* self)
+_attiny84_i2c_subordinate_start(I2CSubordinate* self)
 {
     USISR = 0xF0; // Clear all flags and reset overflow counter
     usi_twi_subordinate_enter(&self->_state);
@@ -177,7 +177,7 @@ _attiny84_smb_subordinate_start(I2CSubordinate* self)
 }
 
 static bool
-_attiny84_smb_subordinate_run(I2CSubordinate* self)
+_attiny84_i2c_subordinate_run(I2CSubordinate* self)
 {
     usi_twi_subordinate_runCycle(&self->_state);
     return usi_twi_subordinate_isStateActive(
@@ -197,8 +197,8 @@ init_i2c_subordinate(I2CSubordinate* self,
         return 0;
     }
     if (self) {
-        self->start = _attiny84_smb_subordinate_start;
-        self->run = _attiny84_smb_subordinate_run;
+        self->start = _attiny84_i2c_subordinate_start;
+        self->run = _attiny84_i2c_subordinate_run;
         self->_memory = memory;
         self->_memory_length = memory_length;
         self->_memory_can_write = memory_can_write;

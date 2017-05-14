@@ -32,6 +32,19 @@
 
 #include "Usi_twi_master.h"
 
+typedef enum {
+    I2C_MASTER_NO_DATA = 0,       // Transmission buffer is empty
+    I2C_MASTER_DATA_OUT_OF_BOUND, // Transmission buffer is outside SRAM space
+    I2C_MASTER_UE_START_CON,      // Unexpected Start Condition
+    I2C_MASTER_UE_STOP_CON,       // Unexpected Stop Condition
+    I2C_MASTER_UE_DATA_COL,       // Unexpected Data Collision (arbitration)
+    I2C_MASTER_NO_ACK_ON_DATA,    // The slave did not acknowledge  all data
+    I2C_MASTER_NO_ACK_ON_ADDRESS, // The slave did not acknowledge  the address
+    I2C_MASTER_MISSING_START_CON, // Generated Start Condition not detected on
+                                  // bus
+    I2C_MASTER_MISSING_STOP_CON, // Generated Stop Condition not detected on bus
+} I2CMasterErrorType;
+
 /**
  * Interface to an I2C peripheral implementation running as a subordinate on
  * the bus.
@@ -46,9 +59,13 @@ typedef struct _I2CMasterType
     // +-----------------------------------------------------------------------+
     Usi_twi_master _state;
     uint8_t _peripheral_addr;
-    volatile uint8_t* _memory;
-    uint8_t _memory_length;
-    const uint8_t* _memory_can_write;
+    I2CMasterErrorType _errorState;
+    struct
+    {
+        unsigned char _addressMode : 1;
+        unsigned char _masterWriteDataMode : 1;
+        unsigned char _unused : 6;
+    };
 
     // +-----------------------------------------------------------------------+
     // | PUBLIC
@@ -61,11 +78,11 @@ typedef struct _I2CMasterType
      */
     bool (*run)(struct _I2CMasterType* self);
 
+    bool (*send_message)(struct _I2CMasterType* self,
+                         unsigned char* msg,
+                         unsigned char msgSize);
+
 } I2CMaster;
 
 I2CMaster*
-init_i2c_master(I2CMaster* self,
-                uint8_t peripheral_address,
-                volatile uint8_t* memory,
-                uint8_t memory_length,
-                const uint8_t* memory_can_write);
+init_i2c_master(I2CMaster* self, uint8_t peripheral_address);
