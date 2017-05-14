@@ -35,7 +35,7 @@
 
 #include <util/delay.h>
 
-#include "I2CPeripheral.h"
+#include "I2CSubordinate.h"
 #include "lithium.h"
 
 #define STAY_AWAKE_FOR_CYCLES 8

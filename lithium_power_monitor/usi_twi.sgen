@@ -8,4 +8,13 @@ GeneratorModel for yakindu::c {
             libraryTargetFolder = "."
         }
     }
+    
+    statechart usi_twi_master {
+
+        feature Outlet {
+            targetProject = "lithium_power_monitor"
+            targetFolder = "usi_twi_master"
+            libraryTargetFolder = "."
+        }
+    }
 }

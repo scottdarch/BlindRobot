@@ -30,11 +30,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "Usi_twi_subordinate.h"
+#include "Usi_twi_master.h"
 
-// +---------------------------------------------------------------------------+
-// | SUBORDINATE
-// +---------------------------------------------------------------------------+
 /**
  * Interface to an I2C peripheral implementation running as a subordinate on
  * the bus.
@@ -42,12 +39,12 @@
  * Note that this implementation uses "subordinate" as a more precise and less
  * offensive alternative to the I2C standard term "slave".
  */
-typedef struct _I2CSubordinateType
+typedef struct _I2CMasterType
 {
     // +-----------------------------------------------------------------------+
     // | PRIVATE
     // +-----------------------------------------------------------------------+
-    Usi_twi_subordinate _state;
+    Usi_twi_master _state;
     uint8_t _peripheral_addr;
     volatile uint8_t* _memory;
     uint8_t _memory_length;
@@ -56,19 +53,19 @@ typedef struct _I2CSubordinateType
     // +-----------------------------------------------------------------------+
     // | PUBLIC
     // +-----------------------------------------------------------------------+
-    void (*start)(struct _I2CSubordinateType* self);
+    void (*start)(struct _I2CMasterType* self);
 
     /**
      * @return <code>true</code> if the peripheral is now idle else
      * <code>false</code> if the peripheral is still active.
      */
-    bool (*run)(struct _I2CSubordinateType* self);
+    bool (*run)(struct _I2CMasterType* self);
 
-} I2CSubordinate;
+} I2CMaster;
 
-I2CSubordinate*
-init_i2c_subordinate(I2CSubordinate* self,
-                     uint8_t peripheral_address,
-                     volatile uint8_t* memory,
-                     uint8_t memory_length,
-                     const uint8_t* memory_can_write);
+I2CMaster*
+init_i2c_master(I2CMaster* self,
+                uint8_t peripheral_address,
+                volatile uint8_t* memory,
+                uint8_t memory_length,
+                const uint8_t* memory_can_write);
