@@ -85,4 +85,4 @@ typedef struct _I2CMasterType
 } I2CMaster;
 
 I2CMaster*
-init_i2c_master(I2CMaster* self, uint8_t peripheral_address);
+init_i2c_master(I2CMaster* self);

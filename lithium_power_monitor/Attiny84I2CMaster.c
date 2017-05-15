@@ -85,20 +85,15 @@
 #define DELAY_T4TWI (_delay_us(T4_TWI / 4))
 
 // +---------------------------------------------------------------------------+
-// | ISR
-// +---------------------------------------------------------------------------+
-static I2CMaster* volatile _active_peripheral = 0;
-
-// +---------------------------------------------------------------------------+
 // | Usi_twi_masterRequired
 // +---------------------------------------------------------------------------+
 void
 usi_twi_masterIfaceDriver_reset(const Usi_twi_master* handle)
 {
     LI_USI0_PORT |=
-      (1 << LI_SDA0); // Enable pullup on SDA, to set high as released state.
+      (1 << LI_SDA0); // Enable pullup on SDA, to set high as released
     LI_USI0_PORT |=
-      (1 << LI_SCL0); // Enable pullup on SCL, to set high as released state.
+      (1 << LI_SCL0); // Enable pullup on SCL, to set high as released
 
     LI_USI0_DDR |= (1 << LI_SCL0); // Enable SCL as output.
     LI_USI0_DDR |= (1 << LI_SDA0); // Enable SDA as output.
@@ -107,7 +102,7 @@ usi_twi_masterIfaceDriver_reset(const Usi_twi_master* handle)
     USICR = (0 << USISIE) | (0 << USIOIE) | // Disable Interrupts.
             (1 << USIWM1) | (0 << USIWM0) | // Set USI in Two-wire mode.
             (1 << USICS1) | (0 << USICS0) |
-            (1 << USICLK) | // Software stobe as counter clock source
+            (1 << USICLK) | // Software strobe as counter clock source
             (0 << USITC);
     USISR = (1 << USISIF) | (1 << USIOIF) | (1 << USIPF) |
             (1 << USIDC) |    // Clear flags,
@@ -127,7 +122,7 @@ _attiny84_i2c_master_start(I2CMaster* self)
 static bool
 _attiny84_i2c_master_run(I2CMaster* self)
 {
-    usi_twi_master_runCycle(&self->_state);
+    // usi_twi_master_runCycle(&self->_state);
     return false;
 }
 
@@ -203,7 +198,8 @@ _attiny84_i2c_master_send_message(I2CMaster* self,
     self->_errorState = 0;
     self->_addressMode = true;
 
-    if (msg > (unsigned char*)RAMEND) // Test if address is outside SRAM space
+    if (msg + msgSize >
+        (unsigned char*)RAMEND) // Test if address is outside SRAM space
     {
         self->_errorState = I2C_MASTER_DATA_OUT_OF_BOUND;
         return false;
@@ -302,20 +298,14 @@ _attiny84_i2c_master_send_message(I2CMaster* self,
 }
 
 I2CMaster*
-init_i2c_master(I2CMaster* self, uint8_t peripheral_addr)
+init_i2c_master(I2CMaster* self)
 {
-    // Hack for ISRs. A complete implementation would use an ISR dispatch
-    // mechanism.
-    if (_active_peripheral) {
-        return 0;
-    }
     if (self) {
         self->start = _attiny84_i2c_master_start;
         self->run = _attiny84_i2c_master_run;
-        usi_twi_master_init(&self->_state);
-        self->_peripheral_addr = peripheral_addr;
         self->send_message = _attiny84_i2c_master_send_message;
-        _active_peripheral = self;
+        usi_twi_master_init(&self->_state);
+        usi_twi_masterIfaceDriver_reset(&self->_state);
     }
     return self;
 }

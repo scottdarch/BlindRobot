@@ -42,17 +42,41 @@ enum
 // | GPIO
 // +---------------------------------------------------------------------------+
 
+//                                  PDIP/SOIC
 //                           +----------------------+
-//                        +5 | 1 VCC         GND 14 | 0
+//                        +5 | 1 VCC         GND 14 | GND
 //                           | 2 PB0         PA0 13 | ADC0 -> VBAT
 //                           | 3 PB1         PA1 12 | ADC1 -> +6
 //                    !RESET | 4 PB3         PA2 11 | ADC2 -> +5
 //                           | 5 PB2         PA3 10 |
-//(xplained board only) LED0 | 6 PA7         PA4  9 | SCL
+//                      LED0 | 6 PA7         PA4  9 | SCL
 //                  MOSI/SDA | 7 PA6         PA5  8 | MISO
 //                           +----------------------+
 //
-
+//
+//                                  QFN/MLF
+//
+//                                   M       M/
+//                                   I       OS
+//                                   S       SD
+//                                   O       IA
+//                          +--------------------------+
+//                          | .      2 1 1 1 1         |
+//                          |        0 9 8 7 6         |
+//                          |        P       P         |
+//                      SCL | 1 PA4  A       A  PA7 15 | LED0
+//                          | 2 PA3  5       6  PB2 14 |
+//               ADC2 -> +5 | 3 PA2             PB3 13 | !RESET
+//               ADC1 -> +6 | 4 PA1             PB1 12 |
+//             ADC0 -> VBAT | 5 PA0      G V    PB0 11 |
+//                          |            N C           |
+//                          |            D C 1         |
+//                          |        6 7 8 9 0         |
+//                          +--------------------------+
+//                                       G +
+//                                       N 5
+//                                       D
+//
 #define LI_LED0 PA7
 #define LI_LED0_PORT PORTA
 #define LI_LED0_DDR DDRA

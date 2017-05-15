@@ -53,8 +53,7 @@ main()
     LI_LED0_DDR |= (1 << LI_LED0);
     LI_LED0_PORT |= (1 << LI_LED0);
 
-    I2CMaster* const periph =
-      init_i2c_master(&_peripheral, LI_SMBUS_PERIPHERAL_ADDR);
+    I2CMaster* const periph = init_i2c_master(&_peripheral);
     periph->start(periph);
 
     sei();
@@ -65,9 +64,9 @@ main()
         cli();
         wdt_reset();
 
-        uint8_t msg = (BQ2461x_I2C_ADDR << 1) | 1;
+        uint8_t msg[] = { (BQ2461x_I2C_ADDR << 1) | 1, 0x00 };
 
-        _peripheral.send_message(&_peripheral, &msg, 1);
+        periph->send_message(periph, msg, 2);
 
         if (periph->run(periph)) {
             idle_count += 1;
