@@ -57,8 +57,6 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#include "Usi_twi_masterRequired.h"
-
 #include "I2CMaster.h"
 #include "lithium.h"
 
@@ -85,10 +83,8 @@
 #define DELAY_T4TWI (_delay_us(T4_TWI / 4))
 
 // +---------------------------------------------------------------------------+
-// | Usi_twi_masterRequired
-// +---------------------------------------------------------------------------+
 void
-usi_twi_masterIfaceDriver_reset(const Usi_twi_master* handle)
+_attiny84_i2c_master_reset()
 {
     LI_USI0_PORT |=
       (1 << LI_SDA0); // Enable pullup on SDA, to set high as released
@@ -109,30 +105,13 @@ usi_twi_masterIfaceDriver_reset(const Usi_twi_master* handle)
             (0x0 << USICNT0); // and reset counter.
 }
 
-// +---------------------------------------------------------------------------+
-// | I2CMaster
-// +---------------------------------------------------------------------------+
-static void
-_attiny84_i2c_master_start(I2CMaster* self)
-{
-    usi_twi_master_enter(&self->_state);
-    usi_twi_master_runCycle(&self->_state);
-}
-
-static bool
-_attiny84_i2c_master_run(I2CMaster* self)
-{
-    // usi_twi_master_runCycle(&self->_state);
-    return false;
-}
-
 /*---------------------------------------------------------------
  Core function for shifting data in and out from the USI.
  Data to be sent has to be placed into the USIDR prior to calling
  this function. Data read, will be return'ed from the function.
 ---------------------------------------------------------------*/
 static uint8_t
-_attiny84_i2c_master_transfer(unsigned char temp)
+_attiny84_i2c_master_transfer(uint8_t temp)
 {
     USISR = temp;                          // Set USISR according to temp.
                                            // Prepare clocking.
@@ -183,14 +162,14 @@ _attiny84_i2c_master_stop(I2CMaster* self)
 
 static bool
 _attiny84_i2c_master_send_message(I2CMaster* self,
-                                  unsigned char* msg,
-                                  unsigned char msgSize)
+                                  uint8_t* msg,
+                                  uint8_t msgSize)
 {
-    unsigned char tempUSISR_8bit =
+    uint8_t tempUSISR_8bit =
       (1 << USISIF) | (1 << USIOIF) | (1 << USIPF) |
       (1 << USIDC) |    // Prepare register value to: Clear flags, and
       (0x0 << USICNT0); // set USI to shift 8 bits i.e. count 16 clock edges.
-    unsigned char tempUSISR_1bit =
+    uint8_t tempUSISR_1bit =
       (1 << USISIF) | (1 << USIOIF) | (1 << USIPF) |
       (1 << USIDC) |    // Prepare register value to: Clear flags, and
       (0xE << USICNT0); // set USI to shift 1 bit i.e. count 2 clock edges.
@@ -199,7 +178,7 @@ _attiny84_i2c_master_send_message(I2CMaster* self,
     self->_addressMode = true;
 
     if (msg + msgSize >
-        (unsigned char*)RAMEND) // Test if address is outside SRAM space
+        (uint8_t*)RAMEND) // Test if address is outside SRAM space
     {
         self->_errorState = I2C_MASTER_DATA_OUT_OF_BOUND;
         return false;
@@ -209,19 +188,19 @@ _attiny84_i2c_master_send_message(I2CMaster* self,
         self->_errorState = I2C_MASTER_NO_DATA;
         return false;
     }
-
-    if (USISR & (1 << USISIF)) {
-        self->_errorState = I2C_MASTER_UE_START_CON;
-        return false;
-    }
-    if (USISR & (1 << USIPF)) {
-        self->_errorState = I2C_MASTER_UE_STOP_CON;
-        return false;
-    }
-    if (USISR & (1 << USIDC)) {
-        self->_errorState = I2C_MASTER_UE_DATA_COL;
-        return false;
-    }
+    //
+    //    if (USISR & (1 << USISIF)) {
+    //        self->_errorState = I2C_MASTER_UE_START_CON;
+    //        return false;
+    //    }
+    //    if (USISR & (1 << USIPF)) {
+    //        self->_errorState = I2C_MASTER_UE_STOP_CON;
+    //        return false;
+    //    }
+    //    if (USISR & (1 << USIDC)) {
+    //        self->_errorState = I2C_MASTER_UE_DATA_COL;
+    //        return false;
+    //    }
 
     if (!(*msg & (1 << TWI_READ_BIT))) // The LSB in the address byte determines
                                        // if is a masterRead or masterWrite
@@ -253,7 +232,7 @@ _attiny84_i2c_master_send_message(I2CMaster* self,
 
     /*Write address and Read/Write data */
     do {
-        /* If masterWrite cycle (or inital address tranmission)*/
+        /* If masterWrite cycle (or initial address transmission)*/
         if (self->_addressMode || self->_masterWriteDataMode) {
             /* Write a byte */
             LI_USI0_PORT &= ~(1 << LI_SCL0); // Pull SCL LOW.
@@ -301,11 +280,11 @@ I2CMaster*
 init_i2c_master(I2CMaster* self)
 {
     if (self) {
-        self->start = _attiny84_i2c_master_start;
-        self->run = _attiny84_i2c_master_run;
+        self->_errorState = 0;
+        self->_addressMode = 0;
+        self->_masterWriteDataMode = 0;
         self->send_message = _attiny84_i2c_master_send_message;
-        usi_twi_master_init(&self->_state);
-        usi_twi_masterIfaceDriver_reset(&self->_state);
+        _attiny84_i2c_master_reset();
     }
     return self;
 }

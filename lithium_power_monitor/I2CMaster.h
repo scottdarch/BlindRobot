@@ -46,19 +46,14 @@ typedef enum {
 } I2CMasterErrorType;
 
 /**
- * Interface to an I2C peripheral implementation running as a subordinate on
+ * Interface to an I2C peripheral implementation running as a master on
  * the bus.
- *
- * Note that this implementation uses "subordinate" as a more precise and less
- * offensive alternative to the I2C standard term "slave".
  */
 typedef struct _I2CMasterType
 {
     // +-----------------------------------------------------------------------+
     // | PRIVATE
     // +-----------------------------------------------------------------------+
-    Usi_twi_master _state;
-    uint8_t _peripheral_addr;
     I2CMasterErrorType _errorState;
     struct
     {
@@ -70,16 +65,9 @@ typedef struct _I2CMasterType
     // +-----------------------------------------------------------------------+
     // | PUBLIC
     // +-----------------------------------------------------------------------+
-    void (*start)(struct _I2CMasterType* self);
-
-    /**
-     * @return <code>true</code> if the peripheral is now idle else
-     * <code>false</code> if the peripheral is still active.
-     */
-    bool (*run)(struct _I2CMasterType* self);
 
     bool (*send_message)(struct _I2CMasterType* self,
-                         unsigned char* msg,
+                         uint8_t* msg,
                          unsigned char msgSize);
 
 } I2CMaster;

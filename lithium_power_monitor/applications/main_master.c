@@ -41,7 +41,9 @@
 #define STAY_AWAKE_FOR_CYCLES (8)
 #define BQ2461x_I2C_ADDR (0b1101011)
 
-static I2CMaster _peripheral;
+// static I2CMaster _peripheral;
+//
+// static uint8_t _buffer[4];
 
 int
 main()
@@ -49,49 +51,36 @@ main()
     MCUCR |= (1 << PUD);
     PRR |= (1 << PRTIM1) | (1 << PRTIM0) | (1 << PRADC);
 
-    // wdt_enable(WDTO_500MS);
-    LI_LED0_DDR |= (1 << LI_LED0);
-    LI_LED0_PORT |= (1 << LI_LED0);
-
-    I2CMaster* const periph = init_i2c_master(&_peripheral);
-    periph->start(periph);
-
-    sei();
-
-    uint8_t idle_count = 0;
-
+    wdt_disable();
+    //    LI_LED0_DDR |= (1 << LI_LED0);
+    //    LI_LED0_PORT |= (1 << LI_LED0);
+    //
+    //    I2CMaster* const periph = init_i2c_master(&_peripheral);
+    //
+    //    sei();
+    //
+    //    while (1) {
+    //        cli();
+    //
+    //        _buffer[0] = (BQ2461x_I2C_ADDR << 1) | 1;
+    //        _buffer[1] = 4;
+    //
+    //        periph->send_message(periph, _buffer, 3);
+    //
+    //        _buffer[0] = (BQ2461x_I2C_ADDR << 1) | 1;
+    //        _buffer[1] = 0;
+    //
+    //        periph->send_message(periph, _buffer, 4);
+    //
+    //        _delay_ms(800);
+    //
+    //        LI_LED0_PORT &= ~(1 << LI_LED0);
+    //
+    //        _delay_ms(800);
+    //
+    //        LI_LED0_PORT |= (1 << LI_LED0);
+    //    }
     while (1) {
-        cli();
-        wdt_reset();
-
-        uint8_t msg[] = { (BQ2461x_I2C_ADDR << 1) | 1, 0x00 };
-
-        periph->send_message(periph, msg, 2);
-
-        if (periph->run(periph)) {
-            idle_count += 1;
-        } else {
-            idle_count = 0;
-        }
-
-        wdt_reset();
-
-        if (idle_count > STAY_AWAKE_FOR_CYCLES) {
-            idle_count = 0;
-            set_sleep_mode(SLEEP_MODE_PWR_SAVE);
-            sei();
-            {
-                LI_LED0_PORT &= ~(1 << LI_LED0);
-                sleep_enable();
-                sleep_cpu();
-                sleep_disable();
-                LI_LED0_PORT |= (1 << LI_LED0);
-            }
-            cli();
-        }
-        sei();
-        wdt_reset();
-        _delay_us(80);
     }
     return 0;
 }
