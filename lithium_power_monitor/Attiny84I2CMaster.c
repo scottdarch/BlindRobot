@@ -122,7 +122,7 @@ _attiny84_i2c_master_transfer(uint8_t temp)
            (1 << USITC);   // Toggle Clock Port.
     do {
         DELAY_T2TWI;
-        USICR = temp; // Generate positve SCL edge.
+        USICR = temp; // Generate positive SCL edge.
         while (!(LI_USI0_PIN & (1 << LI_SCL0)))
             ; // Wait for SCL to go high.
         DELAY_T4TWI;
@@ -175,7 +175,7 @@ _attiny84_i2c_master_send_message(I2CMaster* self,
       (0xE << USICNT0); // set USI to shift 1 bit i.e. count 2 clock edges.
 
     self->_errorState = 0;
-    self->_addressMode = true;
+    self->_addressMode = 1;
 
     if (msg + msgSize >
         (uint8_t*)RAMEND) // Test if address is outside SRAM space
@@ -206,7 +206,9 @@ _attiny84_i2c_master_send_message(I2CMaster* self,
                                        // if is a masterRead or masterWrite
                                        // operation.
     {
-        self->_masterWriteDataMode = true;
+        self->_masterWriteDataMode = 1;
+    } else {
+        self->_masterWriteDataMode = 0;
     }
 
     /* Release SCL to ensure that (repeated) Start can be performed */
@@ -250,13 +252,13 @@ _attiny84_i2c_master_send_message(I2CMaster* self,
                     self->_errorState = I2C_MASTER_NO_ACK_ON_DATA;
                 return false;
             }
-            self->_addressMode =
-              false; // Only perform address transmission once.
+            self->_addressMode = 0; // Only perform address transmission once.
         }
         /* Else masterRead cycle*/
         else {
             /* Read a data byte */
             LI_USI0_DDR &= ~(1 << LI_SDA0); // Enable SDA as input.
+
             *(msg++) = _attiny84_i2c_master_transfer(tempUSISR_8bit);
 
             /* Prepare to generate ACK (or NACK in case of End Of Transmission)
