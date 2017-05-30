@@ -96,7 +96,17 @@ _write_voltage(I2CMaster* periph)
 {
     _buffer[0] = (BQ2461x_I2C_ADDR << 1) | 0;
     _buffer[1] = 3;
-    _buffer[2] = 0x28;
+    _buffer[2] = 0x2A;
+
+    periph->send_message(periph, _buffer, 3);
+}
+
+static void
+_write_current(I2CMaster* periph)
+{
+    _buffer[0] = (BQ2461x_I2C_ADDR << 1) | 0;
+    _buffer[1] = 5;
+    _buffer[2] = 0xC2;
 
     periph->send_message(periph, _buffer, 3);
 }
@@ -129,21 +139,14 @@ main()
 
     cli();
 
-    for (uint8_t i = 0; i < 2; ++i) {
-        _delay_ms(800);
-
-        LI_LED0_PORT &= ~(1 << LI_LED0);
-
-        _delay_ms(800);
-
-        LI_LED0_PORT |= (1 << LI_LED0);
-    }
+    _delay_ms(400);
 
     _read_status(periph);
     _reset_to_defaults(periph);
-    _delay_ms(80);
+    _delay_ms(1);
     _write_usb_hi_current(periph);
     _write_voltage(periph);
+    _write_current(periph);
     _disable_thermal_protection(periph);
     _read_all(periph);
 
