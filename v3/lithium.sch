@@ -4428,6 +4428,7 @@ MANUFACTURER:SAMTEC.</description>
 <part name="U3" library="32bits" deviceset="MKL02Z8VFG4" device=""/>
 <part name="J5" library="FTSH-105-01-XXX-DV-K" deviceset="FTSH-105-01-XXX-DV-K" device=""/>
 <part name="U7" library="32bits" deviceset="BQ24168RGET" device=""/>
+<part name="GND4" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4593,6 +4594,7 @@ MANUFACTURER:SAMTEC.</description>
 <instance part="U3" gate="A" x="48.26" y="-40.64"/>
 <instance part="J5" gate="G$1" x="-15.24" y="218.44"/>
 <instance part="U7" gate="A" x="294.64" y="48.26"/>
+<instance part="GND4" gate="1" x="30.48" y="-35.56"/>
 </instances>
 <busses>
 </busses>
@@ -4745,6 +4747,14 @@ MANUFACTURER:SAMTEC.</description>
 <junction x="5.08" y="-55.88"/>
 <pinref part="U2_C1" gate="A" pin="C1"/>
 <pinref part="U2_C2" gate="A" pin="C2"/>
+</segment>
+<segment>
+<pinref part="U3" gate="A" pin="VREFLVSS"/>
+<wire x1="48.26" y1="-43.18" x2="38.1" y2="-43.18" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="-43.18" x2="38.1" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="-30.48" x2="30.48" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="-30.48" x2="30.48" y2="-33.02" width="0.1524" layer="91"/>
+<pinref part="GND4" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="SW" class="0">
@@ -5117,7 +5127,7 @@ MANUFACTURER:SAMTEC.</description>
 <net name="SCK" class="0">
 <segment>
 <wire x1="12.7" y1="-45.72" x2="12.7" y2="-33.02" width="0.1524" layer="91"/>
-<label x="22.86" y="-37.846" size="1.778" layer="95"/>
+<label x="43.18" y="-45.466" size="1.778" layer="95"/>
 <pinref part="U2_R2" gate="G$1" pin="1"/>
 <pinref part="U3" gate="A" pin="PTA3"/>
 <wire x1="12.7" y1="-45.72" x2="48.26" y2="-45.72" width="0.1524" layer="91"/>
