@@ -1,11 +1,15 @@
+#include <Arduino.h>
 #include <HardwareSerial.h>
+#include <Main.h>
 #include <assert.h>
 #include <sc_types.h>
 #include <stddef.h>
 
-#include "Main.h"
+#include "Encoder.h"
 #include "Pushbutton.h"
 #include "ZumoMotors.h"
+
+using HM::Encoder;
 
 #define SPEED 200 // Maximum motor speed when going straight; variable speed when turning
 
@@ -94,9 +98,9 @@ class Robot : public Main::SCI_Robot_OCB
     virtual void start_rotating(sc_boolean ccw) override
     {
         if (ccw) {
-            ZumoMotors::setSpeeds(-100, 100);
+            ZumoMotors::setSpeeds(SPEED, -SPEED);
         } else {
-            ZumoMotors::setSpeeds(100, -100);
+            ZumoMotors::setSpeeds(-SPEED, SPEED);
         }
     }
 
@@ -111,6 +115,8 @@ Pushbutton button(ZUMO_BUTTON);
 Main main_machine;
 BasicTimer<2> timer;
 Robot robot;
+Encoder left('l', PIN_A0, PIN_A1);
+Encoder right('r', PIN_A4, PIN_A3);
 
 void setup()
 {
@@ -122,13 +128,24 @@ void setup()
     main_machine.setTimer(&timer);
     main_machine.setSCI_Robot_OCB(&robot);
     main_machine.enter();
+
+    left.init();
+    right.init();
 }
 
 void loop()
 {
+    const unsigned long start_of_loop_micros = micros();
+    // process inputs
     if (button.getSingleDebouncedRelease()) {
         main_machine.getSCI_Robot()->raise_on_button_press();
     }
+    left.update(start_of_loop_micros);
+    right.update(start_of_loop_micros);
+
+    // run state machine timers
     timer.run_timers();
+    // run the state machine
     main_machine.runCycle();
+    // process output events.
 }
