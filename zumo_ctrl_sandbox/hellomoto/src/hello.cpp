@@ -35,8 +35,10 @@ template <size_t MAX_TIMERS> class BasicTimer : public TimerInterface
 
     /*! Starts the timing for a time event.
      */
-    virtual void setTimer(TimedStatemachineInterface *statemachine, sc_eventid event,
-                          sc_integer time, sc_boolean isPeriodic) override
+    virtual void setTimer(TimedStatemachineInterface *statemachine,
+                          sc_eventid event,
+                          sc_integer time,
+                          sc_boolean isPeriodic) override
     {
         for (size_t i = 0; i < MAX_TIMERS; ++i) {
             if (m_timers[i].statemachine == nullptr) {
@@ -47,7 +49,8 @@ template <size_t MAX_TIMERS> class BasicTimer : public TimerInterface
                 return;
             }
         }
-        assert("Too many timers at once!");
+        Serial.println("Too many timers at once!");
+        abort();
     }
 
     /*! Unsets the given time event.
@@ -60,7 +63,8 @@ template <size_t MAX_TIMERS> class BasicTimer : public TimerInterface
                 return;
             }
         }
-        assert("Unknown timer unset requested.");
+        Serial.println("Unknown timer unset requested.");
+        abort();
     }
 
     /*! Cancel timer service. Use this to end possible timing threads and free
@@ -88,6 +92,9 @@ template <size_t MAX_TIMERS> class BasicTimer : public TimerInterface
     Timer m_timers[MAX_TIMERS];
 };
 
+Encoder left('l', PIN_A0, PIN_A1, 114, 12, 150);
+Encoder right('r', PIN_A4, PIN_A3, 114, 12, 150);
+
 class Robot : public Main::SCI_Robot_OCB
 {
   public:
@@ -95,18 +102,22 @@ class Robot : public Main::SCI_Robot_OCB
     {
     }
 
-    virtual void start_rotating(sc_boolean ccw) override
+    virtual void set_speed(sc_real speed_factor) override
     {
-        if (ccw) {
-            ZumoMotors::setSpeeds(SPEED, -SPEED);
-        } else {
-            ZumoMotors::setSpeeds(-SPEED, SPEED);
-        }
+        ZumoMotors::setSpeeds(SPEED * speed_factor, SPEED * speed_factor);
     }
 
-    virtual void stop() override
+    virtual sc_real get_distance_mm() override
     {
-        ZumoMotors::setSpeeds(0, 0);
+        return left.get_odometer_mm();
+    }
+
+    virtual void spew() override
+    {
+        // Serial.print("l:");
+        // Serial.println(left.get_direction());
+        //        Serial.print(", r:");
+        //        Serial.println(right.get_odometer_mm());
     }
 };
 
@@ -115,8 +126,26 @@ Pushbutton button(ZUMO_BUTTON);
 Main main_machine;
 BasicTimer<2> timer;
 Robot robot;
-Encoder left('l', PIN_A0, PIN_A1);
-Encoder right('r', PIN_A4, PIN_A3);
+
+static void a_change_left()
+{
+    left.on_a_change(micros());
+}
+
+static void a_change_right()
+{
+    right.on_a_change(micros());
+}
+
+static void b_change_left()
+{
+    left.on_b_change(micros());
+}
+
+static void b_change_right()
+{
+    right.on_b_change(micros());
+}
 
 void setup()
 {
@@ -131,21 +160,32 @@ void setup()
 
     left.init();
     right.init();
+    attachInterrupt(digitalPinToInterrupt(PIN_A0), a_change_left, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(PIN_A4), a_change_right, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(PIN_A1), b_change_left, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(PIN_A3), b_change_right, CHANGE);
+
+    main_machine.getSCI_Robot()->raise_initialized();
 }
 
 void loop()
 {
-    const unsigned long start_of_loop_micros = micros();
     // process inputs
     if (button.getSingleDebouncedRelease()) {
         main_machine.getSCI_Robot()->raise_on_button_press();
     }
-    left.update(start_of_loop_micros);
-    right.update(start_of_loop_micros);
 
     // run state machine timers
     timer.run_timers();
     // run the state machine
     main_machine.runCycle();
     // process output events.
+    unsigned long data;
+    while (left.log_consume(data)) {
+        if (data == 0) {
+            Serial.println("X");
+        } else {
+            Serial.println(data);
+        }
+    }
 }

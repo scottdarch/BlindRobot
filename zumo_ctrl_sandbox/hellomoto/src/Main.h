@@ -21,9 +21,11 @@ class Main : public TimedStatemachineInterface, public StatemachineInterface
 		/*! Enumeration of all states */ 
 		typedef enum
 		{
-			main_region_waiting_for_button,
-			main_region_clockwise,
-			main_region_counter_clockwise,
+			main_region_running,
+			main_region_running_inner_region_moving_10cm,
+			main_region_running_inner_region_waiting_for_button,
+			main_region_running_inner_region_waiting_for_finger,
+			main_region_initializing,
 			Main_last_state
 		} MainStates;
 		
@@ -32,12 +34,16 @@ class Main : public TimedStatemachineInterface, public StatemachineInterface
 		{
 			
 			public:
+				/*! Raises the in event 'initialized' that is defined in the interface scope 'robot'. */
+				void raise_initialized();
+				
 				/*! Raises the in event 'on_button_press' that is defined in the interface scope 'robot'. */
 				void raise_on_button_press();
 				
 				
 			private:
 				friend class Main;
+				sc_boolean initialized_raised;
 				sc_boolean on_button_press_raised;
 		};
 				
@@ -47,9 +53,11 @@ class Main : public TimedStatemachineInterface, public StatemachineInterface
 					public:
 						virtual ~SCI_Robot_OCB() = 0;
 						
-						virtual void start_rotating(sc_boolean ccw) = 0;
+						virtual void spew() = 0;
 						
-						virtual void stop() = 0;
+						virtual sc_real get_distance_mm() = 0;
+						
+						virtual void set_speed(sc_real speed) = 0;
 				};
 				
 				/*! Set the working instance of the operation callback interface 'SCI_Robot_OCB'. */
@@ -97,16 +105,16 @@ class Main : public TimedStatemachineInterface, public StatemachineInterface
 		{
 			
 			public:
-				/*! Gets the value of the variable 'rotation' that is defined in the internal scope. */
-				sc_integer get_rotation();
+				/*! Gets the value of the variable 'baseline' that is defined in the internal scope. */
+				sc_real get_baseline();
 				
-				/*! Sets the value of the variable 'rotation' that is defined in the internal scope. */
-				void set_rotation(sc_integer value);
+				/*! Sets the value of the variable 'baseline' that is defined in the internal scope. */
+				void set_baseline(sc_real value);
 				
 				
 			private:
 				friend class Main;
-				sc_integer rotation;
+				sc_real baseline;
 		};
 	
 		//! the maximum number of orthogonal states defines the dimension of the state configuration vector.
@@ -127,30 +135,43 @@ class Main : public TimedStatemachineInterface, public StatemachineInterface
 		
 		// prototypes of all internal functions
 		
-		sc_boolean check_main_region_waiting_for_button_tr0_tr0();
-		sc_boolean check_main_region_waiting_for_button_tr1_tr1();
-		sc_boolean check_main_region_clockwise_tr0_tr0();
-		sc_boolean check_main_region_counter_clockwise_tr0_tr0();
-		void effect_main_region_waiting_for_button_tr0();
-		void effect_main_region_waiting_for_button_tr1();
-		void effect_main_region_clockwise_tr0();
-		void effect_main_region_counter_clockwise_tr0();
-		void enact_main_region_clockwise();
-		void enact_main_region_counter_clockwise();
-		void exact_main_region_clockwise();
-		void exact_main_region_counter_clockwise();
-		void enseq_main_region_waiting_for_button_default();
-		void enseq_main_region_clockwise_default();
-		void enseq_main_region_counter_clockwise_default();
+		sc_boolean check_main_region_running_lr0_lr0();
+		sc_boolean check_main_region_running_inner_region_moving_10cm_tr0_tr0();
+		sc_boolean check_main_region_running_inner_region_moving_10cm_tr1_tr1();
+		sc_boolean check_main_region_running_inner_region_waiting_for_button_tr0_tr0();
+		sc_boolean check_main_region_running_inner_region_waiting_for_finger_tr0_tr0();
+		sc_boolean check_main_region_initializing_tr0_tr0();
+		void effect_main_region_running_lr0_lr0();
+		void effect_main_region_running_inner_region_moving_10cm_tr0();
+		void effect_main_region_running_inner_region_moving_10cm_tr1();
+		void effect_main_region_running_inner_region_waiting_for_button_tr0();
+		void effect_main_region_running_inner_region_waiting_for_finger_tr0();
+		void effect_main_region_initializing_tr0();
+		void enact_main_region_running();
+		void enact_main_region_running_inner_region_moving_10cm();
+		void enact_main_region_running_inner_region_waiting_for_finger();
+		void exact_main_region_running();
+		void exact_main_region_running_inner_region_moving_10cm();
+		void exact_main_region_running_inner_region_waiting_for_finger();
+		void enseq_main_region_running_default();
+		void enseq_main_region_running_inner_region_moving_10cm_default();
+		void enseq_main_region_running_inner_region_waiting_for_button_default();
+		void enseq_main_region_running_inner_region_waiting_for_finger_default();
+		void enseq_main_region_initializing_default();
 		void enseq_main_region_default();
-		void exseq_main_region_waiting_for_button();
-		void exseq_main_region_clockwise();
-		void exseq_main_region_counter_clockwise();
+		void enseq_main_region_running_inner_region_default();
+		void exseq_main_region_running_inner_region_moving_10cm();
+		void exseq_main_region_running_inner_region_waiting_for_button();
+		void exseq_main_region_running_inner_region_waiting_for_finger();
+		void exseq_main_region_initializing();
 		void exseq_main_region();
-		void react_main_region_waiting_for_button();
-		void react_main_region_clockwise();
-		void react_main_region_counter_clockwise();
+		void exseq_main_region_running_inner_region();
+		void react_main_region_running_inner_region_moving_10cm();
+		void react_main_region_running_inner_region_waiting_for_button();
+		void react_main_region_running_inner_region_waiting_for_finger();
+		void react_main_region_initializing();
 		void react_main_region__entry_Default();
+		void react_main_region_running_inner_region__entry_Default();
 		void clearInEvents();
 		void clearOutEvents();
 		
