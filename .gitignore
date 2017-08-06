@@ -23,4 +23,5 @@ RemoteSystemsTempFiles
 *.lck
 *.b$*
 *.s$*
+.ipynb_checkpoints
 

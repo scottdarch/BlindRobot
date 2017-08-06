@@ -92,8 +92,8 @@ template <size_t MAX_TIMERS> class BasicTimer : public TimerInterface
     Timer m_timers[MAX_TIMERS];
 };
 
-Encoder left('l', PIN_A0, PIN_A1, 114, 12, 150);
-Encoder right('r', PIN_A4, PIN_A3, 114, 12, 150);
+Encoder left('l', PIN_A0, PIN_A1, 114, 150, 12);
+Encoder right('r', PIN_A4, PIN_A3, 114, 150, 12);
 
 class Robot : public Main::SCI_Robot_OCB
 {
