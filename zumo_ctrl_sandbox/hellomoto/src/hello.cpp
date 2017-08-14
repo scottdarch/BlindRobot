@@ -63,8 +63,6 @@ template <size_t MAX_TIMERS> class BasicTimer : public TimerInterface
                 return;
             }
         }
-        Serial.println("Unknown timer unset requested.");
-        abort();
     }
 
     /*! Cancel timer service. Use this to end possible timing threads and free
@@ -182,7 +180,7 @@ void loop()
     // process output events.
     unsigned long data;
     while (left.log_consume(data)) {
-        if (data == 0) {
+        if (data == HM::NO_DATA) {
             Serial.println("X");
         } else {
             Serial.println(data);

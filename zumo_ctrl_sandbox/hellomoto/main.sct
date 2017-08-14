@@ -227,9 +227,9 @@
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_eAz4AXToEeexQ65Fl98lXg" routing="Rectilinear" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_eAz4A3ToEeexQ65Fl98lXg" fontName="Verdana"/>
-      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_eAz4AnToEeexQ65Fl98lXg" points="[6, 0, 1, 95]$[6, -78, 1, 17]"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_eAz4AnToEeexQ65Fl98lXg" points="[16, 0, -1, 139]$[16, -133, -1, 6]"/>
       <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_eA1GIHToEeexQ65Fl98lXg" id="(0.20089285714285715,0.0)"/>
-      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_eA1GIXToEeexQ65Fl98lXg" id="(0.03773584905660377,0.660377358490566)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_eA1GIXToEeexQ65Fl98lXg" id="(0.16037735849056603,0.8867924528301887)"/>
     </edges>
     <edges xmi:id="_v76WIHWtEeexQ65Fl98lXg" type="Transition" element="_v75vEHWtEeexQ65Fl98lXg" source="_sEOS4HWtEeexQ65Fl98lXg" target="_vqdU4GqYEee3LqRbPtDM3g">
       <children xsi:type="notation:DecorationNode" xmi:id="_v769MHWtEeexQ65Fl98lXg" type="TransitionExpression">

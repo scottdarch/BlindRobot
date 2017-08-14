@@ -8,6 +8,20 @@ namespace HM
 {
 
 enum EncoderDirection { STATIONARY, FORWARD, BACKWARD };
+/**
+ * Encoder 1
+ * |  .....   .....
+ * |  :   :   :   :
+ * |..:   :...:   :.
+ * Encoder 2
+ * |.....   .....
+ * |:   :   :   :
+ * |:   :...:   :...
+ *   A B C D A B C D
+ */
+enum EncoderPhase { A, B, C, D };
+
+constexpr unsigned long NO_DATA = 0xFFFFFFFF;
 
 class Encoder final
 {
@@ -37,7 +51,8 @@ class Encoder final
     Encoder(const Encoder &) = delete;
     Encoder &operator=(const Encoder &) = delete;
 
-    void move_to_state(EncoderDirection direction, unsigned long update_time_micros);
+    void
+    move_to_state(EncoderDirection direction, EncoderPhase phase, unsigned long update_time_micros);
 
     const char m_label[2];
     const uint8_t m_a;
@@ -49,7 +64,7 @@ class Encoder final
     volatile EncoderDirection m_direction;
     volatile unsigned long m_last_update;
     volatile unsigned long m_odometer;
-    constexpr static size_t log_capacity = 1024;
+    constexpr static size_t log_capacity = 1024 * 3;
     volatile size_t m_log_front;
     volatile size_t m_log_len;
     volatile unsigned long m_updates_log_buffer[log_capacity];

@@ -64,7 +64,7 @@ bool Encoder::log_consume(unsigned long &out_data)
 bool Encoder::log_produce(unsigned long data)
 {
     if (m_log_len == log_capacity) {
-        m_updates_log_buffer[(m_log_front + m_log_len) % log_capacity] = 0;
+        m_updates_log_buffer[(m_log_front + m_log_len) % log_capacity] = NO_DATA;
         return false;
     } else {
         m_updates_log_buffer[(m_log_front + m_log_len) % log_capacity] = data;
@@ -80,9 +80,12 @@ void Encoder::on_b_change(unsigned long update_time_micros)
     const int b = m_b_state;
 
     if (a != b) {
-        move_to_state(EncoderDirection::FORWARD, update_time_micros);
+        move_to_state(
+            EncoderDirection::FORWARD, (b) ? EncoderPhase::A : EncoderPhase::C, update_time_micros);
     } else {
-        move_to_state(EncoderDirection::BACKWARD, update_time_micros);
+        move_to_state(EncoderDirection::BACKWARD,
+                      (b) ? EncoderPhase::B : EncoderPhase::D,
+                      update_time_micros);
     }
 }
 
@@ -92,14 +95,20 @@ void Encoder::on_a_change(unsigned long update_time_micros)
     const int a = m_a_state;
     const int b = m_b_state;
     if (a == b) {
-        move_to_state(EncoderDirection::FORWARD, update_time_micros);
+        move_to_state(
+            EncoderDirection::FORWARD, (a) ? EncoderPhase::B : EncoderPhase::D, update_time_micros);
     } else {
-        move_to_state(EncoderDirection::BACKWARD, update_time_micros);
+        move_to_state(EncoderDirection::BACKWARD,
+                      (!a) ? EncoderPhase::A : EncoderPhase::C,
+                      update_time_micros);
     }
 }
 
-void Encoder::move_to_state(EncoderDirection direction, unsigned long update_time_micros)
+void Encoder::move_to_state(EncoderDirection direction,
+                            EncoderPhase phase,
+                            unsigned long update_time_micros)
 {
+    log_produce(phase);
     log_produce(update_time_micros - m_last_update);
     m_last_update = update_time_micros;
     m_direction = direction;
