@@ -52,14 +52,8 @@ UsedLibrary="lbr/Vishay_By_element14_Batch_1.lbr"
 UsedLibrary="lbr/Yageo_By_element14_Batch_1.lbr"
 
 [Win_1]
-Type="Control Panel"
-Loc="344 36 1543 635"
-State=2
-Number=0
-
-[Win_2]
 Type="Schematic Editor"
-Loc="0 -22 1199 577"
+Loc="0 22 1199 621"
 State=2
 Number=2
 File="lithium.sch"
@@ -105,9 +99,9 @@ Layer=91
 Views=" 1: 60.835 33.8806 244.1 168.69"
 Sheet="1"
 
-[Win_3]
+[Win_2]
 Type="Board Editor"
-Loc="0 -22 1199 577"
+Loc="0 22 1199 621"
 State=2
 Number=1
 File="lithium.brd"
@@ -150,6 +144,12 @@ ArcDirection=0
 AddLevel=2
 PadsSameType=0
 Layer=1
+
+[Win_3]
+Type="Control Panel"
+Loc="344 36 1543 635"
+State=2
+Number=0
 
 [Desktop]
 Screen="1920 1200"
